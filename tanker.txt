@@ -14,7 +14,7 @@
  Controlleren åpner vinduet, instansierer Editor og View. Lytter på events.
    Resize sendes rett til view. Tastetrykk sendes til Editor.
 
- Editor kjenner til den flate teksten, cursor-posisjon og eventuelt selection.
+ Editor kjenner til den flate teksten, cursor-posisjon og selection.
    Tar i mot tastetrykk for å endre tekst.
 
  Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout

@@ -60,17 +60,12 @@ class Editor {
       }
   ]
 
-  TextLayout getTextLayout() {
-    new TextLayout(lines: lines, cursor: cursor)
-  }
-
   def onChange(callback) {
     changeCallbacks << callback
   }
 
   def changed() {
-    def tl = getTextLayout()
-    changeCallbacks.each { c -> c.call tl }
+    changeCallbacks.each { c -> c.call lines, cursor }
   }
 
   def actionTyped(k) {
@@ -88,11 +83,11 @@ class Editor {
   }
 
   String post() {
-    return currentLine().substring(cursor.x)
+    currentLine().substring(cursor.x)
   }
 
   String pre() {
-    return currentLine().substring(0, cursor.x)
+    currentLine().substring(0, cursor.x)
   }
 
   String currentLine() {

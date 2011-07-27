@@ -20,6 +20,7 @@ class Application {
       "lengre enn langt. Med deg har du et dyrebart langsverd, en gave fra din far.",
       "I beltet henger en liten lærpose som du fant på veien. I den ligger det tjue",
       "blanke sølvmynter - hele din samlede formue.",
+      "#171"
   ]
 
   static main(args) {
@@ -27,10 +28,10 @@ class Application {
     def editorPanel = new EditorPanel()
     def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
-    editorPanel.textLayout = editor.getTextLayout()
+    editorPanel.textLayout = new TextLayout(lines: editor.lines, cursor: editor.cursor)
 
-    editor.onChange { textLayout ->
-      editorPanel.textLayout = textLayout
+    editor.onChange { lines, cursor ->
+      editorPanel.textLayout = new TextLayout(lines: lines, cursor: cursor)
       editorPanel.repaint()
     }
 

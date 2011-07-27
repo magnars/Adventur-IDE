@@ -1,11 +1,8 @@
 package no.advide.ui
 
-import java.awt.Font
-import java.awt.Graphics
-import java.awt.Graphics2D
-import java.awt.RenderingHints
 import javax.swing.JPanel
 import no.advide.Cursor
+import java.awt.*
 
 class EditorPanel extends JPanel {
 
@@ -32,8 +29,13 @@ class EditorPanel extends JPanel {
     Cursor cursor = textLayout.cursor
 
     textLayout.lines.eachWithIndex { String line, i ->
-      g.drawString(line, 0, y + ascent)
-      if (cursor.y == i) { g.drawRect fm.stringWidth(line.substring(0, cursor.x)), y, 1, fh - 1 }
+      if (cursor.y == i) {
+        g.setColor(new Color(255, 255, 255, 50))
+        g.fillRect 0, y, getWidth(), fh - 1
+        g.setColor(Color.black)
+      }
+      g.drawString(line, 20, y + ascent)
+      if (cursor.y == i) { g.drawRect 20 + fm.stringWidth(line.substring(0, cursor.x)), y, 1, fh - 1 }
 
       y = y + fh
     }
