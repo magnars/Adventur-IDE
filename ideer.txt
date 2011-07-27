@@ -1,0 +1,19 @@
+Ny editor
+---------
+
+Forbedret språk -> convert ved load/save
+  -> ting som ikke mapper 1-1, som if-else
+
+Forståelse for alternativer -> ved bytte fra - til + så oppdateres Krav: automatisk
+
+Forståelse for paragrafer -> reformaterer linjer selv ved paragraf
+
+Autocomplete for krav
+
+Informasjon for krav -> sidebar?
+
+Stedsoversikt -> Manuell tegning av rom (sirkler) med navn, klikkbar
+
+Bedre skrivefeil -> liste, som før, men også andre regler
+
+Ting -> bilder, tekst, beskrivelse

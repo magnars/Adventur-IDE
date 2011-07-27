@@ -1,9 +1,8 @@
 package no.advide.ui
 
-import java.awt.Graphics
-import java.awt.Graphics2D
 import javax.swing.JPanel
 import no.advide.Cursor
+import java.awt.*
 
 class EditorPanel extends JPanel {
 
@@ -17,6 +16,10 @@ class EditorPanel extends JPanel {
   void paintComponent(Graphics graphics) {
     super.paintComponent(graphics)
     Graphics2D g = (Graphics2D) graphics
+    g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
+    g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+
+    g.setFont(new Font("Verdana", Font.PLAIN, 14))
 
     def y = 0
     def fm = g.getFontMetrics()

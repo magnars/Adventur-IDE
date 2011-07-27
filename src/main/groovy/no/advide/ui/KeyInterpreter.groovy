@@ -5,9 +5,15 @@ import javax.swing.JComponent
 
 class KeyInterpreter {
   def listeners = []
+  def actionCallbacks = [:]
 
   void addListener(l) {
     listeners << l
+  }
+
+  void onAction(action, callback) {
+    if (!actionCallbacks[action]) actionCallbacks[action] = []
+    actionCallbacks[action] << callback
   }
 
   KeyInterpreter(JComponent component) {
@@ -36,6 +42,8 @@ class KeyInterpreter {
 
   def notifyAction(a) {
     listeners.each { l -> l.actionTyped a }
+    if (actionCallbacks[a])
+      actionCallbacks[a].each { callback -> callback.call() }
   }
 
   def modifier(KeyEvent e) {

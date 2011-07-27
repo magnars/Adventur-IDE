@@ -1,0 +1,228 @@
+
+Kommandoer
+===========
+Prøver å finne en bedre syntaks på kommandoer: 
+
+Gammel                                  Ny
+------------------------------------------------
+
+()KRAV                                  + KRAV       
+                                       
+)(KRAV                                  - KRAV
+
+@97                                     @97  
+
+{@}97                                   {@}97
+
+(@)97                                   (@)97
+
+[@]30                                   @30 ? KRAV
+KRAV
+
+[@]30                                   @30 ?
+-
+                                      
+{}1                                     (@)73 om 1 ...
+73
+
+#26                                     #26  
+
+*26                                     - #26
+
+$VAR = 17                               $VAR = 17
+
+[!]KRAV                                 ? KRAV            
+Hallo                                     Hallo            
+
+[!]KRAV                                 ? KRAV
+{                                         Flere
+Flere                                     linjer
+linjer                                  
+}
+
+]C[LAGRE                                LAGRE => Linje
+Linje                                   
+
+[C]LAGRET                               <= LAGRET
+
++++                                     :snillere => "Han gjorde slik og slik"
+"Han gjorde slik og slik"                                        
+
+---                                     :slemmere => "Han gjorde hint og pist"
+"Han gjorde hint og pist"               
+
+kr.2                                    :rupi +2
+kr.-5                                   :rupi -5
+                                                               
+%%%                                     :drap +3
+3
+
+$$$                                     :tidshopp +1
+
+#UFERDIG# randorf                       :uferdig => randorf
+
+[Y]                                     :besøk ++
+[Y]7                                    :besøk ++ (max 7)
+
+[X!]1                                   ? 1. besøk
+[X!]2                                   ? 2. besøk
+[X!]3                                   ? 3. besøk
+
+[X]2                                    @17 ? 2. besøk 
+17                                          
+
+!!!                                     --- fortsett ---
+
+[$]$TALL                                Det er ($TALL bananer|en banan).
+Det er $$ bananer.
+Det er en banan.
+
+
+
+
+Oppbygging av krav
+==================
+[!]+05PØLSEBRØD                         ? PØLSE og BRØD
+[!])(TØNNE                              ? ikke TØNNE
+[!]+07)(PØLSEBRØD                       ? ikke PØLSE men BRØD
+[!]+07)(PØLSE)(BRØD                     ? verken PØLSE eller BRØD
+[!])(+07)(PØLSE)(BRØD                   ? PØLSE eller BRØD
+
+[!]nr34                                 ? #34     
+
+[!]kr.100                               ? minst 100 rupi
+[!])(kr.200                             ? ikke 200 rupi 
+                                                                 
+[!]*1*                                  ? *1*                                 ??
+
+
+
+
+Og nye tillegg:
+
+? 1. besøk
+  Denne teksten vises ved første besøk.
+...
+  Denne teksten vises ellers.
+
+
+
+Den kodes til:
+
+()ELLERS
+[X!]1
+{
+)(ELLERS
+Denne teksten vises ved første besøk.
+}
+[!]ELLERS
+{
+Denne teksten vises ellers.
+}
+
+da fungerer det faktisk med nesting:
+
+? 1. besøk
+  En tekst ved første besøk.
+... 
+  ? 2.besøk
+    En tekst ved andre besøk.
+  ...
+    En tekst ellers.
+
+så kan jeg tillate syntaktisk sukker:
+
+? 1. besøk
+  En tekst ved første besøk.
+... ? 2.besøk
+  En tekst ved andre besøk.
+... ? 3.besøk
+  En tekst ved tredje besøk.
+...
+  En tekst ellers.
+
+for å slippe så mye nesting.
+
+
+-- trenger ikke opplyse om :besøk med mindre du vil ha noe annet enn normal Max
+-- setter bare inn [Y] med max = høyeste + 1
+
+
+
+
+
+
+
+(@)6168
+ØRKENGÅING => @155
+@1981 ? STAKK-AV-ETTER-Å-HA-DREPT-SMULTRINGSELGEREN
+@636 ? ikke HAR-OVERHØRT-LURIFAKS-TORGTALE
+@1438 ? IKKE-VELKOMMEN-PÅ-DATTERENS-FEST
+@2784 ? DREPTE-DRAGEN-MAGNUS og (SETTDOMMEDAG eller ikke ORKVSDYPVANN)
+? 7. besøk
+  + SMULTRINGER
+? 8. besøk
+  *1343 
+:besøk ++ (max 9)
+- TORE.VENT.MS
+Du står på torget. Det er en bunke mennesker her som selger diverse saker.
+? 1. besøk
+  Et ubehagelig støynivå preger ditt aller første møte med et skikkelig bytorg.
+  Folk skriker og bærer seg, mens de reklamerer for varer og pruter på priser.
+  #171
+  #1343
+? 2. besøk
+  Det lukter fisk fra fiskedelen av markedet og grønnsaker fra bondedelen.
+  ? ikke HARVÆRTHOSGUIDE
+    Du ser en kar som står og blar i noen papirer. Han har et lite skilt festet 
+    til jakkeslaget som det står "GUIDE" på. Det ser ut som om han har kontroll 
+    på det meste som skjer rundt omkring her. Hodet pryder han med en oransje hatt.
+  *171
+? SMULTRINGER men ikke DREPTE-SMULTRINGMANNEN
+  Du kan dufte smultringer fra ei lita bod i utkanten av torget. Det lukter ganske så godt!
+? 3. besøk
+  - BORGERMESTERDUDE
+? 4. besøk
+  - SLÅSSKAMP-OM-BORGERMESTERENS-DATTER
+? VANNFLASKEMANNEN
+  "Vannflasker til salgs!" roper en fyr fra en bod. "Vannflasker!"
+  @5647 ? ENSKOKKMEDVANNFLASKER
+  @5589 ? ALLEVANNFLASKENEERBORTE
+  @5288 ? NØKKELENTILVANNFLASKESKUR
+? 6. besøk
+  @4775
+? ikke VANNFLASKE
+  ? 3. besøk
+    En ny fyr står på torget. "Vannflasker!" roper han. "Vannflasker selges!"
+    + VANNFLASKEMANNEN
+    
+    @13791 ? ikke HAR-SETT-SLÅSSKAMP-OM-BORGERMESTERENS-DATTER
+? 4. besøk
+  ? STARTET-I-DYPVANN
+    + PINNSVINDAME-PÅ-PLASS
+  *1343
+? PINNSVINDAME-PÅ-PLASS
+  :
+  En gammel dame med stor hatt roper "Har noen sett pinnsvinet mitt!?"
+? ORKVSDYPVANN men ikke DOMMEDAGBORTE
+  :
+  Da ser du en snål fyr. Han har langt skjegg og uflidd hår. To store skilt
+  henger rundt halsen. På det ene står det "DOMMEDAG ER NÆR", det andre ser
+  du ikke ettersom det er på ryggen. Han jaller ut "ENDEN ER NÆR! VEND OM
+  ELLER DØ! ORKENE VAR BARE DET FØRSTE! SNART VIL HELE VERDEN BLI OVERSVØMT
+  AV FÆLE VESENER MED ONDT I SINNE!" Folk ser irritert på ham.
+  + SETTDOMMEDAG
+? VETOMKEN men ikke #1514
+  :
+  Tre menn med grå/hvite kjortler står og snakker foran et telt på torget.
+? REDDABORGERMESTERENSDATTER
+  :
+  Midt på torget står det en stor og flott statue av DEG i rent gull! Den
+  glinser i sola og ser ganske så tøff ut. Et evig monument på ditt heltemot.
+? DIDRIKK_I_DYPVANN
+  :
+  Didrikk sitter pladask i en fluktstol ved siden av den store luftballongen.
+@1439
+
+
+

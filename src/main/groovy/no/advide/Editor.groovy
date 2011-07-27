@@ -52,8 +52,8 @@ class Editor {
           lines[cursor.y] = pre + post()
           cursor.x -= 1
         } else if (!atFirstLine()) {
-          cursor.x = lines[cursor.y-1].size()
-          lines[cursor.y-1] += lines[cursor.y]
+          cursor.x = lines[cursor.y - 1].size()
+          lines[cursor.y - 1] += lines[cursor.y]
           lines.remove(cursor.y)
           cursor.y -= 1
         }

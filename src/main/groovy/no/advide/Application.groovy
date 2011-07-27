@@ -1,16 +1,29 @@
 package no.advide
 
-import java.awt.BorderLayout as BL
-
 import groovy.swing.SwingBuilder
+import java.awt.BorderLayout
+import java.awt.Dimension
+import java.awt.Toolkit
 import javax.swing.BorderFactory
+import javax.swing.BoxLayout
+import javax.swing.WindowConstants
+import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
 
 class Application {
+
+  static def lines = [
+      "Det er middelalderen, sånn rundt te-tid. Du har vært på reisefot lenge, og",
+      "lengre enn langt. Med deg har du et dyrebart langsverd, en gave fra din far.",
+      "I beltet henger en liten lærpose som du fant på veien. I den ligger det tjue",
+      "blanke sølvmynter - hele din samlede formue.",
+  ]
+
   static main(args) {
+    def appFrame = new AppFrame()
     def editorPanel = new EditorPanel()
-    def editor = new Editor(lines: ["Hello", "World"], cursor: new Cursor(x: 0, y: 0))
+    def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
     editorPanel.textLayout = editor.getTextLayout()
 
@@ -19,17 +32,22 @@ class Application {
       editorPanel.repaint()
     }
 
-    new KeyInterpreter(editorPanel).addListener(editor)
+    def keys = new KeyInterpreter(editorPanel)
+    keys.addListener editor
+    keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
+
 
     new SwingBuilder().edt {
-      frame(title: 'Frame', size: [810, 600], show: true) {
+      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      frame(appFrame, title: 'Frame', size: [720, screenSize.height.intValue() - 100], location: [360, 30],  show: true, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
         borderLayout()
-        panel(constraints: BL.CENTER, border: BorderFactory.createEmptyBorder(3, 6, 3, 6)) {
-          borderLayout()
-          panel(editorPanel, constraints: BL.CENTER, focusable: true)
+        panel(constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
+          boxLayout(axis:BoxLayout.Y_AXIS)
+          panel(editorPanel, maximumSize: [1000, 2000], focusable: true)
         }
       }
     }
+
   }
 
 }
