@@ -122,8 +122,11 @@ class EditorTest extends GroovyTestCase {
     assertEquals(new Cursor(x: 3, y: 0), editor.cursor)
   }
 
-  void testString() {
-    assertEquals 2, "øl".size()
+  void test_enter_splits_line() {
+    def editor = new Editor(lines: ["Føretter"], cursor: new Cursor(x: 3, y: 0))
+    editor.actionTyped("enter")
+    assertEquals(["Før", "etter"], editor.lines)
+    assertEquals(new Cursor(x: 0, y: 1), editor.cursor)
   }
 
 }

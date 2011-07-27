@@ -38,6 +38,13 @@ class Editor {
         } else if (!atEndOfLine()) {
           cursor.x = currentLine().size()
         }
+      },
+      "enter": {
+        def split = [pre(), post()]
+        lines.remove(cursor.y)
+        lines.addAll(cursor.y, split)
+        cursor.x = 0
+        cursor.y += 1
       }
   ]
 
@@ -63,11 +70,17 @@ class Editor {
   }
 
   def charTyped(k) {
-    def pre = currentLine().substring(0, cursor.x)
-    def post = currentLine().substring(cursor.x)
-    lines[cursor.y] = pre + k + post
+    lines[cursor.y] = pre() + k + post()
     cursor.x += 1
     changed()
+  }
+
+  private String post() {
+    return currentLine().substring(cursor.x)
+  }
+
+  private String pre() {
+    return currentLine().substring(0, cursor.x)
   }
 
   String currentLine() {
