@@ -11,18 +11,19 @@ class KeyInterpreter {
   }
 
   KeyInterpreter(JComponent component) {
-    component.keyPressed = { KeyEvent e ->
-      if (modifier(e)) return notifyAction(modifier(e))
-      if (specialChar(e)) return notifyChar(specialChar(e))
-      if (!isActionPress(e)) return notifyChar(e.keyChar)
-      def keys = []
-      if (e.isControlDown() || e.isMetaDown()) keys << "ctrl"
-      if (e.isShiftDown()) keys << "shift"
-      if (e.isAltDown()) keys << "alt"
-      if (actionKey(e)) keys << actionKey(e)
-      else keys << KeyEvent.getKeyText(e.keyCode)
-      notifyAction(keys.join("+"))
-    }
+    component.keyPressed = { KeyEvent e -> handleKeyPress(e) }
+  }
+
+  def handleKeyPress(KeyEvent e) {
+    if (modifier(e)) return notifyAction(modifier(e))
+    if (specialChar(e)) return notifyChar(specialChar(e))
+    if (!isActionPress(e)) return notifyChar(e.keyChar)
+    def keys = currentModifiers(e) + pressedKey(e)
+    notifyAction(keys.join("+"))
+  }
+
+  def pressedKey(KeyEvent e) {
+    return actionKey(e) ? actionKey(e) : KeyEvent.getKeyText(e.keyCode)
   }
 
   def isActionPress(KeyEvent e) {
@@ -38,12 +39,16 @@ class KeyInterpreter {
   }
 
   def modifier(KeyEvent e) {
-    switch (e.keyCode) {
-      case 16: return "shift"
-      case 17: return "ctrl"
-      case 18: return "alt"
-      case 157: return "ctrl"
-    }
+    return e.keyCode in [16, 17, 18, 157] ? currentModifiers(e).join("+") : null
+  }
+
+  def currentModifiers(KeyEvent e) {
+    def keys = []
+    if (e.isControlDown()) keys << "ctrl"
+    if (e.isShiftDown()) keys << "shift"
+    if (e.isAltDown()) keys << "alt"
+    if (e.isMetaDown()) keys << "cmd"
+    return keys
   }
 
   def actionKey(KeyEvent e) {
