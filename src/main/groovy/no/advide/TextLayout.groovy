@@ -1,4 +1,4 @@
-package no.advide.ui
+package no.advide
 
 class TextLayout {
   def lines

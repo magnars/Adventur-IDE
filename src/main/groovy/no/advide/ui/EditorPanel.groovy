@@ -3,6 +3,7 @@ package no.advide.ui
 import java.awt.Graphics
 import java.awt.Graphics2D
 import javax.swing.JPanel
+import no.advide.Cursor
 
 class EditorPanel extends JPanel {
 

@@ -4,18 +4,22 @@ import java.awt.BorderLayout as BL
 
 import groovy.swing.SwingBuilder
 import javax.swing.BorderFactory
-import no.advide.ui.Cursor
 import no.advide.ui.EditorPanel
-import no.advide.ui.TextLayout
 import no.advide.ui.KeyInterpreter
 
 class Application {
   static main(args) {
     def editorPanel = new EditorPanel()
+    def editor = new Editor(lines: ["Hello", "World"], cursor: new Cursor(x: 0, y: 0))
 
-    editorPanel.textLayout = new TextLayout(lines: ["Hello", "World"], cursor: new Cursor(x: 0, y: 0))
+    editorPanel.textLayout = editor.getTextLayout()
 
-    new KeyInterpreter(editorPanel).addListener(new PrintListener())
+    editor.onChange { textLayout ->
+      editorPanel.textLayout = textLayout
+      editorPanel.repaint()
+    }
+
+    new KeyInterpreter(editorPanel).addListener(editor)
 
     new SwingBuilder().edt {
       frame(title: 'Frame', size: [810, 600], show: true) {
@@ -28,13 +32,4 @@ class Application {
     }
   }
 
-  static class PrintListener {
-    void actionTyped(k) {
-      println "Action: ${k}"
-    }
-
-    void charTyped(c) {
-      println "Char: ${c}"
-    }
-  }
 }
