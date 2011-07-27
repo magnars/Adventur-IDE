@@ -2,6 +2,7 @@ package no.advide
 
 import groovy.swing.SwingBuilder
 import java.awt.BorderLayout
+import java.awt.Color
 import java.awt.Dimension
 import java.awt.Toolkit
 import javax.swing.BorderFactory
@@ -10,6 +11,7 @@ import javax.swing.WindowConstants
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
+import no.advide.ui.TiledBackgroundPanel
 
 class Application {
 
@@ -39,11 +41,14 @@ class Application {
 
     new SwingBuilder().edt {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      frame(appFrame, title: 'Frame', size: [720, screenSize.height.intValue() - 100], location: [360, 30],  show: true, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
+      frame(appFrame, title: 'ide-adv', size: [1120, screenSize.height.intValue() - 100], location: [50, 30],  show: true, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
         borderLayout()
-        panel(constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
+        panel(new TiledBackgroundPanel(), constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
           boxLayout(axis:BoxLayout.Y_AXIS)
-          panel(editorPanel, maximumSize: [1000, 2000], focusable: true)
+          panel(maximumSize: [1000, 150], minimumSize: [0, 150], opaque: false) {
+            label(text: "Master - Rom 0", foreground: new Color(150, 150, 140))
+          }
+          panel(editorPanel, maximumSize: [1000, 2000], focusable: true, opaque: false)
         }
       }
     }
