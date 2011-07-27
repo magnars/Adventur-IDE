@@ -129,4 +129,18 @@ class EditorTest extends GroovyTestCase {
     assertEquals(new Cursor(x: 0, y: 1), editor.cursor)
   }
 
+  void test_backspace_removes_char() {
+    def editor = new Editor(lines: ["Hei"], cursor: new Cursor(x: 2, y: 0))
+    editor.actionTyped("backspace")
+    assertEquals(["Hi"], editor.lines)
+    assertEquals(new Cursor(x: 1, y: 0), editor.cursor)
+  }
+
+  void test_backspace_joins_line() {
+    def editor = new Editor(lines: ["H", "ei"], cursor: new Cursor(x: 0, y: 1))
+    editor.actionTyped("backspace")
+    assertEquals(["Hei"], editor.lines)
+    assertEquals(new Cursor(x: 1, y: 0), editor.cursor)
+  }
+
 }

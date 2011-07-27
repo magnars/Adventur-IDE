@@ -45,6 +45,18 @@ class Editor {
         lines.addAll(cursor.y, split)
         cursor.x = 0
         cursor.y += 1
+      },
+      "backspace": {
+        if (!atStartOfLine()) {
+          def pre = currentLine().substring(0, cursor.x - 1)
+          lines[cursor.y] = pre + post()
+          cursor.x -= 1
+        } else if (!atFirstLine()) {
+          cursor.x = lines[cursor.y-1].size()
+          lines[cursor.y-1] += lines[cursor.y]
+          lines.remove(cursor.y)
+          cursor.y -= 1
+        }
       }
   ]
 
