@@ -2,7 +2,7 @@ apply plugin: 'idea'
 apply plugin: 'groovy'
 apply plugin: 'application'
 
-mainClassName = "no.advide.ui.Window"
+mainClassName = "no.advide.Application"
 
 repositories {
     mavenCentral()

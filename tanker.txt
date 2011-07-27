@@ -1,0 +1,22 @@
+
+ - View: tegner tekst og cursor på en skjerm med farger, understreking, fonter
+
+ - Editor: lar deg flytte cursor rundt i en tekst og gjøre endringer på den med tastetrykk
+
+ - Parser: gjør flat tekst om til kommandoer
+
+ - Command: domeneobjekt, kan si noe om sin egen rendring
+
+---------------------
+
+ View vet ikke om annet enn rendring. Tar bare imot en rekke linjer og en cursor.
+
+ Controlleren åpner vinduet, instansierer Editor og View. Lytter på events.
+   Resize sendes rett til view. Tastetrykk sendes til Editor.
+
+ Editor kjenner til den flate teksten, cursor-posisjon og eventuelt selection.
+   Tar i mot tastetrykk for å endre tekst.
+
+ Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout
+
+ TextLayout er en liste med Line som består av Text, sendes til View for rendring sammen med Cursor
