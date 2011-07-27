@@ -11,7 +11,7 @@ import javax.swing.WindowConstants
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
-import no.advide.ui.TiledBackgroundPanel
+import no.advide.ui.BackgroundPanel
 
 class Application {
 
@@ -43,7 +43,7 @@ class Application {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       frame(appFrame, title: 'ide-adv', size: [1120, screenSize.height.intValue() - 100], location: [50, 30],  show: true, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
         borderLayout()
-        panel(new TiledBackgroundPanel(), constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
+        panel(new BackgroundPanel(), constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
           boxLayout(axis:BoxLayout.Y_AXIS)
           panel(maximumSize: [1000, 150], minimumSize: [0, 150], opaque: false) {
             label(text: "Master - Rom 0", foreground: new Color(150, 150, 140))

@@ -6,11 +6,11 @@ import java.awt.Rectangle
 import javax.swing.ImageIcon
 import javax.swing.JPanel
 
-class TiledBackgroundPanel extends JPanel {
+class BackgroundPanel extends JPanel {
 
   Image img
 
-  TiledBackgroundPanel() {
+  BackgroundPanel() {
     img = new ImageIcon(ClassLoader.getSystemResource('background.jpg')).image
   }
 

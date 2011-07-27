@@ -87,11 +87,11 @@ class Editor {
     changed()
   }
 
-  private String post() {
+  String post() {
     return currentLine().substring(cursor.x)
   }
 
-  private String pre() {
+  String pre() {
     return currentLine().substring(0, cursor.x)
   }
 

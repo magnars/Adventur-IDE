@@ -10,14 +10,26 @@ class AppFrame extends JFrame {
   void toggleFullScreen() {
     if (device.fullScreenSupported) {
       this.dispose()
-      if (this.undecorated) {
-        this.undecorated = false
-        device.fullScreenWindow = null
+      if (isFullScreen()) {
+        exitFullScreen()
       } else {
-        this.undecorated = true
-        device.fullScreenWindow = this
+        enterFullScreen()
       }
       this.show()
     }
+  }
+
+  private def enterFullScreen() {
+    this.undecorated = true
+    device.fullScreenWindow = this
+  }
+
+  private def exitFullScreen() {
+    this.undecorated = false
+    device.fullScreenWindow = null
+  }
+
+  private boolean isFullScreen() {
+    return undecorated
   }
 }
