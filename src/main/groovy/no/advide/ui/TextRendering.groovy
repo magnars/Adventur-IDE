@@ -14,18 +14,19 @@ class TextRendering {
 
   def render() {
     textLayout.lines.eachWithIndex { FormattedLine line, i ->
-      renderLine(i, line.text)
+      renderLine(i, line)
       y = y + fontHeight
     }
   }
 
-  private def renderLine(i, String line) {
+  private def renderLine(i, FormattedLine line) {
     if (atCursorLine(i)) renderCursorIndicatorBar()
     renderText(line)
-    if (atCursorLine(i)) renderCursor(line)
+    if (atCursorLine(i)) renderCursor(line.text)
   }
 
   private def renderCursor(String line) {
+    g.setColor(Color.black)
     g.drawRect LEFT_PADDING + cursorX(line), y, 1, fontHeight - 1
   }
 
@@ -33,14 +34,14 @@ class TextRendering {
     return fontMetrics.stringWidth(line.substring(0, cursor.x))
   }
 
-  private def renderText(String line) {
-    g.drawString(line, LEFT_PADDING, y + ascent)
+  private def renderText(FormattedLine line) {
+    g.setColor(line.color)
+    g.drawString(line.text, LEFT_PADDING, y + ascent)
   }
 
   private def renderCursorIndicatorBar() {
     g.setColor(SOFT_HIGHLIGHT)
     g.fillRect 0, y, componentWidth, fontHeight - 1
-    g.setColor(Color.black)
   }
 
   private boolean atCursorLine(i) {

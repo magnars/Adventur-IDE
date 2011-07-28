@@ -1,8 +1,9 @@
 package no.advide.commands
 
 import no.advide.FormattedLine
+import java.awt.Color
 
-class UnknownCommand implements Command {
+class UnknownCommand extends Command {
 
   String input
 
@@ -11,6 +12,16 @@ class UnknownCommand implements Command {
   }
 
   List<FormattedLine> getLines() {
-    return [new FormattedLine(text: this.input)]
+    return [new FormattedLine(text: this.input, color: Color.black)]
   }
+
+  static boolean matches(Object lines, Object fromIndex) {
+    true
+  }
+
+  static int numMatchingLines(Object lines, Object fromIndex) {
+    1
+  }
+
+
 }

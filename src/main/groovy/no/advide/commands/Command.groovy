@@ -1,9 +1,16 @@
 package no.advide.commands
 
 import no.advide.FormattedLine
+import no.advide.Cursor
 
-interface Command {
+abstract class Command {
 
-  List<FormattedLine> getLines()
+  Cursor cursor
+
+  abstract List<FormattedLine> getLines()
+
+  void setActive(Cursor c) { cursor = c }
+
+  boolean isActive() { return cursor != null }
 
 }

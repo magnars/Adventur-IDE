@@ -22,10 +22,10 @@ class Application {
 
     def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
-    editorPanel.textLayout = [lines: CommandParser.parse(editor.lines).lines, cursor: editor.cursor]
+    editorPanel.textLayout = [lines: formatLines(editor.lines), cursor: editor.cursor]
 
     editor.onChange { lines, cursor ->
-      editorPanel.textLayout = [lines: CommandParser.parse(lines).lines, cursor: cursor]
+      editorPanel.textLayout = [lines: formatLines(lines), cursor: cursor]
       editorPanel.repaint()
     }
 
@@ -35,6 +35,10 @@ class Application {
 
     appFrame.setHeaderText("Master - Rom 0")
     appFrame.show()
+  }
+
+  private static List<FormattedLine> formatLines(lines) {
+    return new CommandParser(lines).parse().lines
   }
 
 }
