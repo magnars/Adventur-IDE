@@ -20,3 +20,18 @@
  Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout
 
  TextLayout er en liste med Line som består av Text, sendes til View for rendring sammen med Cursor
+
+
+-------------------
+
+ Kommandoen har flere roller:
+   - static: parse tekst til seg selv (old + new)
+   - rendre seg som tekst (old script)
+   - rendre seg som Line (new script)
+   - får cursoren hvis aktiv
+      - tar vare på teksten den parset
+      - er texten i Line forskjellig, og jeg har cursor -> flytt cursor
+
+[Y] + [X] kan løses ved at de vet om hverandre
+ - ved rendring av Lines, sender [Y] en tom array hvis den er helt standard
+

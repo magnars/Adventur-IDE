@@ -3,6 +3,8 @@ package no.advide
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
+import java.awt.font.TextLayout
+import no.advide.commands.CommandParser
 
 class Application {
 
@@ -20,10 +22,10 @@ class Application {
 
     def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
-    editorPanel.textLayout = new TextLayout(lines: editor.lines, cursor: editor.cursor)
+    editorPanel.textLayout = [lines: CommandParser.parse(editor.lines).lines, cursor: editor.cursor]
 
     editor.onChange { lines, cursor ->
-      editorPanel.textLayout = new TextLayout(lines: lines, cursor: cursor)
+      editorPanel.textLayout = [lines: CommandParser.parse(lines).lines, cursor: cursor]
       editorPanel.repaint()
     }
 

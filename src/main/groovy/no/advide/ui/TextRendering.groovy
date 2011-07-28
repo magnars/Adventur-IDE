@@ -3,9 +3,9 @@ package no.advide.ui
 import java.awt.Color
 import java.awt.Graphics2D
 
-import no.advide.TextLayout
 import java.awt.FontMetrics
 import no.advide.Cursor
+import no.advide.FormattedLine
 
 class TextRendering {
 
@@ -13,8 +13,8 @@ class TextRendering {
   private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
 
   def render() {
-    textLayout.lines.eachWithIndex { String line, i ->
-      renderLine(i, line)
+    textLayout.lines.eachWithIndex { FormattedLine line, i ->
+      renderLine(i, line.text)
       y = y + fontHeight
     }
   }
@@ -47,7 +47,7 @@ class TextRendering {
     cursor.y == i
   }
 
-  TextLayout textLayout
+  def textLayout
   int componentWidth
   Cursor cursor
   Graphics2D g
