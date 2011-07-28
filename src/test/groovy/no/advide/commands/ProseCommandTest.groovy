@@ -10,13 +10,12 @@ class ProseCommandTest extends GroovyTestCase {
   }
 
   void test_should_request_all_continuous_lines_of_prose() {
-    assertEquals 3, ProseCommand.numMatchingLines(["", "Hei", "på", "deg", "!!!"], 1)
-    assertEquals 2, ProseCommand.numMatchingLines(["Hei", "du"], 0)
+    assert ProseCommand.numMatchingLines(["", "Hei", "på", "deg", "!!!"], 1) == 3
+    assert ProseCommand.numMatchingLines(["Hei", "du"], 0) == 2
   }
 
   void test_should_concatenate_lines() {
     def command = new ProseCommand(["Hei", "du"])
-    assertEquals 1, command.toNewScript().size()
     assert command.toNewScript() == ["Hei du"]
   }
 

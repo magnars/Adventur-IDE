@@ -4,23 +4,23 @@ class CommandParserTest extends GroovyTestCase {
 
   void test_should_convert_strings_to_command_list() {
     def commands = new CommandParser(["", "", ""]).parse()
-    assertEquals 3, commands.size()
+    assert commands.size() == 3
   }
 
   void test_should_parse_UnknownCommand() {
     def commands = new CommandParser([":h"]).parse()
-    assertEquals UnknownCommand.class, commands.first().class
-    assertEquals ":h", commands.first().input
+    assert commands.first().class == UnknownCommand.class
+    assert commands.first().input == ":h"
   }
 
   void test_should_parse_RemoveAlternativeCommand() {
     def commands = new CommandParser(["#100"]).parse()
-    assertEquals RemoveAlternativeCommand.class, commands.first().class
+    assert commands.first().class == RemoveAlternativeCommand.class
   }
 
   void test_should_parse_ProseCommand() {
     def commands = new CommandParser(["hei", "du"]).parse()
-    assertEquals ProseCommand.class, commands.first().class
+    assert commands.first().class == ProseCommand.class
   }
 
 }

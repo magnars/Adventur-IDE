@@ -48,7 +48,7 @@ class KeyInterpreterTest extends GroovyTestCase {
 
   void assertKeyRecevied(recevied, event) {
     interpreter.handleKeyPress(event)
-    assertEquals recevied, listener.received
+    assert listener.received == recevied
   }
 
   static class MockKeyListener {
