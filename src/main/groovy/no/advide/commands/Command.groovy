@@ -6,13 +6,17 @@ import no.advide.Cursor
 abstract class Command {
 
   Cursor cursor
+  Integer localCursorY
 
   abstract List<FormattedLine> getFormattedLines()
 
   abstract List<String> toNewScript()
 
-  void setActive(Cursor c) { cursor = c }
+  void setCursor(Cursor cursor, localCursorY) {
+    this.cursor = cursor
+    this.localCursorY = localCursorY
+  }
 
-  boolean isActive() { return cursor != null }
+  boolean isActive() { cursor != null }
 
 }

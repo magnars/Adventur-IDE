@@ -23,7 +23,7 @@ class Application {
     def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
     editor.onChange { lines, cursor ->
-      def commands = new CommandParser(lines).parse()
+      def commands = new CommandParser(lines, cursor).parse()
       editor.lines = commands.toNewScript()
       editorPanel.textLayout = [lines: commands.formattedLines, cursor: cursor]
       editorPanel.repaint()

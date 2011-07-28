@@ -3,6 +3,8 @@ package no.advide.commands
 import no.advide.FormattedLine
 import org.apache.commons.lang3.text.WordUtils
 import java.awt.Color
+import no.advide.Cursor
+import org.apache.commons.lang3.StringUtils
 
 class ProseCommand extends Command {
 
@@ -24,6 +26,48 @@ class ProseCommand extends Command {
   }
 
   @Override
+  void setCursor(Cursor cursor, Object localCursorY) {
+    super.setCursor(cursor, localCursorY)
+    updateCursor()
+  }
+
+  void updateCursor() {
+    Cursor c = findCursorPositionInRewrappedLines()
+    cursor.x = c.x
+    cursor.y = cursor.y - localCursorY + c.y
+    localCursorY = c.y
+  }
+
+  private Cursor findCursorPositionInRewrappedLines() {
+    Cursor c = createCursorAsIfOnOneLongString()
+    def lines = wrappedLines()
+    while (cursorNotOnCurrentLine(c, lines)) {
+      moveCursorToNextLine(c, lines)
+    }
+    return c
+  }
+
+  private Cursor createCursorAsIfOnOneLongString() {
+    return new Cursor(x: totalLengthOfPreceedingLines() + cursor.x, y: 0)
+  }
+
+  private boolean cursorNotOnCurrentLine(Cursor c, String[] lines) {
+    return c.x > lines[c.y].size()
+  }
+
+  private def moveCursorToNextLine(Cursor c, String[] lines) {
+    c.x -= lines[c.y].size() + 1 // also count space after line
+    c.y += 1
+  }
+
+  int totalLengthOfPreceedingLines() {
+    if (localCursorY == 0) return 0
+    def numSpacesBetweenLines = localCursorY
+    def preceedingLines = input[0..(localCursorY - 1)]
+    preceedingLines.sum { it.size() } + numSpacesBetweenLines
+  }
+
+  @Override
   List<FormattedLine> getFormattedLines() {
     wrappedLines().collect {l -> new FormattedLine(text: l, color: Color.black)}
   }
@@ -34,7 +78,7 @@ class ProseCommand extends Command {
   }
 
   private String[] wrappedLines() {
-    WordUtils.wrap(oneLongString(), width).split("\n")
+    StringUtils.splitPreserveAllTokens(WordUtils.wrap(oneLongString(), width), '\n')
   }
 
   private String oneLongString() {
