@@ -7,8 +7,9 @@ class UnknownCommand extends Command {
 
   String input
 
-  UnknownCommand(String input) {
-    this.input = input
+  UnknownCommand(List<String> strings) {
+    if (strings.size() != 1) throw new IllegalArgumentException("takes 1 line");
+    this.input = strings.first()
   }
 
   List<FormattedLine> getLines() {

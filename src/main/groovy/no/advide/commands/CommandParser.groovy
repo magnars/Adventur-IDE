@@ -20,8 +20,13 @@ class CommandParser {
   }
 
   private Command findMatchingCommand() {
-    if (RemoveAlternativeCommand.matches(strings, index)) { return new RemoveAlternativeCommand([strings[index++]]) }
-    new UnknownCommand(strings[index++])
+    if (RemoveAlternativeCommand.matches(strings, index)) { return new RemoveAlternativeCommand(popStrings(RemoveAlternativeCommand.numMatchingLines(strings, index))) }
+    if (UnknownCommand.matches(strings, index)) { return new UnknownCommand(popStrings(UnknownCommand.numMatchingLines(strings, index))) }
+    throw new IllegalStateException("no matching commands")
+  }
+
+  private List<String> popStrings(num) {
+    (1..num).collect { strings[index++] }
   }
 
 }

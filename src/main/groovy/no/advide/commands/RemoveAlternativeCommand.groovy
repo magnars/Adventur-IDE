@@ -14,12 +14,13 @@ class RemoveAlternativeCommand extends Command {
     1
   }
 
-  RemoveAlternativeCommand(strings) {
-    input = strings
+  RemoveAlternativeCommand(List<String> strings) {
+    if (strings.size() != 1) throw new IllegalArgumentException("takes 1 line");
+    input = strings.first()
   }
 
   @Override
   List<FormattedLine> getLines() {
-    return [new FormattedLine(text: input[0])]
+    return [new FormattedLine(text: input)]
   }
 }

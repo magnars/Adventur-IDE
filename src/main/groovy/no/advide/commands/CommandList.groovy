@@ -5,6 +5,6 @@ import no.advide.FormattedLine
 class CommandList extends ArrayList<Command> {
 
   List<FormattedLine> getLines() {
-    (List<FormattedLine>) collect {c -> c.getLines()}.flatten()
+    (List<FormattedLine>) this*.lines.flatten()
   }
 }

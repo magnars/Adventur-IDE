@@ -7,7 +7,7 @@ class UnknownCommandTest extends GroovyTestCase {
   Command command
 
   void setUp() {
-    command = new UnknownCommand(":hm")
+    command = new UnknownCommand([":hm"])
   }
 
   void test_line_should_match_input() {
