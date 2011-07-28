@@ -7,30 +7,10 @@ import no.advide.TextLayout
 import java.awt.FontMetrics
 import no.advide.Cursor
 
-class Rendering {
+class TextRendering {
 
   private static final int LEFT_PADDING = 20
   private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
-
-  TextLayout textLayout
-  int componentWidth
-  Cursor cursor
-  Graphics2D g
-  FontMetrics fontMetrics
-  int ascent
-  int fontHeight
-  int y
-
-  Rendering(layout, width, graphics) {
-    g = graphics
-    textLayout = layout
-    componentWidth = width
-    y = 0
-    fontMetrics = g.getFontMetrics()
-    ascent = fontMetrics.getAscent()
-    fontHeight = ascent + fontMetrics.getDescent()
-    cursor = textLayout.cursor
-  }
 
   def render() {
     textLayout.lines.eachWithIndex { String line, i ->
@@ -65,6 +45,26 @@ class Rendering {
 
   private boolean atCursorLine(i) {
     cursor.y == i
+  }
+
+  TextLayout textLayout
+  int componentWidth
+  Cursor cursor
+  Graphics2D g
+  FontMetrics fontMetrics
+  int ascent
+  int fontHeight
+  int y
+
+  TextRendering(layout, width, graphics) {
+    g = graphics
+    textLayout = layout
+    componentWidth = width
+    y = 0
+    fontMetrics = g.getFontMetrics()
+    ascent = fontMetrics.getAscent()
+    fontHeight = ascent + fontMetrics.getDescent()
+    cursor = textLayout.cursor
   }
 
 }
