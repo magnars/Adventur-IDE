@@ -17,7 +17,8 @@
  Editor kjenner til den flate teksten, cursor-posisjon og selection.
    Tar i mot tastetrykk for å endre tekst.
 
- Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout
+ Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout.
+ En Page inneholder Commands, og kan også filtrere tastetykk og justere layout -> eksempelvis tab mellom commands.
 
  TextLayout er en liste med Line som består av Text, sendes til View for rendring sammen med Cursor
 

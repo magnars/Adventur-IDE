@@ -3,6 +3,7 @@ package no.advide.commands
 class CommandParser {
 
   static List commandTypes = [
+      ProseCommand.class,
       RemoveAlternativeCommand.class,
       UnknownCommand.class
   ]

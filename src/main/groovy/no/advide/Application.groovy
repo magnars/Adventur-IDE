@@ -3,7 +3,7 @@ package no.advide
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
-import java.awt.font.TextLayout
+
 import no.advide.commands.CommandParser
 
 class Application {
@@ -22,12 +22,13 @@ class Application {
 
     def editor = new Editor(lines: lines, cursor: new Cursor(x: 0, y: 0))
 
-    editorPanel.textLayout = [lines: formatLines(editor.lines), cursor: editor.cursor]
-
     editor.onChange { lines, cursor ->
-      editorPanel.textLayout = [lines: formatLines(lines), cursor: cursor]
+      def commands = new CommandParser(lines).parse()
+      editor.lines = commands.toNewScript()
+      editorPanel.textLayout = [lines: commands.formattedLines, cursor: cursor]
       editorPanel.repaint()
     }
+    editor.changed()
 
     def keys = new KeyInterpreter(editorPanel)
     keys.addListener editor
@@ -35,10 +36,6 @@ class Application {
 
     appFrame.setHeaderText("Master - Rom 0")
     appFrame.show()
-  }
-
-  private static List<FormattedLine> formatLines(lines) {
-    return new CommandParser(lines).parse().lines
   }
 
 }

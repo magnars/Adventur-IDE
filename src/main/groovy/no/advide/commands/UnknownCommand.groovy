@@ -12,8 +12,12 @@ class UnknownCommand extends Command {
     this.input = strings.first()
   }
 
-  List<FormattedLine> getLines() {
-    return [new FormattedLine(text: this.input, color: Color.black)]
+  List<FormattedLine> getFormattedLines() {
+    [new FormattedLine(text: this.input, color: Color.black)]
+  }
+
+  List<String> toNewScript() {
+    [this.input]
   }
 
   static boolean matches(Object lines, Object fromIndex) {

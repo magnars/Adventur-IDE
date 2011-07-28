@@ -11,7 +11,7 @@ class UnknownCommandTest extends GroovyTestCase {
   }
 
   void test_line_should_match_input() {
-    def lines = command.getLines()
+    def lines = command.getFormattedLines()
     assertEquals 1, lines.size()
     assertEquals ":hm", lines.first().text
   }
@@ -25,7 +25,11 @@ class UnknownCommandTest extends GroovyTestCase {
   }
 
   void test_should_format_lines_black() {
-    assertEquals Color.black, command.lines.first().color
+    assertEquals Color.black, command.formattedLines.first().color
+  }
+
+  void test_should_convert_to_newScript() {
+    assert command.toNewScript() == [":hm"]
   }
 
 }

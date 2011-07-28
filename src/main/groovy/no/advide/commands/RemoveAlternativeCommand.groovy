@@ -20,7 +20,12 @@ class RemoveAlternativeCommand extends Command {
   }
 
   @Override
-  List<FormattedLine> getLines() {
-    return [new FormattedLine(text: input)]
+  List<FormattedLine> getFormattedLines() {
+    [new FormattedLine(text: input)]
+  }
+
+  @Override
+  List<String> toNewScript() {
+    [input]
   }
 }

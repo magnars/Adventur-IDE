@@ -25,7 +25,8 @@ KRAV
 {}1                                     (@)73 om 1 ...
 73
 
-#26                                     #26  
+#26                                     #26
+#173                                    #!                (fjern dette rommet, eks. rom 173)
 
 *26                                     - #26
 
@@ -61,6 +62,8 @@ $$$                                     :tidshopp +1
 
 #UFERDIG# randorf                       :uferdig => randorf
 
+#SAVE# på torget i Dypvann              :save => på torget i Dypvann
+
 [Y]                                     :besøk ++
 [Y]7                                    :besøk ++ (max 7)
 
@@ -87,13 +90,15 @@ Oppbygging av krav
 [!]+07)(PØLSEBRØD                       ? ikke PØLSE men BRØD
 [!]+07)(PØLSE)(BRØD                     ? verken PØLSE eller BRØD
 [!])(+07)(PØLSE)(BRØD                   ? PØLSE eller BRØD
+[!])(+05PØLSEBRØD                       ? ikke både PØLSE og BRØD
 
 [!]nr34                                 ? #34     
 
 [!]kr.100                               ? minst 100 rupi
-[!])(kr.200                             ? ikke 200 rupi 
-                                                                 
-[!]*1*                                  ? *1*                                 ??
+[!])(kr.200                             ? ikke 200 rupi
+[!]+06kr.100)(kr.101                    ? akkurat 100 rupi
+
+[!]*1*                                  ? max 2.
 
 
 
@@ -162,7 +167,7 @@ for å slippe så mye nesting.
 ? 7. besøk
   + SMULTRINGER
 ? 8. besøk
-  *1343 
+  - #1343
 :besøk ++ (max 9)
 - TORE.VENT.MS
 Du står på torget. Det er en bunke mennesker her som selger diverse saker.
@@ -177,7 +182,7 @@ Du står på torget. Det er en bunke mennesker her som selger diverse saker.
     Du ser en kar som står og blar i noen papirer. Han har et lite skilt festet 
     til jakkeslaget som det står "GUIDE" på. Det ser ut som om han har kontroll 
     på det meste som skjer rundt omkring her. Hodet pryder han med en oransje hatt.
-  *171
+  - #171
 ? SMULTRINGER men ikke DREPTE-SMULTRINGMANNEN
   Du kan dufte smultringer fra ei lita bod i utkanten av torget. Det lukter ganske så godt!
 ? 3. besøk
@@ -222,7 +227,69 @@ Du står på torget. Det er en bunke mennesker her som selger diverse saker.
 ? DIDRIKK_I_DYPVANN
   :
   Didrikk sitter pladask i en fluktstol ved siden av den store luftballongen.
-@1439
+:save => på torget i Dypvann
++
+20
+Jeg roper: "ER DET NOEN SOM HAR SETT EN PLANKE?"
+15649
+SKAL_HENTE_PLANK og (verken PLANK5 eller FÅTT_INFO_OM_SJØRØVERTATT_PLANK)
+Jeg stikker bort og bryter opp slåsskampen.
+13792
+SLÅSSKAMP-OM-BORGERMESTERENS-DATTER
+Jeg går og prater med de tre kara ved teltet.
+1514
+VETOMKEN
+Jeg tusler bort til den snåle dommedagsprofeten.
+2362
+ORKVSDYPVANN men ikke DOMMEDAGBORTE
+Jeg labber over til han som fortalte om borgermesterens datter.
+6974
+BORGERMESTERDUDE
+Jeg tar en tur bort til guiden og forhører meg om hva som skjer.
+2525
+ikke ERFAREN
+Jeg går tilbake til guiden.
+2526
+ERFAREN og (VETOMSVARTHAUG og HARVÆRTPÅBANANØYAHARVÆRTHOSGUIDE)
+Jeg stikker en tur bort til fyren som selger vannflasker.
+4947
+VANNFLASKEMANNEN
+Jeg leter etter Trulsen, skopusseren som mista beina.
+5189
+nr5188
+Jeg snakker med damen som leter etter pinnsvinet sitt.
+168
+PINNSVINDAME-PÅ-PLASS
+Jeg kjøper smultringer.
+167
+SMULTRINGER
+Jeg ser etter en mann med en stor, grønn hatt ved navn Draume.
+1167
+DRAUME men ikke DRAUMEDØD
+Jeg lusker bort til en luguber mann, og spørre om han vil lære deg å dirke.
+1165
+LÆREDIRKE
+Jeg roper høyt ut "VIL NOEN LÆRE MEG Å DIRKE!?"
+1164
+LÆREDIRKE
+Jeg hilser på den fyren som lesser noen tønner på en vogn.
+439
+verken SABOTASJETØNNE eller DATO3110
+Jeg hilser på den fyren som lesser noen gresskar på en vogn.
+439
+ikke GRESSKARLYKT men DATO3110
+Jeg går bort til fiskedelen av torget.
+6485
+minst 1 rupi eller VÆRTI6485
+Jeg stikker bort til Didrikk og luftballongen.
+7821
+DIDRIKK_I_DYPVANN
+Jeg går rundt i byen og ser meg litt om.
+171
+-
+Jeg forlater byen og finner på noe annet.
+1343
+-
 
 
 

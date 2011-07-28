@@ -4,7 +4,11 @@ import no.advide.FormattedLine
 
 class CommandList extends ArrayList<Command> {
 
-  List<FormattedLine> getLines() {
-    (List<FormattedLine>) this*.lines.flatten()
+  List<FormattedLine> getFormattedLines() {
+    (List<FormattedLine>) this*.formattedLines.flatten()
+  }
+
+  List<String> toNewScript() {
+    (List<String>) collect {c -> c.toNewScript()}.flatten()
   }
 }

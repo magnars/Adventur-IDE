@@ -18,4 +18,9 @@ class CommandParserTest extends GroovyTestCase {
     assertEquals RemoveAlternativeCommand.class, commands.first().class
   }
 
+  void test_should_parse_ProseCommand() {
+    def commands = new CommandParser(["hei", "du"]).parse()
+    assertEquals ProseCommand.class, commands.first().class
+  }
+
 }

@@ -7,7 +7,9 @@ abstract class Command {
 
   Cursor cursor
 
-  abstract List<FormattedLine> getLines()
+  abstract List<FormattedLine> getFormattedLines()
+
+  abstract List<String> toNewScript()
 
   void setActive(Cursor c) { cursor = c }
 

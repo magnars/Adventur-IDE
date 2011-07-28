@@ -12,7 +12,14 @@ class CommandListTest extends GroovyTestCase {
     def l = new CommandList()
     l << new UnknownCommand([""])
     l << new UnknownCommand([""])
-    assertEquals 2, l.getLines().size()
+    assertEquals 2, l.getFormattedLines().size()
+  }
+
+  void test_should_convert_to_newScript() {
+    def l = new CommandList()
+    l << new UnknownCommand([""])
+    l << new UnknownCommand([""])
+    assertEquals 2, l.toNewScript().size()
   }
 
 }
