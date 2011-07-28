@@ -2,6 +2,11 @@ package no.advide.commands
 
 class CommandParser {
 
+  static List commandTypes = [
+      RemoveAlternativeCommand.class,
+      UnknownCommand.class
+  ]
+
   List<String> strings
   CommandList commands
   int index
@@ -20,8 +25,9 @@ class CommandParser {
   }
 
   private Command findMatchingCommand() {
-    if (RemoveAlternativeCommand.matches(strings, index)) { return new RemoveAlternativeCommand(popStrings(RemoveAlternativeCommand.numMatchingLines(strings, index))) }
-    if (UnknownCommand.matches(strings, index)) { return new UnknownCommand(popStrings(UnknownCommand.numMatchingLines(strings, index))) }
+    for (type in commandTypes) {
+      if (type.matches(strings, index)) { return type.newInstance(popStrings(type.numMatchingLines(strings, index))) }
+    }
     throw new IllegalStateException("no matching commands")
   }
 
