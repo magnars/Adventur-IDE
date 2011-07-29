@@ -26,6 +26,12 @@ class ProseCommandTest extends GroovyTestCase {
     assert command.toNewScript() == ["Hei du, så", "fin hatt"]
   }
 
+  void test_should_not_wrap_line_with_cursor_at_start() {
+    def command = new ProseCommand(["Hei", "du"])
+    command.setCursor(new Cursor(x: 0, y: 1), 1)
+    assert command.toNewScript() == ["Hei", "du"]
+  }
+
   void test_should_get_formatted_lines() {
     def command = new ProseCommand(["Hei"])
     assert command.formattedLines.size() == 1

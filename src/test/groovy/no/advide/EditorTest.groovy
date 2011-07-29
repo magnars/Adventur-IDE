@@ -143,4 +143,23 @@ class EditorTest extends GroovyTestCase {
     assert editor.cursor == new Cursor(x: 1, y: 0)
   }
 
+  void test_should_update_lines() {
+    def editor = new Editor(lines: ["abc", "def"], cursor: new Cursor(x: 0, y: 0))
+    editor.updateLines(["abc def"])
+    assert editor.lines == ["abc def"]
+  }
+
+  void test_should_check_if_text_was_moved_up_from_under_cursor() {
+    def editor = new Editor(lines: ["abc", "def", ""], cursor: new Cursor(x: 0, y: 1))
+    editor.cursor.y = 2
+    editor.updateLines(["abc def", ""])
+    assert editor.cursor.y == 1
+  }
+
+  void test_should_check_if_text_was_moved_down_from_under_cursor() {
+    def editor = new Editor(lines: ["abc def", ""], cursor: new Cursor(x: 0, y: 1))
+    editor.updateLines(["abc", "def", ""])
+    assert editor.cursor.y == 2
+  }
+
 }

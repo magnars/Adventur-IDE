@@ -109,4 +109,24 @@ class Editor {
   boolean atStartOfLine() {
     cursor.x == 0
   }
+
+  void updateLines(List<String> lines) {
+    if (textHasMovedUpWithoutCursor(lines)) cursor.y--
+    if (textHasMovedDownWithoutCursor(lines)) cursor.y++
+    this.lines = lines
+  }
+
+  boolean textHasMovedUpWithoutCursor(newLines) {
+    def newLinesIsOneShorter = newLines.size() == lines.size() - 1
+    def lineAtCursorHasChanged = newLines[cursor.y] != lines[cursor.y]
+    def lineAboveMatchesCurrent = newLines[cursor.y - 1] == lines[cursor.y]
+    return (newLinesIsOneShorter && lineAtCursorHasChanged && lineAboveMatchesCurrent)
+  }
+
+  boolean textHasMovedDownWithoutCursor(newLines) {
+    def newLinesIsOneLonger = newLines.size() == lines.size() + 1
+    def lineAtCursorHasChanged = newLines[cursor.y] != lines[cursor.y]
+    def lineBelowMatchesCurrent = newLines[cursor.y + 1] == lines[cursor.y]
+    return (newLinesIsOneLonger && lineAtCursorHasChanged && lineBelowMatchesCurrent)
+  }
 }

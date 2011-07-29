@@ -10,6 +10,7 @@ class ProseCommand extends Command {
 
   def input
   def width = 80
+  def lines
 
   static def matches(List<String> strings, int fromIndex) {
     strings[fromIndex] =~ /^[a-zA-ZæøåÆØÅ]/
@@ -23,26 +24,47 @@ class ProseCommand extends Command {
 
   ProseCommand(List<String> strings) {
     input = strings
+    lines = rewrapInput()
+  }
+
+  void setWidth(int width) {
+    this.width = width
+    lines = rewrapInput()
   }
 
   @Override
   void setCursor(Cursor cursor, Object localCursorY) {
     super.setCursor(cursor, localCursorY)
-    updateCursor()
+    if (cursor.x == 0) { ensureCursorRemainsAtStartOfLine() }
+    updateCursorPosition()
   }
 
-  void updateCursor() {
-    Cursor c = findCursorPositionInRewrappedLines()
+  void ensureCursorRemainsAtStartOfLine() {
+    Cursor c = findCursorPositionInLines()
+    if (c.x != 0) {
+      splitLinesAtCursorPosition(c)
+    }
+  }
+
+  private def splitLinesAtCursorPosition(Cursor c) {
+    def current = lines[c.y]
+    def pre = current.substring(0, c.x - 1)
+    def post = current.substring(c.x)
+    def split = [pre, post]
+    lines.remove(c.y)
+    lines.addAll(c.y, split)
+  }
+
+  void updateCursorPosition() {
+    Cursor c = findCursorPositionInLines()
     cursor.x = c.x
     cursor.y = cursor.y - localCursorY + c.y
-    localCursorY = c.y
   }
 
-  private Cursor findCursorPositionInRewrappedLines() {
+  private Cursor findCursorPositionInLines() {
     Cursor c = createCursorAsIfOnOneLongString()
-    def lines = wrappedLines()
-    while (cursorNotOnCurrentLine(c, lines)) {
-      moveCursorToNextLine(c, lines)
+    while (cursorNotOnCurrentLine(c)) {
+      moveCursorToNextLine(c)
     }
     return c
   }
@@ -51,11 +73,11 @@ class ProseCommand extends Command {
     return new Cursor(x: totalLengthOfPreceedingLines() + cursor.x, y: 0)
   }
 
-  private boolean cursorNotOnCurrentLine(Cursor c, String[] lines) {
+  private boolean cursorNotOnCurrentLine(Cursor c) {
     return c.x > lines[c.y].size()
   }
 
-  private def moveCursorToNextLine(Cursor c, String[] lines) {
+  private def moveCursorToNextLine(Cursor c) {
     c.x -= lines[c.y].size() + 1 // also count space after line
     c.y += 1
   }
@@ -69,24 +91,16 @@ class ProseCommand extends Command {
 
   @Override
   List<FormattedLine> getFormattedLines() {
-    wrappedLines().collect {l -> new FormattedLine(text: l, color: Color.black)}
+    lines.collect {l -> new FormattedLine(text: l, color: Color.black)}
   }
 
   @Override
   List<String> toNewScript() {
-    wrappedLines()
+    lines
   }
 
-  private String[] wrappedLines() {
-    StringUtils.splitPreserveAllTokens(WordUtils.wrap(oneLongString(), width), '\n')
-  }
-
-  private String oneLongString() {
-    input.join(" ")
-  }
-
-  void setWidth(int width) {
-    this.width = width
+  private List<String> rewrapInput() {
+    StringUtils.splitPreserveAllTokens(WordUtils.wrap(input.join(" "), width), '\n')
   }
 
 }

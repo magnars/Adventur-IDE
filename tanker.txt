@@ -1,3 +1,4 @@
+---------------------
 
  - View: tegner tekst og cursor på en skjerm med farger, understreking, fonter
 
@@ -18,7 +19,8 @@
    Tar i mot tastetrykk for å endre tekst.
 
  Den aktive Command (cursor er på linja) ligger utenpå Editor, og kan filtrere tastetrykk og justere TextLayout.
- En Page inneholder Commands, og kan også filtrere tastetykk og justere layout -> eksempelvis tab mellom commands.
+
+ En Page har et nummer, kan lagres, inneholder Commands, og kan også filtrere tastetykk og justere layout -> eksempelvis tab mellom commands.
 
  TextLayout er en liste med Line som består av Text, sendes til View for rendring sammen med Cursor
 
@@ -35,4 +37,8 @@
 
 [Y] + [X] kan løses ved at de vet om hverandre
  - ved rendring av Lines, sender [Y] en tom array hvis den er helt standard
+
+---------------------
+Cursor-klassen kan vite hvordan man eksempelvis splitter en linje rundt strengen (gjøres i ProseCommand:ensure... og Editor:enter)
+typ cursor.with(lines).backspace().enter()
 
