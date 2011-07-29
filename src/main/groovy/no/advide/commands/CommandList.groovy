@@ -9,6 +9,6 @@ class CommandList extends ArrayList<Command> {
   }
 
   List<String> toNewScript() {
-    (List<String>) collect {c -> c.toNewScript()}.flatten()
+    (List<String>) collect { it.toNewScript() }.flatten()
   }
 }

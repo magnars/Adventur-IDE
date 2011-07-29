@@ -162,4 +162,14 @@ class EditorTest extends GroovyTestCase {
     assert editor.cursor.y == 2
   }
 
+  void test_should_callback_when_changed() {
+    def editor = new Editor()
+    def called = false
+    editor.onChange { a, b ->
+      called = true
+    }
+    editor.changed()
+    assert called
+  }
+
 }

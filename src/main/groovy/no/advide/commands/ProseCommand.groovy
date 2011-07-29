@@ -91,7 +91,7 @@ class ProseCommand extends Command {
 
   @Override
   List<FormattedLine> getFormattedLines() {
-    lines.collect {l -> new FormattedLine(text: l, color: Color.black)}
+    lines.collect { new FormattedLine(text: it, color: Color.black)}
   }
 
   @Override

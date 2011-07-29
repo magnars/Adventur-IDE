@@ -37,13 +37,13 @@ class KeyInterpreter {
   }
 
   def notifyChar(c) {
-    listeners.each { l -> l.charTyped c }
+    listeners.each { it.charTyped c }
   }
 
   def notifyAction(a) {
-    listeners.each { l -> l.actionTyped a }
+    listeners.each { it.actionTyped a }
     if (actionCallbacks[a])
-      actionCallbacks[a].each { callback -> callback.call() }
+      actionCallbacks[a].each { it.call() }
   }
 
   def modifier(KeyEvent e) {

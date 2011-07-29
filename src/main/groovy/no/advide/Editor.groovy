@@ -65,7 +65,7 @@ class Editor {
   }
 
   def changed() {
-    changeCallbacks.each { c -> c.call lines, cursor }
+    changeCallbacks.each { it.call lines, cursor }
   }
 
   def actionTyped(k) {
