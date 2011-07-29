@@ -6,7 +6,7 @@ import java.awt.Color
 class RemoveAlternativeCommandTest extends GroovyTestCase {
 
   void setUp() {
-    AdventureTest.setUpPath()
+    AdventureTest.setUpCurrent()
   }
 
   void test_should_match_starting_hash_with_numbers() {

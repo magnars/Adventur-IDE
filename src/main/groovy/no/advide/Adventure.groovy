@@ -5,7 +5,7 @@ import groovy.swing.SwingBuilder
 
 class Adventure {
 
-  static def directoryPath
+  static Adventure current
 
   static void choose() {
     /*
@@ -15,20 +15,26 @@ class Adventure {
           id: "openDirectoryDialog", fileSelectionMode: JFileChooser.DIRECTORIES_ONLY) {}
     }
     if (fc.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) System.exit(0)
-    directoryPath = fc.selectedFile.absolutePath
+    current = new Adventure(fc.selectedFile)
     */
-    directoryPath = "/Users/magnars/projects/adventur/eventyr/master"
+    current = new Adventure(new File("/Users/magnars/projects/adventur/eventyr/master"))
   }
 
-  static boolean roomExists(int roomNumber) {
+  def directoryPath
+
+  Adventure(File directory) {
+    directoryPath = directory.absolutePath
+  }
+
+  boolean roomExists(int roomNumber) {
     new File(pathTo(roomNumber)).exists()
   }
 
-  static String pathTo(int roomNumber) {
+  String pathTo(int roomNumber) {
     "${directoryPath}/${subdir(roomNumber)}/A${roomNumber}.txt"
   }
 
-  static String subdir(int roomNumber) {
+  String subdir(int roomNumber) {
     int hundreds = roomNumber / 100
     hundreds < 10 ? "A0${hundreds}" : "A${hundreds}"
   }
