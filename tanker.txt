@@ -1,3 +1,21 @@
+
+Bug: editoren hopper cursoren ned et hakk når ProseCommand wrapper linja du står på. Perque?
+
+det er noe tull med interaksjonen mellom Editor/cursor og Command/cursor
+ - bør cursor være immutable? og sendes rundt?
+ - bør den være "last updated by command" og "last updated by editor"?
+ - bør cursor være en del av strengene så den kan manipuleres sammen med resten?
+
+---------------------
+
+En paragraf representeres med ':'
+  - en paragraf med cursor på linja er uten ':'
+  - en paragraf på øverste nivå er uten ':'
+
+
+editoren kan aggresivt right-trimme alle linjer som ikke har cursor
+
+
 ---------------------
 
  - View: tegner tekst og cursor på en skjerm med farger, understreking, fonter

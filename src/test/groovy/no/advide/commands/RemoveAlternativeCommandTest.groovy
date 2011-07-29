@@ -25,7 +25,7 @@ class RemoveAlternativeCommandTest extends GroovyTestCase {
 
   void test_should_color_red_if_does_not_exists() {
     def lines = new RemoveAlternativeCommand(["#17"]).formattedLines
-    assert lines.first().color == Color.red
+    assert lines.first().changes[1].changeColor == Color.red
   }
 
   void test_should_convert_to_newScript() {

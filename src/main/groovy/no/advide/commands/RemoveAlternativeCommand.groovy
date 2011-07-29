@@ -25,11 +25,11 @@ class RemoveAlternativeCommand extends Command {
 
   @Override
   List<FormattedLine> getFormattedLines() {
-    if (Adventure.current.roomExists(roomNumber)) {
-      [new FormattedLine(text: input)]
-    } else {
-      [new FormattedLine(text: input, color: Color.red)]
+    def line = new FormattedLine(text: input)
+    if (!Adventure.current.roomExists(roomNumber)) {
+      line.formatSubstring(1, Color.red)
     }
+    [line]
   }
 
   @Override

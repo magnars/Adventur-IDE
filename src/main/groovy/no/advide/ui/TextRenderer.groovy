@@ -7,7 +7,7 @@ import java.awt.FontMetrics
 import no.advide.Cursor
 import no.advide.FormattedLine
 
-class TextRendering {
+class TextRenderer {
 
   private static final int LEFT_PADDING = 20
   private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
@@ -35,8 +35,7 @@ class TextRendering {
   }
 
   private def renderText(FormattedLine line) {
-    g.setColor(line.color)
-    g.drawString(line.text, LEFT_PADDING, y + ascent)
+    new LineRenderer(line, LEFT_PADDING, y + ascent, g).render()
   }
 
   private def renderCursorIndicatorBar() {
@@ -57,7 +56,7 @@ class TextRendering {
   int fontHeight
   int y
 
-  TextRendering(layout, width, graphics) {
+  TextRenderer(layout, width, graphics) {
     g = graphics
     textLayout = layout
     componentWidth = width
