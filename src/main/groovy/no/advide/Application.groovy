@@ -17,6 +17,11 @@ class Application {
   ]
 
   static main(args) {
+    Adventure.choose()
+    openEditor()
+  }
+
+  private static def openEditor() {
     def editorPanel = new EditorPanel()
     def appFrame = new AppFrame(editorPanel)
 
