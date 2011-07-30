@@ -58,7 +58,7 @@ class ProseCommand extends Command {
   void updateCursorPosition() {
     Cursor c = findCursorPositionInLines()
     cursor.x = c.x
-    cursor.y = cursor.y - localCursorY + c.y
+    cursor.y = cursor.y - localCursor.y + c.y
     cursor.lastUpdatedByCommand = true
   }
 
@@ -84,9 +84,9 @@ class ProseCommand extends Command {
   }
 
   int totalLengthOfPreceedingLines() {
-    if (localCursorY == 0) return 0
-    def numSpacesBetweenLines = localCursorY
-    def preceedingLines = input[0..(localCursorY - 1)]
+    if (localCursor.y == 0) return 0
+    def numSpacesBetweenLines = localCursor.y
+    def preceedingLines = input[0..(localCursor.y - 1)]
     preceedingLines.sum { it.size() } + numSpacesBetweenLines
   }
 

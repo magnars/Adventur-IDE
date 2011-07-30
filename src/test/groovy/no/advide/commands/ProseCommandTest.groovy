@@ -78,13 +78,13 @@ class ProseCommandTest extends GroovyTestCase {
 
   void test_total_length_of_no_preceeding_lines() {
     def command = new ProseCommand(["Hei", "du"])
-    command.localCursorY = 0
+    command.localCursor = new Cursor(x: 0, y: 0)
     assert command.totalLengthOfPreceedingLines() == 0
   }
 
   void test_total_length_of_preceeding_lines() {
     def command = new ProseCommand(["Hei", "du", "der"])
-    command.localCursorY = 2
+    command.localCursor = new Cursor(x: 0, y: 2)
     assert command.totalLengthOfPreceedingLines() == 7 // includes space after last too: "Hei du "
   }
 

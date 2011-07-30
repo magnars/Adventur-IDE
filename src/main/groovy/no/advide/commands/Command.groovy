@@ -6,7 +6,7 @@ import no.advide.Cursor
 abstract class Command {
 
   Cursor cursor
-  Integer localCursorY
+  Cursor localCursor
 
   abstract List<FormattedLine> getFormattedLines()
 
@@ -14,7 +14,7 @@ abstract class Command {
 
   void setCursor(Cursor cursor, localCursorY) {
     this.cursor = cursor
-    this.localCursorY = localCursorY
+    this.localCursor = new Cursor(x: cursor.x, y: localCursorY)
   }
 
   boolean isActive() { cursor != null }

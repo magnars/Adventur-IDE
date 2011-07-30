@@ -31,7 +31,7 @@ class CommandParserTest extends GroovyTestCase {
     def commands = new CommandParser(["#100", "hei", "du", "der"], cursor).parse()
     assert !commands.first().active
     assert commands.last().active
-    assert commands.last().localCursorY == 0
+    assert commands.last().localCursor.y == 0
   }
 
 }
