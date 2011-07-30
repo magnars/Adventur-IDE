@@ -2,6 +2,7 @@ package no.advide
 
 class Cursor {
   int x, y
+  boolean lastUpdatedByCommand = false
 
   boolean equals(o) {
     if (this.is(o)) return true;

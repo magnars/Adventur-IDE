@@ -1,10 +1,7 @@
 
-Bug: editoren hopper cursoren ned et hakk når ProseCommand wrapper linja du står på. Perque?
-
-det er noe tull med interaksjonen mellom Editor/cursor og Command/cursor
- - bør cursor være immutable? og sendes rundt?
- - bør den være "last updated by command" og "last updated by editor"?   <--------- prøver denne
- - bør cursor være en del av strengene så den kan manipuleres sammen med resten?
+Editor og Cursor er så tett knyttet at de kanskje burde være samme objekt.
+Eksempelvis har Editor 'moveCursor' metode som den må ha.
+Og når cursoren ikke kjenner til lines, så kan den ikke holde seg gyldig på egenhånd.
 
 ---------------------
 

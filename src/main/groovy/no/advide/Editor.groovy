@@ -11,56 +11,58 @@ class Editor {
   def actions = [
       "right": {
         if (!atEndOfLine()) {
-          cursor.x += 1
+          moveCursor(dx: 1)
         } else if (!atLastLine()) {
-          cursor.x = 0
-          cursor.y += 1
+          moveCursor(x: 0, dy: 1)
         }
       },
       "left": {
         if (!atStartOfLine()) {
-          cursor.x -= 1
+          moveCursor(dx: -1)
         } else if (!atFirstLine()) {
-          cursor.y -= 1
-          cursor.x = currentLine().size()
+          moveCursor(dy: -1, x: previousLine().size())
         }
       },
       "up": {
         if (!atFirstLine()) {
-          cursor.y -= 1
-          cursor.x = Math.min(cursor.x, currentLine().size())
+          moveCursor(dy: -1, x: Math.min(cursor.x, previousLine().size()))
         } else if (!atStartOfLine()) {
-          cursor.x = 0
+          moveCursor(x: 0)
         }
       },
       "down": {
         if (!atLastLine()) {
-          cursor.y += 1
-          cursor.x = Math.min(cursor.x, currentLine().size())
+          moveCursor(dy: 1, x: Math.min(cursor.x, nextLine().size()))
         } else if (!atEndOfLine()) {
-          cursor.x = currentLine().size()
+          moveCursor(x: currentLine().size())
         }
       },
       "enter": {
         def split = [pre(), post()]
         lines.remove(cursor.y)
         lines.addAll(cursor.y, split)
-        cursor.x = 0
-        cursor.y += 1
+        moveCursor(x: 0, dy: 1)
       },
       "backspace": {
         if (!atStartOfLine()) {
           def pre = currentLine().substring(0, cursor.x - 1)
           lines[cursor.y] = pre + post()
-          cursor.x -= 1
+          moveCursor(dx: -1)
         } else if (!atFirstLine()) {
-          cursor.x = lines[cursor.y - 1].size()
-          lines[cursor.y - 1] += lines[cursor.y]
-          lines.remove(cursor.y)
-          cursor.y -= 1
+          moveCursor(dy: -1, x: previousLine().size())
+          lines[cursor.y] += lines[cursor.y + 1]
+          lines.remove(cursor.y + 1)
         }
       }
   ]
+
+  def moveCursor(change) {
+    if (change.dx) cursor.x += change.dx
+    if (change.dy) cursor.y += change.dy
+    if (change.x != null) cursor.x = change.x
+    if (change.y != null) cursor.y = change.y
+    cursor.lastUpdatedByCommand = false
+  }
 
   def onChange(callback) {
     changeCallbacks << callback
@@ -80,7 +82,7 @@ class Editor {
 
   def charTyped(k) {
     lines[cursor.y] = pre() + k + post()
-    cursor.x += 1
+    moveCursor(dx: 1)
     changed()
   }
 
@@ -94,6 +96,14 @@ class Editor {
 
   String currentLine() {
     lines[cursor.y]
+  }
+
+  String previousLine() {
+    lines[cursor.y - 1]
+  }
+
+  String nextLine() {
+    lines[cursor.y + 1]
   }
 
   boolean atLastLine() {
@@ -113,8 +123,10 @@ class Editor {
   }
 
   void updateLines(List<String> lines) {
-    if (textHasMovedUpWithoutCursor(lines)) cursor.y--
-    if (textHasMovedDownWithoutCursor(lines)) cursor.y++
+    if (!cursor.lastUpdatedByCommand) {
+      if (textHasMovedUpWithoutCursor(lines)) moveCursor(dy: -1)
+      if (textHasMovedDownWithoutCursor(lines)) moveCursor(dy: 1)
+    }
     this.lines = stripTrailingSpaces(lines)
   }
 

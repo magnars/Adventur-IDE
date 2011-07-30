@@ -59,6 +59,7 @@ class ProseCommand extends Command {
     Cursor c = findCursorPositionInLines()
     cursor.x = c.x
     cursor.y = cursor.y - localCursorY + c.y
+    cursor.lastUpdatedByCommand = true
   }
 
   private Cursor findCursorPositionInLines() {
