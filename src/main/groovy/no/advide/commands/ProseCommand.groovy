@@ -1,10 +1,9 @@
 package no.advide.commands
 
-import no.advide.FormattedLine
-import org.apache.commons.lang3.text.WordUtils
 import java.awt.Color
-import no.advide.Cursor
+import no.advide.FormattedLine
 import org.apache.commons.lang3.StringUtils
+import org.apache.commons.lang3.text.WordUtils
 
 class ProseCommand extends Command {
 
@@ -32,63 +31,10 @@ class ProseCommand extends Command {
     lines = rewrapInput()
   }
 
-  @Override
-  void setCursor(Cursor cursor, Object localCursorY) {
-    super.setCursor(cursor, localCursorY)
-    if (cursor.x == 0) { ensureCursorRemainsAtStartOfLine() }
-    updateCursorPosition()
-  }
-
-  void ensureCursorRemainsAtStartOfLine() {
-    Cursor c = findCursorPositionInLines()
-    if (c.x != 0) {
-      splitLinesAtCursorPosition(c)
-    }
-  }
-
-  private def splitLinesAtCursorPosition(Cursor c) {
-    def current = lines[c.y]
-    def pre = current.substring(0, c.x - 1)
-    def post = current.substring(c.x)
-    def split = [pre, post]
-    lines.remove(c.y)
-    lines.addAll(c.y, split)
-  }
-
-  void updateCursorPosition() {
-    Cursor c = findCursorPositionInLines()
-    cursor.x = c.x
-    cursor.y = cursor.y - localCursor.y + c.y
-    cursor.lastUpdatedByCommand = true
-  }
-
-  private Cursor findCursorPositionInLines() {
-    Cursor c = createCursorAsIfOnOneLongString()
-    while (cursorNotOnCurrentLine(c)) {
-      moveCursorToNextLine(c)
-    }
-    return c
-  }
-
-  private Cursor createCursorAsIfOnOneLongString() {
-    return new Cursor(x: totalLengthOfPreceedingLines() + cursor.x, y: 0)
-  }
-
-  private boolean cursorNotOnCurrentLine(Cursor c) {
-    return c.x > lines[c.y].size()
-  }
-
-  private def moveCursorToNextLine(Cursor c) {
-    c.x -= lines[c.y].size() + 1 // also count space after line
-    c.y += 1
-  }
-
-  int totalLengthOfPreceedingLines() {
-    if (localCursor.y == 0) return 0
-    def numSpacesBetweenLines = localCursor.y
-    def preceedingLines = input[0..(localCursor.y - 1)]
-    preceedingLines.sum { it.size() } + numSpacesBetweenLines
-  }
+  // updateDocument vil nå fungere slik:
+  //   - ber dokumentet slå sammen alle gamle linjene
+  //   - ber dokumentet splitte opp linjen etter nye indekser
+  //   - Document har ansvar for å holde orden på cursoren
 
   @Override
   List<FormattedLine> getFormattedLines() {

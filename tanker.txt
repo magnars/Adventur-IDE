@@ -13,8 +13,13 @@ Page har Document:
 
 --------------------
 
-Det er noe snålt med at et Document blir omformet ved parsing.
-Command'ene går inn i Document'et og endrer. Det må de få lov til, men kanskje ikke ved parsingen?
+Command får ikke List<String> lines
+- den får istedet et DocumentFragment
+   - et DocumentFragment er et view inn i dokumentet
+   - med en index og en lengde
+   - når dokumentet endres, oppdaterer den tilkoblede fragmenter
+   - DocumentFragment tilbyr metoder for å endre teksten
+      - oversettes til Document-index og sendes rett videre
 
 --------------------
 
