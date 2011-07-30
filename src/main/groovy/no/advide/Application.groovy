@@ -1,10 +1,9 @@
 package no.advide
 
+import no.advide.commands.CommandParser
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter
-
-import no.advide.commands.CommandParser
 
 class Application {
 
@@ -21,7 +20,7 @@ class Application {
 
     editor.onChange { document ->
       def commands = new CommandParser(document).parse()
-      editor.updateLines commands.toNewScript() // <-- denne forsvinner når Commands bruker document selv
+      commands.updateDocument(document)
       editorPanel.textLayout = [lines: commands.formattedLines, cursor: document.cursor]
       editorPanel.repaint()
     }

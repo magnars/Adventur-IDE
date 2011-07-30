@@ -1,5 +1,6 @@
 package no.advide.commands
 
+import no.advide.Document
 import no.advide.FormattedLine
 
 class CommandList extends ArrayList<Command> {
@@ -10,5 +11,9 @@ class CommandList extends ArrayList<Command> {
 
   List<String> toNewScript() {
     (List<String>) collect { it.toNewScript() }.flatten()
+  }
+
+  void updateDocument(Document document) {
+    each { it.updateDocument(document) }
   }
 }

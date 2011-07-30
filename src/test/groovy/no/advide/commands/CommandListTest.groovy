@@ -1,5 +1,7 @@
 package no.advide.commands
 
+import no.advide.Document
+
 class CommandListTest extends GroovyTestCase {
 
   void test_should_be_list() {
@@ -20,6 +22,17 @@ class CommandListTest extends GroovyTestCase {
     l << new UnknownCommand([""])
     l << new UnknownCommand([""])
     assert l.toNewScript().size() == 2
+  }
+
+  void test_should_update_document() {
+    def calledWith = null
+    def doc = new Document(null, null)
+    def l = new CommandList()
+    def c = [ updateDocument: { calledWith = it } ] as Command
+    l << c
+
+    l.updateDocument(doc)
+    assert calledWith == doc
   }
 
 }

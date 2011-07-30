@@ -1,7 +1,5 @@
 package no.advide
 
-import antlr.StringUtils
-
 class Document {
   List<String> lines
   def cursor = [x: 0, y: 0]
@@ -113,38 +111,12 @@ class Document {
     moveCursor(dx: s.size())
   }
 
-  /*
-   *
-   *   Jeg tror ikke updateLines holder seg - commands som vil endre dokumentet
-   *   gjør det selv rett på dokumentet istedet --> alle cursor-problemer borte
-   *
-   */
-
-  void updateLines(List<String> lines) {
-    if (!lastUpdatedByCommand) {
-      if (textHasMovedUpWithoutCursor(lines)) moveCursor(dy: -1)
-      if (textHasMovedDownWithoutCursor(lines)) moveCursor(dy: 1)
-    }
-    this.lines = stripTrailingSpaces(lines)
-  }
-
-  boolean textHasMovedUpWithoutCursor(newLines) {
-    def newLinesIsOneShorter = newLines.size() == lines.size() - 1
-    def lineAtCursorHasChanged = newLines[cursor.y] != lines[cursor.y]
-    def lineAboveMatchesCurrent = newLines[cursor.y - 1] == lines[cursor.y]
-    return (newLinesIsOneShorter && lineAtCursorHasChanged && lineAboveMatchesCurrent)
-  }
-
-  boolean textHasMovedDownWithoutCursor(newLines) {
-    def newLinesIsOneLonger = newLines.size() == lines.size() + 1
-    def lineAtCursorHasChanged = newLines[cursor.y] != lines[cursor.y]
-    def lineBelowMatchesCurrent = newLines[cursor.y + 1] == lines[cursor.y]
-    return (newLinesIsOneLonger && lineAtCursorHasChanged && lineBelowMatchesCurrent)
-  }
-
-  private def stripTrailingSpaces(List<String> lines) {
+  /* untested
+  void stripTrailingSpaces() {
     lines.eachWithIndex { line, i ->
-      if (cursor.y != i) lines[i] = StringUtils.stripBack(line, " ")
+      lines[i] = StringUtils.stripBack(line, " ")
     }
+    cursor.x = Math.min(cursor.x, currentLine().size())
   }
+  */
 }

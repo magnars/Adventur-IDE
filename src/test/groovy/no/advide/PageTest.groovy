@@ -14,4 +14,8 @@ class PageTest extends GroovyTestCase {
     assert room.document.cursor == [x: 0, y: 0]
   }
 
+  void test_should_strip_trailing_spaces_on_load() {
+    // todo: should_strip_trailing_spaces_on_load
+  }
+
 }

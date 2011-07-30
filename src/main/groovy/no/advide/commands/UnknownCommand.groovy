@@ -1,7 +1,7 @@
 package no.advide.commands
 
-import no.advide.FormattedLine
 import java.awt.Color
+import no.advide.FormattedLine
 
 class UnknownCommand extends Command {
 

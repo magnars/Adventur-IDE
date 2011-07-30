@@ -151,31 +151,6 @@ class EditorTest extends GroovyTestCase {
     assert document.cursor == [x: 1, y: 0]
   }
 
-  void test_should_update_lines() {
-    setUpEditor(["abc", "def"], [x: 0, y: 0])
-    editor.updateLines(["abc def"])
-    assert document.lines == ["abc def"]
-  }
-
-  void test_should_right_trim_lines_without_cursor() {
-    setUpEditor(["", ""], [x: 0, y: 0])
-    editor.updateLines(["with cursor ", "without cursor "])
-    assert document.lines == ["with cursor ", "without cursor"]
-  }
-
-  void test_should_check_if_text_was_moved_up_from_under_cursor() {
-    setUpEditor(["abc", "def", ""], [x: 0, y: 1])
-    document.cursor.y = 2
-    editor.updateLines(["abc def", ""])
-    assert document.cursor.y == 1
-  }
-
-  void test_should_check_if_text_was_moved_down_from_under_cursor() {
-    setUpEditor(["abc def", ""], [x: 0, y: 1])
-    editor.updateLines(["abc", "def", ""])
-    assert document.cursor.y == 2
-  }
-
   void test_should_callback_when_changed() {
     setUpEditor([""], [x: 0, y: 0])
     def called = false

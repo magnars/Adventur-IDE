@@ -41,8 +41,4 @@ class Editor {
     changed()
   }
 
-  void updateLines(List<String> lines) {
-    document.updateLines(lines)
-  }
-
 }

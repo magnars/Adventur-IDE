@@ -1,7 +1,8 @@
 package no.advide.commands
 
-import no.advide.FormattedLine
 import no.advide.Cursor
+import no.advide.Document
+import no.advide.FormattedLine
 
 abstract class Command {
 
@@ -11,6 +12,8 @@ abstract class Command {
   abstract List<FormattedLine> getFormattedLines()
 
   abstract List<String> toNewScript()
+
+  void updateDocument(Document document) {}
 
   void setCursor(Cursor cursor, localCursorY) {
     this.cursor = cursor
