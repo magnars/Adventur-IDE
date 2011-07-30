@@ -1,9 +1,8 @@
 
-Editor og Cursor er så tett knyttet at de kanskje burde være samme objekt.
-Eksempelvis har Editor 'moveCursor' metode som den må ha.
-Og når cursoren ikke kjenner til lines, så kan den ikke holde seg gyldig på egenhånd.
+Command: localCursorY bør være localCursor.y
+Application: openEditor() bør delvis flyttes til en EditorController
 
----------------------
+--------------------
 
 En paragraf representeres med ':'
   - en paragraf med cursor på linja er uten ':'
@@ -51,6 +50,8 @@ En paragraf representeres med ':'
  - ved rendring av Lines, sender [Y] en tom array hvis den er helt standard
 
 ---------------------
-Cursor-klassen kan vite hvordan man eksempelvis splitter en linje rundt strengen (gjøres i ProseCommand:ensure... og Editor:enter)
-typ cursor.with(lines).backspace().enter()
 
+Editor og Cursor er så tett knyttet at de kanskje burde være samme objekt.
+Eksempelvis har Editor 'moveCursor' metode som den må ha.
+Og når cursoren ikke kjenner til lines, så kan den ikke holde seg gyldig på egenhånd.
+ ---> lar den være nå, men hvis det kommer flere bullets er det på tide å gjøre refaktoreringen
