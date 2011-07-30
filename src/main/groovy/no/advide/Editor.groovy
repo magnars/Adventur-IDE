@@ -15,7 +15,7 @@ class Editor {
         if (!document.atStartOfLine()) {
           document.removeCharAtCursor()
         } else if (!document.atFirstLine()) {
-          document.mergeLineAtCursorWithPrevious()
+          document.mergeLineWithPrevious(document.cursor.y)
         }
       }
   ]

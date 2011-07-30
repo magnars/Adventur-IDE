@@ -3,14 +3,12 @@ package no.advide
 class Document {
   List<String> lines
   def cursor = [x: 0, y: 0]
-  def lastUpdatedByCommand
 
   Document() {}
 
   Document(List<String> lines, cursor) {
     this.lines = lines
     this.cursor = cursor
-    this.lastUpdatedByCommand = false
   }
 
   String post() {
@@ -54,7 +52,6 @@ class Document {
     if (change.dy) cursor.y += change.dy
     if (change.x != null) cursor.x = change.x
     if (change.y != null) cursor.y = change.y
-    lastUpdatedByCommand = false
   }
 
   void moveCursorRight() {
@@ -102,10 +99,11 @@ class Document {
     moveCursor(dx: -1)
   }
 
-  void mergeLineAtCursorWithPrevious() {
-    moveCursor(dy: -1, x: previousLine().size())
-    lines[cursor.y] += lines[cursor.y + 1]
-    lines.remove(cursor.y + 1)
+  void mergeLineWithPrevious(int index) {
+    if (cursor.y == index) cursor.x += lines[index - 1].size()
+    if (cursor.y >= index) cursor.y -= 1
+    lines[index - 1] += lines[index]
+    lines.remove(index)
   }
 
   void insertCharAtCursor(c) {
@@ -128,4 +126,5 @@ class Document {
 
   void clearFragments() {
   }
+
 }

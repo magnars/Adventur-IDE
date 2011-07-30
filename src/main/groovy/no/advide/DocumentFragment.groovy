@@ -10,4 +10,8 @@ class DocumentFragment {
     document.lines[ startIndex..(startIndex + length - 1) ]
   }
 
+  void mergeLineWithPrevious(int index) {
+    document.mergeLineWithPrevious(startIndex + index)
+    length -= 1
+  }
 }

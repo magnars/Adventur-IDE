@@ -1,5 +1,5 @@
 
-Document -> linjer + cursor
+EditorTest er nå en "integrasjonstest" som først og fremst tester Document - rename og fix
 
 -------------------
 
