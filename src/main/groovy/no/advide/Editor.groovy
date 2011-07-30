@@ -1,5 +1,7 @@
 package no.advide
 
+import antlr.StringUtils
+
 class Editor {
   def lines
   Cursor cursor
@@ -113,7 +115,7 @@ class Editor {
   void updateLines(List<String> lines) {
     if (textHasMovedUpWithoutCursor(lines)) cursor.y--
     if (textHasMovedDownWithoutCursor(lines)) cursor.y++
-    this.lines = lines
+    this.lines = stripTrailingSpaces(lines)
   }
 
   boolean textHasMovedUpWithoutCursor(newLines) {
@@ -129,4 +131,11 @@ class Editor {
     def lineBelowMatchesCurrent = newLines[cursor.y + 1] == lines[cursor.y]
     return (newLinesIsOneLonger && lineAtCursorHasChanged && lineBelowMatchesCurrent)
   }
+
+  private def stripTrailingSpaces(List<String> lines) {
+    lines.eachWithIndex { line, i ->
+      if (cursor.y != i) lines[i] = StringUtils.stripBack(line, " ")
+    }
+  }
+
 }

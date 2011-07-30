@@ -149,6 +149,12 @@ class EditorTest extends GroovyTestCase {
     assert editor.lines == ["abc def"]
   }
 
+  void test_should_right_trim_lines_without_cursor() {
+    def editor = new Editor(lines: ["", ""], cursor: new Cursor(x: 0, y: 0))
+    editor.updateLines(["with cursor ", "without cursor "])
+    assert editor.lines == ["with cursor ", "without cursor"]
+  }
+
   void test_should_check_if_text_was_moved_up_from_under_cursor() {
     def editor = new Editor(lines: ["abc", "def", ""], cursor: new Cursor(x: 0, y: 1))
     editor.cursor.y = 2
