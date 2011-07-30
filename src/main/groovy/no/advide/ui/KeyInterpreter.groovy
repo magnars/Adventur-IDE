@@ -37,7 +37,7 @@ class KeyInterpreter {
   }
 
   def notifyChar(c) {
-    listeners.each { it.charTyped c }
+    listeners.each { it.charTyped c.toString() }
   }
 
   def notifyAction(a) {
