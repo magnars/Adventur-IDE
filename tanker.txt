@@ -1,5 +1,15 @@
 
+Document -> linjer + cursor
+
+-------------------
+
 Neste: åpne og hoppe til rom
+
+Etter det: Esc-knappen
+
+Tanke: kanskje Page har et Document?
+  - Det er en måte å beholde cursor-posisionen.
+  - Da kan man hoppe til et annet rom uten å lagre ... feature?
 
 --------------------
 

@@ -1,8 +1,5 @@
 package no.advide
 
-import javax.swing.JFileChooser
-import groovy.swing.SwingBuilder
-
 class Adventure {
 
   static Adventure current
@@ -43,8 +40,11 @@ class Adventure {
     hundreds < 10 ? "A0${hundreds}" : "A${hundreds}"
   }
 
-  Room loadRoom(int roomNumber) {
-    def lines = roomFile(roomNumber).readLines('UTF-8')
-    new Room(lines: lines, number: roomNumber)
+  Page loadRoom(int roomNumber) {
+    new Page("Rom ${roomNumber}", roomFile(roomNumber))
+  }
+
+  Page loadNotes() {
+    new Page('Notatblokk', new File("${directoryPath}/notat.txt"))
   }
 }

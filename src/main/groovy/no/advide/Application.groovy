@@ -10,7 +10,7 @@ class Application {
 
   static main(args) {
     Adventure.choose()
-    openEditor(Adventure.current.loadRoom(0))
+    openEditor(Adventure.current.loadNotes())
   }
 
   private static def openEditor(page) {

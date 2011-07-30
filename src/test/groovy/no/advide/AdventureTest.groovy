@@ -27,8 +27,14 @@ class AdventureTest extends GroovyTestCase {
 
   void test_should_load_room() {
     def room = adventure.loadRoom(0)
-    assert room.number == 0
+    assert room.name == "Rom 0"
     assert room.lines == ["Dette er rom 0 med blåbærsyltetøy."]
+  }
+
+  void test_should_load_notes() {
+    def notes = adventure.loadNotes()
+    assert notes.name == "Notatblokk"
+    assert notes.lines == ["Notatblokka"]
   }
 
 }
