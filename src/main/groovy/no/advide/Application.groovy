@@ -20,7 +20,7 @@ class Application {
 
     editor.onChange { document ->
       def commands = new CommandParser(document).parse()
-      commands.updateDocument(document)
+      commands.updateDocument()
       editorPanel.textLayout = [lines: commands.formattedLines, cursor: document.cursor]
       editorPanel.repaint()
     }

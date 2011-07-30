@@ -37,7 +37,7 @@ class Editor {
   }
 
   def charTyped(k) {
-    document.insertStringAtCursor(k)
+    document.insertCharAtCursor(k)
     changed()
   }
 

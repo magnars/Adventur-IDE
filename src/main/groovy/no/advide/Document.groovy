@@ -106,9 +106,9 @@ class Document {
     lines.remove(cursor.y + 1)
   }
 
-  void insertStringAtCursor(String s) {
-    lines[cursor.y] = pre() + s + post()
-    moveCursor(dx: s.size())
+  void insertCharAtCursor(c) {
+    lines[cursor.y] = pre() + c + post()
+    moveCursor(dx: 1)
   }
 
   /* untested
