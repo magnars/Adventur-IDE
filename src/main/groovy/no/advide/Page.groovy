@@ -3,11 +3,11 @@ package no.advide
 class Page {
   String name
   File file
-  List<String> lines
+  Document document
 
   Page(String name, File file) {
     this.name = name
     this.file = file
-    this.lines = file.readLines('UTF-8')
+    this.document = new Document(lines: file.readLines('UTF-8'), cursor: [x: 0, y: 0])
   }
 }

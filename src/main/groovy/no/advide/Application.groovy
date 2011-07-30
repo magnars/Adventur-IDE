@@ -13,16 +13,16 @@ class Application {
     openEditor(Adventure.current.loadNotes())
   }
 
-  private static def openEditor(page) {
+  private static def openEditor(Page page) {
     def editorPanel = new EditorPanel()
     def appFrame = new AppFrame(editorPanel)
 
-    def editor = new Editor(lines: page.lines, cursor: new Cursor(x: 0, y: 0))
+    def editor = new Editor(document: page.document)
 
-    editor.onChange { lines, cursor ->
-      def commands = new CommandParser(lines, cursor).parse()
-      editor.updateLines commands.toNewScript()
-      editorPanel.textLayout = [lines: commands.formattedLines, cursor: cursor]
+    editor.onChange { document ->
+      def commands = new CommandParser(document).parse()
+      editor.updateLines commands.toNewScript() // <-- denne forsvinner når Commands bruker document selv
+      editorPanel.textLayout = [lines: commands.formattedLines, cursor: document.cursor]
       editorPanel.repaint()
     }
     editor.changed()
