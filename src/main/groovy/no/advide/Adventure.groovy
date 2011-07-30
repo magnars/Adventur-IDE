@@ -27,7 +27,11 @@ class Adventure {
   }
 
   boolean roomExists(int roomNumber) {
-    new File(pathTo(roomNumber)).exists()
+    roomFile(roomNumber).exists()
+  }
+
+  private File roomFile(int roomNumber) {
+    return new File(pathTo(roomNumber))
   }
 
   String pathTo(int roomNumber) {
@@ -37,5 +41,10 @@ class Adventure {
   String subdir(int roomNumber) {
     int hundreds = roomNumber / 100
     hundreds < 10 ? "A0${hundreds}" : "A${hundreds}"
+  }
+
+  Room loadRoom(int roomNumber) {
+    def lines = roomFile(roomNumber).readLines('UTF-8')
+    new Room(lines: lines, number: roomNumber)
   }
 }

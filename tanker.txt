@@ -1,5 +1,5 @@
 
-Application: openEditor() bør delvis flyttes til en EditorController
+Neste: åpne og hoppe til rom
 
 --------------------
 

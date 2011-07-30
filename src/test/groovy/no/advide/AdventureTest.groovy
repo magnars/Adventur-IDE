@@ -7,7 +7,7 @@ class AdventureTest extends GroovyTestCase {
     Adventure.current = new Adventure(directory)
   }
 
-  def adventure
+  Adventure adventure
 
   void setUp() {
     setUpCurrent()
@@ -23,6 +23,12 @@ class AdventureTest extends GroovyTestCase {
     assert adventure.pathTo(0).endsWith("/A00/A0.txt")
     assert adventure.pathTo(101).endsWith("/A01/A101.txt")
     assert adventure.pathTo(217).endsWith("/A02/A217.txt")
+  }
+
+  void test_should_load_room() {
+    def room = adventure.loadRoom(0)
+    assert room.number == 0
+    assert room.lines == ["Dette er rom 0 med blåbærsyltetøy."]
   }
 
 }
