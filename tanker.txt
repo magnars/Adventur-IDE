@@ -5,7 +5,9 @@ EditorTest er nå en "integrasjonstest" som først og fremst tester Document - r
 
 Neste: åpne og hoppe til rom
 
-Etter det: Esc-knappen
+Etter det: nesting --> fragments med x-komponent?
+
+--------------------
 
 Page har Document:
   - Det er en måte å beholde cursor-posisionen.

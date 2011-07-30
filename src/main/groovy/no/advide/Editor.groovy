@@ -3,29 +3,24 @@ package no.advide
 class Editor {
   Document document
 
-  def changeCallbacks = []
-
   def actions = [
       "right":     { document.moveCursorRight() },
       "left":      { document.moveCursorLeft() },
       "up":        { document.moveCursorUp() },
       "down":      { document.moveCursorDown() },
-      "enter":     { document.splitLineAtCursor() },
+      "enter":     { document.splitAt(document.cursor.x, document.cursor.y) },
       "backspace": {
         if (!document.atStartOfLine()) {
-          document.removeCharAtCursor()
+          document.removeCharBefore(document.cursor.x, document.cursor.y)
         } else if (!document.atFirstLine()) {
           document.mergeLineWithPrevious(document.cursor.y)
         }
       }
   ]
 
-  def onChange(callback) {
-    changeCallbacks << callback
-  }
-
-  def changed() {
-    changeCallbacks.each { it.call document }
+  def charTyped(c) {
+    document.insertAt(document.cursor.x, document.cursor.y, c)
+    changed()
   }
 
   def actionTyped(k) {
@@ -36,9 +31,14 @@ class Editor {
     }
   }
 
-  def charTyped(k) {
-    document.insertCharAtCursor(k)
-    changed()
+  def changeCallbacks = []
+
+  def onChange(callback) {
+    changeCallbacks << callback
+  }
+
+  def changed() {
+    changeCallbacks.each { it.call document }
   }
 
 }

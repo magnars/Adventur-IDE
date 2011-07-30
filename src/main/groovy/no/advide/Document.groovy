@@ -83,30 +83,36 @@ class Document {
     }
   }
 
-  void splitLineAtCursor() {
-    def split = [pre(), post()]
-    lines.remove(cursor.y)
-    lines.addAll(cursor.y, split)
-    cursor.x = 0
-    cursor.y += 1
+  void removeCharBefore(Integer x, Integer y) {
+    if (cursor.y == y && cursor.x >= x) cursor.x -= 1
+    def pre = lines[y].substring(0, x - 1)
+    def post = lines[y].substring(x)
+    lines[y] = pre + post
   }
 
-  void removeCharAtCursor() {
-    def pre = currentLine().substring(0, cursor.x - 1)
-    lines[cursor.y] = pre + post()
-    cursor.x -= 1
+  void mergeLineWithPrevious(int y) {
+    if (cursor.y == y) cursor.x += lines[y - 1].size()
+    if (cursor.y >= y) cursor.y -= 1
+    lines[y - 1] += lines[y]
+    lines.remove(y)
   }
 
-  void mergeLineWithPrevious(int index) {
-    if (cursor.y == index) cursor.x += lines[index - 1].size()
-    if (cursor.y >= index) cursor.y -= 1
-    lines[index - 1] += lines[index]
-    lines.remove(index)
+  void splitAt(int x, int y) {
+    def pre = lines[y].substring(0, x)
+    def post = lines[y].substring(x)
+    def split = [pre, post]
+
+    if (cursor.y == y && cursor.x >= x) { cursor.y += 1; cursor.x -= pre.size() }
+    else if (cursor.y > y) cursor.y += 1
+    lines.remove(y)
+    lines.addAll(y, split)
   }
 
-  void insertCharAtCursor(c) {
-    lines[cursor.y] = pre() + c + post()
-    cursor.x += 1
+  void insertAt(int x, int y, s) {
+    if (cursor.y == y && cursor.x >= x) cursor.x += s.size()
+    def pre = lines[y].substring(0, x)
+    def post = lines[y].substring(x)
+    lines[y] = pre + s + post
   }
 
   /* untested
@@ -119,7 +125,7 @@ class Document {
   */
 
   DocumentFragment createFragment(int index, int length) {
-    new DocumentFragment(startIndex: index, length: length, document: this)
+    new DocumentFragment(startY: index, length: length, document: this)
   }
 
   void clearFragments() {

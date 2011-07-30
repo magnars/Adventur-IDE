@@ -3,15 +3,28 @@ package no.advide
 class DocumentFragment {
 
   Document document
-  int startIndex
+  int startY
   int length
 
   List<String> getLines() {
-    document.lines[ startIndex..(startIndex + length - 1) ]
+    document.lines[ startY..(startY + length - 1) ]
   }
 
-  void mergeLineWithPrevious(int index) {
-    document.mergeLineWithPrevious(startIndex + index)
+  void mergeLineWithPrevious(int y) {
+    document.mergeLineWithPrevious(startY + y)
     length -= 1
+  }
+
+  void appendTo(int y, String s) {
+    document.insertAt(lines[y].size(), startY + y, s)
+  }
+
+  void splitAt(int x, int y) {
+    document.splitAt(x, startY + y)
+    length += 1
+  }
+
+  void chop(int y) {
+    document.removeCharBefore(lines[y].size(), startY + y)
   }
 }
