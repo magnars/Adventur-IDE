@@ -5,6 +5,8 @@ class Document {
   def cursor = [x: 0, y: 0]
   def lastUpdatedByCommand
 
+  Document() {}
+
   Document(List<String> lines, cursor) {
     this.lines = lines
     this.cursor = cursor
@@ -122,5 +124,8 @@ class Document {
 
   DocumentFragment createFragment(int index, int length) {
     new DocumentFragment(startIndex: index, length: length, document: this)
+  }
+
+  void clearFragments() {
   }
 }

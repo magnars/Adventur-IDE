@@ -74,3 +74,10 @@ Editor og Cursor er så tett knyttet at de kanskje burde være samme objekt.
 Eksempelvis har Editor 'moveCursor' metode som den må ha.
 Og når cursoren ikke kjenner til lines, så kan den ikke holde seg gyldig på egenhånd.
  ---> lar den være nå, men hvis det kommer flere bullets er det på tide å gjøre refaktoreringen
+
+---------------------
+
+Ettersom jeg kaster alle Commands og parser hele teksten på nytt når brukeren gjør endringer,
+så legger det føringer for hvordan DocumentFragments brukes. De må nemlig cleares hver gang
+jeg parser, for at ikke utdaterte Commands skal leve videre i en grotesk vandød tilstand.
+

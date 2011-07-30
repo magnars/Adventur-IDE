@@ -5,9 +5,9 @@ import no.advide.Document
 class CommandParser {
 
   static List commandTypes = [
-      ProseCommand.class,
-      RemoveAlternativeCommand.class,
-      UnknownCommand.class
+      ProseCommand,
+      RemoveAlternativeCommand,
+      UnknownCommand
   ]
 
   List<String> strings
@@ -23,6 +23,7 @@ class CommandParser {
   }
 
   CommandList parse() {
+    document.clearFragments()
     while (index < strings.size()) {
       commands << findMatchingCommand()
     }
