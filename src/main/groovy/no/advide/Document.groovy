@@ -2,7 +2,7 @@ package no.advide
 
 class Document {
   List<String> lines
-  def cursor = [x: 0, y: 0]
+  def cursor = [x:0, y:0]
 
   Document() {}
 
@@ -47,42 +47,39 @@ class Document {
     cursor.x == 0
   }
 
-  def moveCursor(change) {
-    if (change.dx) cursor.x += change.dx
-    if (change.dy) cursor.y += change.dy
-    if (change.x != null) cursor.x = change.x
-    if (change.y != null) cursor.y = change.y
-  }
-
   void moveCursorRight() {
     if (!atEndOfLine()) {
-      moveCursor(dx: 1)
+      cursor.x += 1
     } else if (!atLastLine()) {
-      moveCursor(x: 0, dy: 1)
+      cursor.y += 1
+      cursor.x = 0
     }
   }
 
   void moveCursorLeft() {
     if (!atStartOfLine()) {
-      moveCursor(dx: -1)
+      cursor.x -= 1
     } else if (!atFirstLine()) {
-      moveCursor(dy: -1, x: previousLine().size())
+      cursor.y -= 1
+      cursor.x = currentLine().size()
     }
   }
 
   void moveCursorUp() {
     if (!atFirstLine()) {
-      moveCursor(dy: -1, x: Math.min(cursor.x, previousLine().size()))
+      cursor.y -= 1
+      cursor.x = Math.min(cursor.x, currentLine().size())
     } else if (!atStartOfLine()) {
-      moveCursor(x: 0)
+      cursor.x = 0
     }
   }
 
   void moveCursorDown() {
     if (!atLastLine()) {
-      moveCursor(dy: 1, x: Math.min(cursor.x, nextLine().size()))
+      cursor.y += 1
+      cursor.x = Math.min(cursor.x, currentLine().size())
     } else if (!atEndOfLine()) {
-      moveCursor(x: currentLine().size())
+      cursor.x = currentLine().size()
     }
   }
 
@@ -90,13 +87,14 @@ class Document {
     def split = [pre(), post()]
     lines.remove(cursor.y)
     lines.addAll(cursor.y, split)
-    moveCursor(x: 0, dy: 1)
+    cursor.x = 0
+    cursor.y += 1
   }
 
   void removeCharAtCursor() {
     def pre = currentLine().substring(0, cursor.x - 1)
     lines[cursor.y] = pre + post()
-    moveCursor(dx: -1)
+    cursor.x -= 1
   }
 
   void mergeLineWithPrevious(int index) {
@@ -108,7 +106,7 @@ class Document {
 
   void insertCharAtCursor(c) {
     lines[cursor.y] = pre() + c + post()
-    moveCursor(dx: 1)
+    cursor.x += 1
   }
 
   /* untested
