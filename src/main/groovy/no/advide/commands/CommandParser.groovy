@@ -1,6 +1,7 @@
 package no.advide.commands
 
 import no.advide.Cursor
+import no.advide.Document
 
 class CommandParser {
 
@@ -12,12 +13,12 @@ class CommandParser {
 
   List<String> strings
   CommandList commands
-  Cursor cursor
+  Document document
   int index
 
-  CommandParser(List<String> strings, Cursor cursor) {
-    this.strings = strings
-    this.cursor = cursor
+  CommandParser(Document document) {
+    this.strings = document.lines
+    this.document = document
     commands = new CommandList()
     index = 0
   }
@@ -39,17 +40,14 @@ class CommandParser {
   }
 
   private Command createCommand(type) {
-    def startingIndex = index
-    Command command = type.newInstance(popStrings(type.numMatchingLines(strings, index)))
-    if (cursor && index > cursor.y) {
-      command.setCursor(cursor, cursor.y - startingIndex)
-      cursor = null
-    }
+    def numLines = type.numMatchingLines(strings, index)
+    Command command = type.newInstance(nextLines(numLines))
+    index += numLines
     return command
   }
 
-  private List<String> popStrings(num) {
-    (1..num).collect { strings[index++] }
+  private List<String> nextLines(numLines) {
+    return strings[index..(index + numLines - 1)]
   }
 
 }

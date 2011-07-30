@@ -6,7 +6,7 @@ class EditorTest extends GroovyTestCase {
   Document document
   
   def setUpEditor(lines, cursor) {
-    document = new Document(lines: lines, cursor: cursor)
+    document = new Document(lines, cursor)
     editor = new Editor(document: document)
   }
   

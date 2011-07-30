@@ -7,6 +7,12 @@ class Document {
   def cursor = [x: 0, y: 0]
   def lastUpdatedByCommand
 
+  Document(List<String> lines, cursor) {
+    this.lines = lines
+    this.cursor = cursor
+    this.lastUpdatedByCommand = false
+  }
+
   String post() {
     currentLine().substring(cursor.x)
   }

@@ -8,6 +8,6 @@ class Page {
   Page(String name, File file) {
     this.name = name
     this.file = file
-    this.document = new Document(lines: file.readLines('UTF-8'), cursor: [x: 0, y: 0])
+    this.document = new Document(file.readLines('UTF-8'), [x: 0, y: 0])
   }
 }

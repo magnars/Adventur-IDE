@@ -7,9 +7,14 @@ Neste: åpne og hoppe til rom
 
 Etter det: Esc-knappen
 
-Tanke: kanskje Page har et Document?
+Page har Document:
   - Det er en måte å beholde cursor-posisionen.
   - Da kan man hoppe til et annet rom uten å lagre ... feature?
+
+--------------------
+
+Det er noe snålt med at et Document blir omformet ved parsing.
+Command'ene går inn i Document'et og endrer. Det må de få lov til, men kanskje ikke ved parsingen?
 
 --------------------
 

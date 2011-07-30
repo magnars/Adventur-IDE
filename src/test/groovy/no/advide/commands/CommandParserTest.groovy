@@ -1,37 +1,37 @@
 package no.advide.commands
 
 import no.advide.Cursor
+import no.advide.Document
 
 class CommandParserTest extends GroovyTestCase {
 
+  def commands
+  
+  void setUpCommands(lines, cursor) {
+    def document = new Document(lines, cursor)
+    commands = new CommandParser(document).parse()
+  }
+  
   void test_should_convert_strings_to_command_list() {
-    def commands = new CommandParser(["", "", ""], null).parse()
+    setUpCommands(["", "", ""], null)
     assert commands.size() == 3
   }
 
   void test_should_parse_UnknownCommand() {
-    def commands = new CommandParser([":h"], null).parse()
+    setUpCommands([":h"], null)
     assert commands.first().class == UnknownCommand.class
     assert commands.first().input == ":h"
   }
 
   void test_should_parse_RemoveAlternativeCommand() {
-    def commands = new CommandParser(["#100"], null).parse()
+    setUpCommands(["#100"], null)
     assert commands.first().class == RemoveAlternativeCommand.class
   }
 
   void test_should_parse_ProseCommand() {
-    def commands = new CommandParser(["hei", "du"], null).parse()
+    setUpCommands(["hei", "du"], null)
     assert commands.first().class == ProseCommand.class
     assert commands.first().toNewScript() == ["hei du"]
-  }
-
-  void test_should_give_cursor_to_active_command() {
-    def cursor = new Cursor(x: 0, y: 1)
-    def commands = new CommandParser(["#100", "hei", "du", "der"], cursor).parse()
-    assert !commands.first().active
-    assert commands.last().active
-    assert commands.last().localCursor.y == 0
   }
 
 }
