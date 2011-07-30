@@ -1,6 +1,7 @@
 package no.advide.commands
 
 import java.awt.Color
+import no.advide.DocumentFragment
 import no.advide.FormattedLine
 import org.apache.commons.lang3.StringUtils
 import org.apache.commons.lang3.text.WordUtils
@@ -21,8 +22,8 @@ class ProseCommand extends Command {
     index - fromIndex
   }
 
-  ProseCommand(List<String> strings) {
-    input = strings
+  ProseCommand(DocumentFragment fragment) {
+    input = fragment.lines
     lines = rewrapInput()
   }
 

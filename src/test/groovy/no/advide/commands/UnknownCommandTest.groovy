@@ -1,13 +1,19 @@
 package no.advide.commands
 
 import java.awt.Color
+import no.advide.Document
 
 class UnknownCommandTest extends GroovyTestCase {
 
   Command command
 
+  static Command createTestCommand() {
+    def document = new Document([":hm"], [x: 0, y: 0])
+    return new UnknownCommand(document.createFragment(0, 1))
+  }
+
   void setUp() {
-    command = new UnknownCommand([":hm"])
+    command = createTestCommand()
   }
 
   void test_line_should_match_input() {

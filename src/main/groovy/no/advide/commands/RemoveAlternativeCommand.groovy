@@ -1,8 +1,9 @@
 package no.advide.commands
 
-import no.advide.FormattedLine
-import no.advide.Adventure
 import java.awt.Color
+import no.advide.Adventure
+import no.advide.DocumentFragment
+import no.advide.FormattedLine
 
 class RemoveAlternativeCommand extends Command {
 
@@ -17,9 +18,9 @@ class RemoveAlternativeCommand extends Command {
     1
   }
 
-  RemoveAlternativeCommand(List<String> strings) {
-    if (strings.size() != 1) throw new IllegalArgumentException("takes 1 line");
-    input = strings.first()
+  RemoveAlternativeCommand(DocumentFragment fragment) {
+    if (fragment.length != 1) throw new IllegalArgumentException("takes 1 line");
+    input = fragment.lines.first()
     roomNumber = input.substring(1).toInteger()
   }
 

@@ -2,24 +2,24 @@ package no.advide.commands
 
 class CommandListTest extends GroovyTestCase {
 
+  def list
+
+  void setUp() {
+    list = new CommandList()
+    list << UnknownCommandTest.createTestCommand()
+    list << UnknownCommandTest.createTestCommand()
+  }
+
   void test_should_be_list() {
-    def l = new CommandList()
-    l << new UnknownCommand([""])
-    assert l.size() == 1
+    assert list instanceof List
   }
 
   void test_should_collect_lines() {
-    def l = new CommandList()
-    l << new UnknownCommand([""])
-    l << new UnknownCommand([""])
-    assert l.getFormattedLines().size() == 2
+    assert list.getFormattedLines().size() == 2
   }
 
   void test_should_convert_to_newScript() {
-    def l = new CommandList()
-    l << new UnknownCommand([""])
-    l << new UnknownCommand([""])
-    assert l.toNewScript().size() == 2
+    assert list.toNewScript().size() == 2
   }
 
   void test_should_update_document() {

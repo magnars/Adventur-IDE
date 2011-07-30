@@ -119,4 +119,8 @@ class Document {
     cursor.x = Math.min(cursor.x, currentLine().size())
   }
   */
+
+  DocumentFragment createFragment(int index, int length) {
+    new DocumentFragment(startIndex: index, length: length, document: this)
+  }
 }

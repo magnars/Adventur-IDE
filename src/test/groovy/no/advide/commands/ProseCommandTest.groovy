@@ -1,8 +1,16 @@
 package no.advide.commands
 
 import java.awt.Color
+import no.advide.Document
 
 class ProseCommandTest extends GroovyTestCase {
+
+  def command
+
+  void setUpCommand(List lines) {
+    def document = new Document(lines, [x:0, y:0])
+    command = new ProseCommand(document.createFragment(0, lines.size()))
+  }
 
   void test_should_match_lines_starting_with_letters() {
     assert ProseCommand.matches(["", "", "Hei"], 2)
@@ -15,18 +23,18 @@ class ProseCommandTest extends GroovyTestCase {
   }
 
   void test_should_concatenate_lines() {
-    def command = new ProseCommand(["Hei", "du"])
+    setUpCommand(["Hei", "du"])
     assert command.toNewScript() == ["Hei du"]
   }
 
   void test_should_wrap_words() {
-    def command = new ProseCommand(["Hei", "du,", "så fin", "hatt"])
+    setUpCommand(["Hei", "du,", "så fin", "hatt"])
     command.setWidth(10)
     assert command.toNewScript() == ["Hei du, så", "fin hatt"]
   }
 
   void test_should_get_formatted_lines() {
-    def command = new ProseCommand(["Hei"])
+    setUpCommand(["Hei"])
     assert command.formattedLines.size() == 1
     assert command.formattedLines.first().text == "Hei"
     assert command.formattedLines.first().color == Color.black

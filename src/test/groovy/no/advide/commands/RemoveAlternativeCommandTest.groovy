@@ -1,12 +1,20 @@
 package no.advide.commands
 
-import no.advide.AdventureTest
 import java.awt.Color
+import no.advide.AdventureTest
+import no.advide.Document
 
 class RemoveAlternativeCommandTest extends GroovyTestCase {
 
+  def command
+
   void setUp() {
     AdventureTest.setUpCurrent()
+  }
+
+  void setUpCommand(line) {
+    def document = new Document([line], [x:0, y:0])
+    command = new RemoveAlternativeCommand(document.createFragment(0, 1))
   }
 
   void test_should_match_starting_hash_with_numbers() {
@@ -18,18 +26,19 @@ class RemoveAlternativeCommandTest extends GroovyTestCase {
   }
 
   void test_should_return_formatted_line() {
-    def lines = new RemoveAlternativeCommand(["#0"]).formattedLines
-    assert lines.size() == 1
-    assert lines.first().text == "#0"
+    setUpCommand("#0")
+    assert command.formattedLines.size() == 1
+    assert command.formattedLines.first().text == "#0"
   }
 
   void test_should_color_red_if_does_not_exists() {
-    def lines = new RemoveAlternativeCommand(["#17"]).formattedLines
-    assert lines.first().changes[1].changeColor == Color.red
+    setUpCommand("#17")
+    assert command.formattedLines.first().changes[1].changeColor == Color.red
   }
 
   void test_should_convert_to_newScript() {
-    assert new RemoveAlternativeCommand(["#23"]).toNewScript() == ["#23"]
+    setUpCommand("#23")
+    assert command.toNewScript() == ["#23"]
   }
 
 }
