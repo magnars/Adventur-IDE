@@ -17,3 +17,5 @@ Stedsoversikt -> Manuell tegning av rom (sirkler) med navn, klikkbar
 Bedre skrivefeil -> liste, som før, men også andre regler
 
 Ting -> bilder, tekst, beskrivelse
+
+Støtte for Magnar-typiske [ ] sjekkbokser

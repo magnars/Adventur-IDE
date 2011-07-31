@@ -1,5 +1,7 @@
 package no.advide
 
+import antlr.StringUtils
+
 class Document {
   List<String> lines
   def cursor = [x:0, y:0]
@@ -123,14 +125,12 @@ class Document {
     lines[y] = pre + s + post
   }
 
-  /* untested
   void stripTrailingSpaces() {
     lines.eachWithIndex { line, i ->
       lines[i] = StringUtils.stripBack(line, " ")
     }
     cursor.x = Math.min(cursor.x, currentLine().size())
   }
-  */
 
   List<DocumentFragment> fragments = []
 
