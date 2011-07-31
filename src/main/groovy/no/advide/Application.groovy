@@ -11,36 +11,47 @@ class Application {
 
   static main(args) {
     Adventure.choose()
-    openEditor(Adventure.current.loadNotes())
+    new Application().open(Adventure.current.loadNotes())
   }
 
-  private static def openEditor(Page page) {
-    def editorPanel = new EditorPanel()
-    def appFrame = new AppFrame(editorPanel)
+  EditorPanel editorPanel
+  AppFrame appFrame
+  Editor editor
+  KeyInterpreter keys
 
-    def editor = new Editor(document: page.document)
+  Application() {
+    editorPanel = new EditorPanel()
+    appFrame = new AppFrame(editorPanel)
+    keys = new KeyInterpreter(editorPanel)
+    editor = new Editor()
+  }
 
-    editor.onChange { document ->
-      def commands = new CommandParser(document).parse()
-      justifyWordsInProse(commands)
-      updateEditorPanel(commands, document, editorPanel)
-    }
+  void open(Page page) {
+    hookUpEditorEvents()
+    editor.document = page.document
     editor.changed()
 
-    def keys = new KeyInterpreter(editorPanel)
-    keys.addListener editor
     keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
-
     appFrame.setHeaderText("Master - ${page.name}")
+
     appFrame.show()
   }
 
-  private static def updateEditorPanel(CommandList commands, document, EditorPanel editorPanel) {
-    editorPanel.textLayout = [lines: commands.formattedLines, cursor: document.cursor]
+  void hookUpEditorEvents() {
+    keys.addListener editor
+    editor.onChange { document ->
+      def commands = new CommandParser(document).parse()
+      justifyWordsInProse(commands)
+      updateEditorPanel(commands, document.cursor)
+    }
+  }
+
+  void updateEditorPanel(CommandList commands, cursor) {
+    editorPanel.textLayout = [lines: commands.formattedLines, cursor: cursor]
     editorPanel.repaint()
   }
 
-  private static def justifyWordsInProse(CommandList commands) {
+  void justifyWordsInProse(CommandList commands) {
     commands.getAll(ProseCommand).each { new WordWrapper(it.fragment).justify() }
   }
 
