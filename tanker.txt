@@ -1,8 +1,87 @@
+
+Det er ting jeg ikke forstår enda. Prøv å finne ut av dem ved å:
+
+[ ] lage en command som er forskjellig i new og old.
+
+[ ] lagre en side (i old)
+
+[ ] hold inne en tastekonbinasjon for å se oldscript. Kanskje formatert?
+
+
+--->
+Mine første tanker etter å ha begynt på dette eksperimentet er at ProseCommand har lurt meg litt. Den er en høyst
+uvanlig kommando. For det første så er transformasjonen av teksten ikke en konvertering til newScript. Gamle sider
+vil også bruke wordwrappingen. Det er rett og slett en reformatering.
+
+De andre kommandoene er mye enklere i formen. De har en ny versjon, også har de en gammel versjon. De må kunne
+kjenne igjen begge, og rendre seg selv som begge.
+
+Nå har ikke jeg tenkt å støtte redigering av oldScript i den nye editoren, men jeg sitter nå og lurer på om
+designet og koden hadde blitt mye renere hvis jeg faktisk gjorde det mulig. Da blir Command'ene symetriske, hvor
+de nå er skjeve og rare.
+
+--->
+Et problem med automatisk konvertering er eksempelvis ---. Hvis du skriver tre streker (i et ledd for å lage en
+overskrift for eksempel), så vil den poppe opp neste linje med :slemmere => foran. Det er jo bare teit.
+Kanskje den rett og slett ikke driver med den slags? Hva om du kan skrive --- og så ctrl+space for å konvertere.
+
+--->
+Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
+De trenger bare å svare på getRoomNumbers og getRequirements med [text, position: [x,y]],
+så vil egne klasser håndtere fargelegging av dem.
+
+--->
+
+Jeg tror faktisk Document skal ha "convertToNewScript" og "convertToOldScript"
+ - så lenge kommandoene klarer å finne igjen RoomNumber og Requirement i begge formene, så går det bra.
+ - det eneste problemet med å ta en direkte setLines() er cursoren. Så det problemet har vi bare på en linje.
+   og siden det ikke skjer uten din kontroll, så er ikke cursor-posisjonen like farlig. Den kan bare havne på slutten av linja.
+   Evnt. starten hvis den var der.
+
+--->
+
+Et hovedpoeng er at Prose sin reformattering er noe helt annet enn å konvertere til newScript.
+
+Et annet poeng er at de aller fleste commands har INGEN behov for å endre på sine egne FormattedLines. Det eneste
+de gjør er å returnere en ny FormattedLine med teksten sin i. Det skulle ikke være nødvendig.
+  - grunnen til at det ble tenkt sånn i utgangspunktet var at Requirements og RoomNumbers måtte fargelegges og
+    håndteres. Men det må uansett gjøres fra utsiden, pga tastetrykk som F7 og pipe.
+  - det kan godt hende at getFormattedLines faller helt bort.
+
+
+
+
+
+
+****** Her er konklusjonen
+
+Commands vet alt om kommandoene i Adventur. De kan rendre seg som ny og som gammel, og vet hvor de kan finne
+romnummer og krav. De endrer ikke på dokumenter. De kan svare på "er dette den gamle eller nye formen?", slik at
+editoren kan la deg trykke ctrl+space for å endre til ny form.
+
+Det gjøres bare konvertering til newScript ved innlasting av rom.
+
+ProseCommand blir fritatt fra sin tunge oppgave. I stedet gis listen over kommandoer i et dokument
+til en ProseFormatter, som gjør jobben. Den låner fragmentet fra kommandoene og gjør endringer gjennom dem.
+
+ProseFormatter har nok etterhvert metoden restructure() og format()
+
+Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker de det til å finne
+sine romnummer og krav - det har blitt deres nye hovedformål.
+
+Du ber fortsatt Command om å få FormattedLines - men det flyttes opp til Command-superklassen som bare løper
+gjennom fragmentet og lager dem ut fra lines.
+
+
 -------------------
 
 Neste: åpne og hoppe til rom
 
 Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
+
+--------------------
+
+- et romnummers oppførsel (som at det er rødt) hører ikke hjemme i RemovedAlternativeCommand
 
 --------------------
 

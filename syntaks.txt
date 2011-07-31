@@ -74,7 +74,7 @@ $$$                                     :tidshopp +1
 [X]2                                    @17 ? 2. besøk 
 17                                          
 
-!!!                                     --- fortsett ---
+!!!                                     -- fortsett --
 
 [$]$TALL                                Det er ($TALL bananer|en banan).
 Det er $$ bananer.
