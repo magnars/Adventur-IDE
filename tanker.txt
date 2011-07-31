@@ -61,10 +61,10 @@ editoren kan la deg trykke ctrl+space for å endre til ny form.
 
 Det gjøres bare konvertering til newScript ved innlasting av rom.
 
-ProseCommand blir fritatt fra sin tunge oppgave. I stedet gis listen over kommandoer i et dokument
-til en ProseFormatter, som gjør jobben. Den låner fragmentet fra kommandoene og gjør endringer gjennom dem.
+ProseCommand blir fritatt fra sin tunge oppgave. I stedet gis fragmentene deres til en TextFormatter,
+som gjør jobben. Det samme gjelder tekstdelen av alternativer.
 
-ProseFormatter har nok etterhvert metoden restructure() og format()
+TextFormatter har nok etterhvert metoden restructure() og format()
 
 Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker de det til å finne
 sine romnummer og krav - det har blitt deres nye hovedformål.
@@ -82,6 +82,10 @@ Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offs
 --------------------
 
 - et romnummers oppførsel (som at det er rødt) hører ikke hjemme i RemovedAlternativeCommand
+
+--------------------
+
+Istedet for automatisk fiksing mens du skriver, så vil jeg ha små lyspærer i margen som ordner.
 
 --------------------
 

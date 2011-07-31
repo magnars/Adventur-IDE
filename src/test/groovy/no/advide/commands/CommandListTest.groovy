@@ -2,7 +2,7 @@ package no.advide.commands
 
 class CommandListTest extends GroovyTestCase {
 
-  def list
+  CommandList list
 
   void setUp() {
     list = new CommandList()
@@ -18,14 +18,9 @@ class CommandListTest extends GroovyTestCase {
     assert list.getFormattedLines().size() == 2
   }
 
-  void test_should_update_document() {
-    def called = false
-    def l = new CommandList()
-    def c = [ updateDocument: { called = true } ] as Command
-    l << c
-
-    l.updateDocument()
-    assert called
+  void test_should_get_commands_of_particular_type() {
+    list << null
+    assert list.getAll(UnknownCommand).size() == 2
   }
 
 }

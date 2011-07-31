@@ -8,7 +8,7 @@ class CommandList extends ArrayList<Command> {
     (List<FormattedLine>) this*.formattedLines.flatten()
   }
 
-  void updateDocument() {
-    each { it.updateDocument() }
+  List<Command> getAll(commandType) {
+    findAll { it?.class == commandType }
   }
 }

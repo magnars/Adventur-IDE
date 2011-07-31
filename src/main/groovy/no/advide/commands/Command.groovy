@@ -6,6 +6,4 @@ abstract class Command {
 
   abstract List<FormattedLine> getFormattedLines()
 
-  void updateDocument() {}
-
 }
