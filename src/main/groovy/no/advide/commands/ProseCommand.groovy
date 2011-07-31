@@ -12,7 +12,7 @@ class ProseCommand extends Command {
   int width = 80
 
   static def matches(List<String> strings, int fromIndex) {
-    strings[fromIndex] =~ /^ ?[a-zA-ZæøåÆØÅ]/
+    strings[fromIndex] =~ /^[a-zA-ZæøåÆØÅ]/
   }
 
   static Object numMatchingLines(List<String> strings, int fromIndex) {
