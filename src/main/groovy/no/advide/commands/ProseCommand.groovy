@@ -12,7 +12,7 @@ class ProseCommand extends Command {
   int width = 80
 
   static def matches(List<String> strings, int fromIndex) {
-    strings[fromIndex] =~ /^[a-zA-ZæøåÆØÅ]/
+    strings[fromIndex] =~ /^ ?[a-zA-ZæøåÆØÅ]/
   }
 
   static Object numMatchingLines(List<String> strings, int fromIndex) {
@@ -39,7 +39,7 @@ class ProseCommand extends Command {
   private def concatenateToOneLine_orMaybeTwo() {
     while (fragment.length > 1) {
       if (cursorIsAtStartOfSecondLine()) { concatenateToTwoLinesInstead(); break }
-      ensureSpaceBetweenLines(0)
+      addSpaceBetweenLinesAsNewlineReplacement(0)
       fragment.mergeLineWithPrevious(1)
     }
   }
@@ -54,7 +54,7 @@ class ProseCommand extends Command {
 
   private def concatenateToTwoLinesInstead() {
     while (fragment.length > 2) {
-      ensureSpaceBetweenLines(1)
+      addSpaceBetweenLinesAsNewlineReplacement(1)
       fragment.mergeLineWithPrevious(2)
     }
   }
@@ -63,8 +63,16 @@ class ProseCommand extends Command {
     return fragment.cursor && fragment.cursor.x == 0 && fragment.cursor.y == 1
   }
 
-  private def ensureSpaceBetweenLines(int y) {
-    fragment.appendTo(y, " ")
+  private def addSpaceBetweenLinesAsNewlineReplacement(int y) {
+    if (noWhiteSpaceAtEnd(y) || cursorAtEndOfLine(y)) fragment.appendTo(y, " ")
+  }
+
+  private boolean cursorAtEndOfLine(int y) {
+    return fragment.cursor && fragment.cursor.y == y && fragment.cursor.x == fragment.lines[y].size()
+  }
+
+  private boolean noWhiteSpaceAtEnd(int y) {
+    return !fragment.lines[y].endsWith(" ")
   }
 
   @Override

@@ -36,8 +36,7 @@ class ProseCommandTest extends GroovyTestCase {
     assert document.lines == ["Hei du"]
   }
 
-  // todo: should_avoid_double_spaces
-  void _test_updateDocument_should_avoid_double_spaces() {
+  void test_updateDocument_should_avoid_double_spaces() {
     setUpCommand(["Hei ", "du"])
     command.updateDocument()
     assert document.lines == ["Hei du"]
@@ -93,6 +92,17 @@ class ProseCommandTest extends GroovyTestCase {
     command.updateDocument()
     assert document.lines == ["En full linje", ""]
     assert document.cursor == [x:0, y:1]
+  }
+
+  void test_updateDocument_trailing_space_before_cursor_shouldnt_be_used_as_newline() {
+    setUpCommand(["En overfull", "linje"])
+    command.width = 13
+    document.cursor = [x:11, y:0]
+    document.insertAt(document.cursor.x, document.cursor.y, " ")
+    document.moveCursorRight()
+    command.updateDocument()
+    assert document.lines == ["En overfull ", "linje"]
+    assert document.cursor == [x:12, y:0]
   }
 
 }

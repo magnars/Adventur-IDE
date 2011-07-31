@@ -2,13 +2,13 @@
 
 Neste: åpne og hoppe til rom
 
-Etter det: nesting --> fragments med x-komponent?
+Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
 
 --------------------
 
 Page har Document:
   - Det er en måte å beholde cursor-posisionen.
-  - Da kan man hoppe til et annet rom uten å lagre ... feature?
+  - Da kan man hoppe til et annet rom uten å lagre ... feature? tror det føles som bug
 
 --------------------
 
