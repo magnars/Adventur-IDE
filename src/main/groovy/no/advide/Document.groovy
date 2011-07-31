@@ -93,6 +93,10 @@ class Document {
   void mergeLineWithPrevious(int y) {
     if (cursor.y == y) cursor.x += lines[y - 1].size()
     if (cursor.y >= y) cursor.y -= 1
+
+    fragmentsAt(y).each { it.length -= 1 }
+    fragmentsAfter(y).each { it.startY -= 1 }
+
     lines[y - 1] += lines[y]
     lines.remove(y)
   }
@@ -104,12 +108,16 @@ class Document {
 
     if (cursor.y == y && cursor.x >= x) { cursor.y += 1; cursor.x -= pre.size() }
     else if (cursor.y > y) cursor.y += 1
+
+    fragmentsAt(y).each { it.length += 1 }
+    fragmentsAfter(y).each { it.startY += 1 }
+
     lines.remove(y)
     lines.addAll(y, split)
   }
 
   void insertAt(int x, int y, s) {
-    if (cursor.y == y && cursor.x >= x) cursor.x += s.size()
+    if (cursor.y == y && cursor.x > x) cursor.x += s.size()
     def pre = lines[y].substring(0, x)
     def post = lines[y].substring(x)
     lines[y] = pre + s + post
@@ -124,11 +132,25 @@ class Document {
   }
   */
 
-  DocumentFragment createFragment(int index, int length) {
-    new DocumentFragment(startY: index, length: length, document: this)
+  List<DocumentFragment> fragments = []
+
+  DocumentFragment createFragment(int y, int length) {
+    def f = new DocumentFragment(startY: y, length: length, document: this)
+    fragments << f
+    return f
   }
 
   void clearFragments() {
+    fragments = []
   }
+
+  List<DocumentFragment> fragmentsAt(int y) {
+    fragments.findAll { it.inside(y) }
+  }
+
+  List<DocumentFragment> fragmentsAfter(int y) {
+    fragments.findAll { it.startY > y }
+  }
+
 
 }

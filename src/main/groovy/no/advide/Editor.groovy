@@ -20,6 +20,7 @@ class Editor {
 
   def charTyped(c) {
     document.insertAt(document.cursor.x, document.cursor.y, c)
+    document.moveCursorRight()
     changed()
   }
 

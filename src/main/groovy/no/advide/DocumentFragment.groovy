@@ -6,13 +6,21 @@ class DocumentFragment {
   int startY
   int length
 
+  def getCursor() {
+    if (inside(document.cursor.y))
+      [x: document.cursor.x, y: document.cursor.y - startY]
+  }
+
+  boolean inside(int y) {
+    y - startY >= 0 && y - startY < length
+  }
+
   List<String> getLines() {
     document.lines[ startY..(startY + length - 1) ]
   }
 
   void mergeLineWithPrevious(int y) {
     document.mergeLineWithPrevious(startY + y)
-    length -= 1
   }
 
   void appendTo(int y, String s) {
@@ -21,7 +29,6 @@ class DocumentFragment {
 
   void splitAt(int x, int y) {
     document.splitAt(x, startY + y)
-    length += 1
   }
 
   void chop(int y) {
