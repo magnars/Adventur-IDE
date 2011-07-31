@@ -1,6 +1,5 @@
 package no.advide.commands
 
-import no.advide.Cursor
 import no.advide.Document
 
 class CommandParserTest extends GroovyTestCase {
@@ -31,7 +30,6 @@ class CommandParserTest extends GroovyTestCase {
   void test_should_parse_ProseCommand() {
     setUpCommands(["hei", "du"], null)
     assert commands.first().class == ProseCommand.class
-    assert commands.first().toNewScript() == ["hei du"]
   }
 
 }

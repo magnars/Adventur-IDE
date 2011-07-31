@@ -33,8 +33,4 @@ class RemoveAlternativeCommand extends Command {
     [line]
   }
 
-  @Override
-  List<String> toNewScript() {
-    [input]
-  }
 }

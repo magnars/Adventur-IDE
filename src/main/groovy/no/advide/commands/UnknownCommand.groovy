@@ -17,10 +17,6 @@ class UnknownCommand extends Command {
     [new FormattedLine(text: this.input, color: Color.black)]
   }
 
-  List<String> toNewScript() {
-    [this.input]
-  }
-
   static boolean matches(Object lines, Object fromIndex) {
     true
   }

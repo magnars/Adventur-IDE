@@ -23,17 +23,6 @@ class ProseCommandTest extends GroovyTestCase {
     assert ProseCommand.numMatchingLines(["Hei", "du"], 0) == 2
   }
 
-  void test_should_concatenate_lines() {
-    setUpCommand(["Hei", "du"])
-    assert command.toNewScript() == ["Hei du"]
-  }
-
-  void test_should_wrap_words() {
-    setUpCommand(["Hei", "du,", "så fin", "hatt"])
-    command.setWidth(10)
-    assert command.toNewScript() == ["Hei du, så", "fin hatt"]
-  }
-
   void test_should_get_formatted_lines() {
     setUpCommand(["Hei"])
     assert command.formattedLines.size() == 1

@@ -10,7 +10,6 @@ class ProseCommand extends Command {
 
   DocumentFragment fragment
   int width = 80
-  List<String> lines
 
   static def matches(List<String> strings, int fromIndex) {
     strings[fromIndex] =~ /^[a-zA-ZæøåÆØÅ]/
@@ -24,12 +23,10 @@ class ProseCommand extends Command {
 
   ProseCommand(DocumentFragment fragment) {
     this.fragment = fragment
-    lines = rewrapInput()
   }
 
   void setWidth(int width) {
     this.width = width
-    lines = rewrapInput() // burde være mulig å bli kvitt denne
   }
 
   @Override
@@ -73,15 +70,6 @@ class ProseCommand extends Command {
   @Override
   List<FormattedLine> getFormattedLines() {
     fragment.lines.collect { new FormattedLine(text: it, color: Color.black)}
-  }
-
-  @Override
-  List<String> toNewScript() { // todo: denne må dø -> funker ikke med newScript uten å kunne endre document
-    lines                      // og document kan ikke endres under parsing -> så kan ikke gjøres i constructor
-  }                            // evnt kan den kjøre updateDocument først, men trengs den til noe?
-
-  private List<String> rewrapInput() {
-    StringUtils.splitPreserveAllTokens(WordUtils.wrap(fragment.lines.join(" "), width), '\n')
   }
 
   private List<String> wrapWords(String string) {

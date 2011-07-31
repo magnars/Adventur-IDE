@@ -36,9 +36,4 @@ class RemoveAlternativeCommandTest extends GroovyTestCase {
     assert command.formattedLines.first().changes[1].changeColor == Color.red
   }
 
-  void test_should_convert_to_newScript() {
-    setUpCommand("#23")
-    assert command.toNewScript() == ["#23"]
-  }
-
 }

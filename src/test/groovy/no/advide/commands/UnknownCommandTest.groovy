@@ -34,8 +34,4 @@ class UnknownCommandTest extends GroovyTestCase {
     assert command.formattedLines.first().color == Color.black
   }
 
-  void test_should_convert_to_newScript() {
-    assert command.toNewScript() == [":hm"]
-  }
-
 }
