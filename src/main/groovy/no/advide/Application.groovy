@@ -14,19 +14,22 @@ class Application {
   EditorPanel editorPanel
   AppFrame appFrame
   KeyInterpreter keys
+  PageEditor editor
 
   Application() {
     editorPanel = new EditorPanel()
     appFrame = new AppFrame(editorPanel)
     keys = new KeyInterpreter(editorPanel)
+    editor = new PageEditor()
   }
 
   void open(Page startingPage) {
-    new PageEditor(keys).kickstart(startingPage) { page ->
+    editor.kickstart(startingPage) { page ->
       appFrame.setHeaderText("Master - ${page.name}")
       editorPanel.updateContents(page.commands, page.document.cursor)
     }
 
+    keys.addListener(editor)
     keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
 
     appFrame.show()

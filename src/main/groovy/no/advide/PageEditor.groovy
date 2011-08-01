@@ -1,21 +1,18 @@
 package no.advide
 
-import no.advide.ui.KeyInterpreter
-
 class PageEditor {
 
   Page page
   TextEditor textEditor
 
-  PageEditor(KeyInterpreter keys) {
+  PageEditor() {
     initTextEditor()
-    keys.addListener(this)
   }
 
   void kickstart(Page startingPage, changeCallback) {
     setPage(startingPage)
     onChange(changeCallback)
-    changeCallback.call(page)
+    changeCallback.call(startingPage)
   }
 
   private def initTextEditor() {
