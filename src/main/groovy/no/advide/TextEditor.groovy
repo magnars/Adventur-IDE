@@ -1,6 +1,6 @@
 package no.advide
 
-class Editor {
+class TextEditor {
   Document document
 
   def actions = [

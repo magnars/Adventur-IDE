@@ -16,43 +16,37 @@ class Application {
 
   EditorPanel editorPanel
   AppFrame appFrame
-  Editor editor
+  PageEditor editor
   KeyInterpreter keys
 
   Application() {
     editorPanel = new EditorPanel()
     appFrame = new AppFrame(editorPanel)
     keys = new KeyInterpreter(editorPanel)
-    editor = new Editor()
+    editor = new PageEditor()
   }
 
-  void open(Page page) {
+  void open(Page startingPage) {
     hookUpEditorEvents()
-    editor.document = page.document
+    editor.page = startingPage
     editor.changed()
 
     keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
-    appFrame.setHeaderText("Master - ${page.name}")
 
     appFrame.show()
   }
 
   void hookUpEditorEvents() {
     keys.addListener editor
-    editor.onChange { document ->
-      def commands = new CommandParser(document).parse()
-      justifyWordsInProse(commands)
-      updateEditorPanel(commands, document.cursor)
+    editor.onChange { page ->
+      appFrame.setHeaderText("Master - ${page.name}")
+      updateEditorPanel(page.commands, page.document.cursor)
     }
   }
 
   void updateEditorPanel(CommandList commands, cursor) {
     editorPanel.textLayout = [lines: commands.formattedLines, cursor: cursor]
     editorPanel.repaint()
-  }
-
-  void justifyWordsInProse(CommandList commands) {
-    commands.getAll(ProseCommand).each { new WordWrapper(it.fragment).justify() }
   }
 
 }

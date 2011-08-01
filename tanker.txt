@@ -1,4 +1,10 @@
 
+Prøver meg nå på en idé:
+ - Editor blir nå TextEditor. Den kjenner til et document, som består av tekst og en cursor. Vet ingenting annet.
+ - PageEditor har en Page, kjenner til Commands, og er mer opptatt av domenet. Delegerer videre til TextEditor.
+
+--------
+
 Det er ting jeg ikke forstår enda. Prøv å finne ut av dem ved å:
 
 [ ] lage en command som er forskjellig i new og old.

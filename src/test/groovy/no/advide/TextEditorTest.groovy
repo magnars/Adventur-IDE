@@ -1,13 +1,13 @@
 package no.advide
 
-class EditorTest extends GroovyTestCase {
+class TextEditorTest extends GroovyTestCase {
 
-  Editor editor
+  TextEditor editor
   Document document
   
   def setUpEditor(lines, cursor) {
     document = new Document(lines, cursor)
-    editor = new Editor(document: document)
+    editor = new TextEditor(document: document)
   }
   
   void test_when_empty_arrows_does_nothing() {
