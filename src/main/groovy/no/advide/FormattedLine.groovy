@@ -5,9 +5,10 @@ import java.awt.Color
 class FormattedLine {
   String text
   Map<Integer, FormatChange> changes = [:]
+  boolean hasSeparatorLine
 
   FormattedLine() {
-    changes[0] = new FormatChange(index: 0, changeColor: DEFAULT_COLOR)
+    changes[0] = new FormatChange(index: 0, changeColor: Color.black)
   }
 
   void setColor(color) {
@@ -28,6 +29,4 @@ class FormattedLine {
     }
     changes[startIndex]
   }
-
-  static Color DEFAULT_COLOR = new Color(50, 50, 200)
 }

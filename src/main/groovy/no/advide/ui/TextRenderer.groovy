@@ -11,6 +11,7 @@ class TextRenderer {
 
   private static final int LEFT_PADDING = 20
   private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
+  private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 20)
 
   def render() {
     textLayout.lines.eachWithIndex { FormattedLine line, i ->
@@ -21,8 +22,16 @@ class TextRenderer {
 
   private def renderLine(i, FormattedLine line) {
     if (atCursorLine(i)) renderCursorIndicatorBar()
+    if (line.hasSeparatorLine) renderSeparatorLine(line.text)
     renderText(line)
     if (atCursorLine(i)) renderCursor(line.text)
+  }
+
+  private def renderSeparatorLine(text) {
+    int centerY = 1 + y + fontHeight / 2
+    int endOfText = LEFT_PADDING + fontMetrics.stringWidth(text)
+    g.setColor(SEPARATOR_LINE_COLOR)
+    g.drawRect(endOfText, centerY, componentWidth - endOfText, 1)
   }
 
   private def renderCursor(String line) {

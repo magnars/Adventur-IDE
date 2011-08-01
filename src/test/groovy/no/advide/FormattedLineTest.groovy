@@ -20,7 +20,7 @@ class FormattedLineTest extends GroovyTestCase {
   }
 
   void test_should_start_with_default_color() {
-    assert line.color == FormattedLine.DEFAULT_COLOR
+    assert line.color == Color.black
   }
 
   void test_should_set_substring_color() {
