@@ -5,10 +5,10 @@ så vil egne klasser håndtere fargelegging av dem.
 ------------------
 
 Commands vet alt om kommandoene i Adventur. De kan rendre seg som ny og som gammel, og vet hvor de kan finne
-romnummer og krav. De endrer ikke på dokumenter. De kan svare på "er dette den gamle eller nye formen?", slik at
-editoren kan la deg trykke ctrl+space for å endre til ny form.
+romnummer og krav. De endrer ikke på dokumenter uten å bli bedt om det.
+De kan svare på "er dette den gamle eller nye formen?", slik at editoren kan la deg trykke ctrl+space for å endre til ny form.
 
-Det gjøres bare konvertering til newScript ved innlasting av rom.
+Det gjøres bare automatisk konvertering til newScript ved innlasting av rom.
 
 Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker de det til å finne
 sine romnummer og krav - det har blitt deres nye hovedformål.
