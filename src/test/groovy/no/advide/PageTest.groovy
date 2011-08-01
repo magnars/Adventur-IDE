@@ -19,4 +19,13 @@ class PageTest extends GroovyTestCase {
     assert room.document.lines == ["Et rom med trailing whitespace."]
   }
 
+  void test_should_save_file_in_old_style() {
+    def file = new File("PageTest.tmp")
+    file.text = ["-- fortsett --", "Hei på deg"].join("\n")
+    def page = new Page('test', file)
+    page.save()
+    assert file.text == ["!!!", "Hei på deg"].join("\n")
+    file.delete()
+  }
+
 }

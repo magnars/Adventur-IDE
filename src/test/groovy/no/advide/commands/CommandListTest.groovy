@@ -18,6 +18,10 @@ class CommandListTest extends GroovyTestCase {
     assert list.getFormattedLines().size() == 2
   }
 
+  void test_should_convert_to_old_script() {
+    assert list.toOldScript().size() == 2
+  }
+
   void test_should_get_commands_of_particular_type() {
     list << null
     assert list.getAll(UnknownCommand).size() == 2

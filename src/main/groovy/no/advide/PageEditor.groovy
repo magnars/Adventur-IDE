@@ -33,7 +33,11 @@ class PageEditor {
   }
 
   def actionTyped(k) {
-    textEditor.actionTyped(k)
+    if (k == "cmd+S") {
+      page.save()
+    } else {
+      textEditor.actionTyped(k)
+    }
   }
 
   def changeCallbacks = []

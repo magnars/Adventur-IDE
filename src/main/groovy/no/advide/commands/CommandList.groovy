@@ -11,4 +11,8 @@ class CommandList extends ArrayList<Command> {
   List<Command> getAll(commandType) {
     findAll { it?.class == commandType }
   }
+
+  List<String> toOldScript() {
+    collect { it.toOldScript() }.flatten()
+  }
 }

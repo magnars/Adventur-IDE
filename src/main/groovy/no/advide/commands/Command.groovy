@@ -20,4 +20,8 @@ abstract class Command {
     fragment.lines.collect { new FormattedLine(text: it, color: color)}
   }
 
+  List<String> toOldScript() {
+    fragment.lines
+  }
+
 }

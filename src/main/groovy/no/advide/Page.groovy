@@ -10,6 +10,8 @@ class Page {
   Document document
   CommandList commands
 
+  Page() {}
+
   Page(String name, File file) {
     this.name = name
     this.file = file
@@ -20,11 +22,15 @@ class Page {
 
   void updateCommands() {
     commands = new CommandParser(document).parse()
-    justifyWordsInProse()
+    justifyWordsInProse() // er denne riktig her? den har blitt flyttet mye, ser ok ut her enn så lenge
   }
 
   void justifyWordsInProse() {
     commands.getAll(ProseCommand).each { new WordWrapper(it.fragment).justify() }
+  }
+
+  void save() {
+    file.setText(commands.toOldScript().join("\n"), 'UTF-8')
   }
 
 }

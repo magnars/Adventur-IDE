@@ -22,4 +22,9 @@ class ContinueCommandTest extends GroovyTestCase {
     assert command.formattedLines.first().hasSeparatorLine
   }
 
+  void test_should_convert_to_old_script() {
+    def command = new ContinueCommand([ getLines: {["-- fortsett --"]} ] as DocumentFragment)
+    assert command.toOldScript() == ["!!!"]
+  }
+
 }

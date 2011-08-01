@@ -22,4 +22,10 @@ class ContinueCommand extends Command {
     return lines
   }
 
+  @Override
+  List<String> toOldScript() {
+    ["!!!"]
+  }
+
+
 }
