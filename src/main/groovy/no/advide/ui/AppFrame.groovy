@@ -12,6 +12,7 @@ import javax.swing.BoxLayout
 import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.WindowConstants
+import no.advide.Application
 
 class AppFrame extends JFrame {
 
@@ -45,7 +46,7 @@ class AppFrame extends JFrame {
 
   private void setupUI() {
     new SwingBuilder().edt {
-      frame(this, title: 'ide-adv', size: frameSize(), location: [50, 30], show: false, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
+      frame(this, title: Application.NAME, size: frameSize(), location: [50, 30], show: false, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
         borderLayout()
         panel(new BackgroundPanel(), constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
           boxLayout(axis: BoxLayout.Y_AXIS)

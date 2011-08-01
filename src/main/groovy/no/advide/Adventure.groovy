@@ -8,6 +8,9 @@ class Adventure {
 
   static void choose() {
     /*
+
+    // Bør bruke java.awt.FileDialog her, pga Mac look-n-feel
+
     JFileChooser fc = null
     new SwingBuilder().edt {
       fc = fileChooser(dialogTitle: "Velg en mappe med eventyr",

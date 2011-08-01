@@ -6,7 +6,11 @@ import no.advide.ui.KeyInterpreter
 
 class Application {
 
+  public static final String NAME = "Adventur IDE"
+
   static main(args) {
+    System.setProperty("apple.laf.useScreenMenuBar", "true");
+    System.setProperty("com.apple.mrj.application.apple.menu.about.name", NAME);
     Adventure.choose()
     new Application().open(Adventure.current.loadNotes())
   }
