@@ -68,4 +68,40 @@ class DocumentTest extends GroovyTestCase {
     assert document.cursor == [x:1, y:3]
   }
 
+  void test_removeLine_moves_cursor_to_x_0_if_on_same_line() {
+    document.cursor = [x:2, y:2]
+    document.removeLine(2)
+    assert document.lines == ["abc", "def", "jkl"]
+    assert document.cursor == [x:0, y:2]
+  }
+
+  void test_removeLine_ensures_cursor_y_is_inside() {
+    document.cursor = [x:2, y:3]
+    document.removeLine(3)
+    assert document.lines == ["abc", "def", "ghi"]
+    assert document.cursor == [x:0, y:2]
+  }
+
+  void test_removeLine_moves_cursor_up_if_after() {
+    document.cursor = [x:2, y:3]
+    document.removeLine(1)
+    assert document.lines == ["abc", "ghi", "jkl"]
+    assert document.cursor == [x:2, y:2]
+  }
+
+  void test_replaceLine_moves_cursor_to_end() {
+    document.cursor = [x:2, y:2]
+    document.replaceLine(2, "heisann")
+    assert document.lines == ["abc", "def", "heisann", "jkl"]
+    assert document.cursor == [x:7, y:2]
+  }
+
+  void test_replaceLine_keeps_cursor_at_start() {
+    document.cursor = [x:0, y:2]
+    document.replaceLine(2, "heisann")
+    assert document.lines == ["abc", "def", "heisann", "jkl"]
+    assert document.cursor == [x:0, y:2]
+  }
+
+
 }

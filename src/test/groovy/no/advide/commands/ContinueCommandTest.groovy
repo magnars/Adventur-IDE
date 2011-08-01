@@ -27,4 +27,9 @@ class ContinueCommandTest extends GroovyTestCase {
     assert command.toOldScript() == ["!!!"]
   }
 
+  void test_should_convert_to_new_script() {
+    def command = new ContinueCommand([ getLines: {["!!!"]} ] as DocumentFragment)
+    assert command.toNewScript() == ["-- fortsett --"]
+  }
+
 }

@@ -27,5 +27,9 @@ class ContinueCommand extends Command {
     ["!!!"]
   }
 
+  @Override
+  List<String> toNewScript() {
+    ["-- fortsett --"]
+  }
 
 }

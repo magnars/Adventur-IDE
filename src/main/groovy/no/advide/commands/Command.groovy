@@ -24,4 +24,16 @@ abstract class Command {
     fragment.lines
   }
 
+  List<String> toNewScript() {
+    fragment.lines
+  }
+
+  void replaceWithNewStyle() {
+    fragment.replaceWith(toNewScript())
+  }
+
+  boolean isInOldStyle() {
+    fragment.lines != toNewScript()
+  }
+
 }

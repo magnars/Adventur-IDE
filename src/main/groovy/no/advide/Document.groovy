@@ -118,6 +118,21 @@ class Document {
     lines.addAll(y, split)
   }
 
+  void removeLine(int y) {
+    lines.remove(y)
+    if (cursor.y == y) cursor.x = 0
+    if (cursor.y > y) cursor.y -= 1
+    if (cursor.y == lines.size()) cursor.y -= 1
+
+    fragmentsAt(y).each { it.length -= 1 }
+    fragmentsAfter(y).each { it.startY -= 1 }
+  }
+
+  void replaceLine(int y, String string) {
+    lines[y] = string
+    if (cursor.y == y && cursor.x > 0) cursor.x = string.size()
+  }
+
   void insertAt(int x, int y, s) {
     if (cursor.y == y && cursor.x > x) cursor.x += s.size()
     def pre = lines[y].substring(0, x)
@@ -151,6 +166,5 @@ class Document {
   List<DocumentFragment> fragmentsAfter(int y) {
     fragments.findAll { it.startY > y }
   }
-
 
 }

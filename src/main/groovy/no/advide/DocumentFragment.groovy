@@ -34,4 +34,10 @@ class DocumentFragment {
   void chop(int y) {
     document.removeCharBefore(lines[y].size(), startY + y)
   }
+
+  void replaceWith(List<String> strings) {
+    if (strings.size() != 1) throw new IllegalArgumentException("replaceWith only supports replacing with 1 line for now")
+    while (length > 1) document.removeLine(startY + 1)
+    document.replaceLine(startY, strings.first())
+  }
 }

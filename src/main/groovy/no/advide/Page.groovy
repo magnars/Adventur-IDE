@@ -16,10 +16,19 @@ class Page {
   Page(String name, File file) {
     this.name = name
     this.file = file
-    document = new Document(file.readLines('UTF-8'), [x: 0, y: 0])
+    document = loadDocument(file)
+    parseCommandsAndReformatDocument()
+    original = commands.toOldScript()
+  }
+
+  private Document loadDocument(File file) {
+    new Document(file.readLines('UTF-8'), [x: 0, y: 0])
+  }
+
+  private def parseCommandsAndReformatDocument() {
     document.stripTrailingSpaces()
     updateCommands()
-    original = commands.toOldScript()
+    commands.findAll { it.isInOldStyle() }.each { it.replaceWithNewStyle() }
   }
 
   void updateCommands() {
