@@ -1,8 +1,11 @@
 package no.advide.ui
 
+import java.awt.Font
+import java.awt.Graphics
+import java.awt.Graphics2D
+import java.awt.RenderingHints
 import javax.swing.JPanel
-
-import java.awt.*
+import no.advide.commands.CommandList
 
 class EditorPanel extends JPanel {
 
@@ -24,4 +27,8 @@ class EditorPanel extends JPanel {
     new TextRenderer(textLayout, getWidth(), g).render()
   }
 
+  void updateContents(CommandList commands, cursor) {
+    textLayout = [lines: commands.formattedLines, cursor: cursor]
+    repaint()
+  }
 }

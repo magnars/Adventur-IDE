@@ -1,17 +1,27 @@
 package no.advide
 
-import no.advide.commands.ProseCommand
+import no.advide.ui.KeyInterpreter
 
 class PageEditor {
 
   Page page
   TextEditor textEditor
 
-  PageEditor() {
+  PageEditor(KeyInterpreter keys) {
+    initTextEditor()
+    keys.addListener(this)
+  }
+
+  void kickstart(Page startingPage, changeCallback) {
+    setPage(startingPage)
+    onChange(changeCallback)
+    changeCallback.call(page)
+  }
+
+  private def initTextEditor() {
     textEditor = new TextEditor()
     textEditor.onChange {
-      page.parseCommands()
-      justifyWordsInProse()
+      page.updateCommands()
       changed()
     }
   }
@@ -19,10 +29,6 @@ class PageEditor {
   void setPage(Page page) {
     this.page = page
     textEditor.setDocument(page.document)
-  }
-
-  void justifyWordsInProse() {
-    page.commands.getAll(ProseCommand).each { new WordWrapper(it.fragment).justify() }
   }
 
   def charTyped(c) {
@@ -42,4 +48,5 @@ class PageEditor {
   def changed() {
     changeCallbacks.each { it.call page }
   }
+
 }
