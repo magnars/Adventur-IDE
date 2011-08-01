@@ -28,7 +28,7 @@ class Page {
   private def parseCommandsAndReformatDocument() {
     document.stripTrailingSpaces()
     updateCommands()
-    commands.findAll { it.isInOldStyle() }.each { it.replaceWithNewStyle() }
+    commands.each { it.replaceWithNewStyle() }
   }
 
   void updateCommands() {

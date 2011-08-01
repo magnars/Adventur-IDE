@@ -5,6 +5,12 @@ class PageEditor {
   Page page
   TextEditor textEditor
 
+  def actions = [
+      "cmd+S":          { page.save() },
+      "ctrl+alt+cmd+O": { page.commands.each { it.replaceWithOldStyle() } },
+      "ctrl+alt+cmd+N": { page.commands.each { it.replaceWithNewStyle() } }
+  ]
+
   PageEditor() {
     initTextEditor()
   }
@@ -33,8 +39,9 @@ class PageEditor {
   }
 
   def actionTyped(k) {
-    if (k == "cmd+S") {
-      page.save()
+    def a = actions[k]
+    if (a) {
+      a.call()
       changed()
     } else {
       textEditor.actionTyped(k)

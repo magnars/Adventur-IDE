@@ -29,11 +29,19 @@ abstract class Command {
   }
 
   void replaceWithNewStyle() {
-    fragment.replaceWith(toNewScript())
+    if (!isInNewStyle()) fragment.replaceWith(toNewScript())
+  }
+
+  void replaceWithOldStyle() {
+    if (!isInOldStyle()) fragment.replaceWith(toOldScript())
   }
 
   boolean isInOldStyle() {
-    fragment.lines != toNewScript()
+    fragment.lines == toOldScript()
+  }
+
+  boolean isInNewStyle() {
+    fragment.lines == toNewScript()
   }
 
 }
