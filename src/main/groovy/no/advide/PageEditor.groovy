@@ -35,6 +35,7 @@ class PageEditor {
   def actionTyped(k) {
     if (k == "cmd+S") {
       page.save()
+      changed()
     } else {
       textEditor.actionTyped(k)
     }

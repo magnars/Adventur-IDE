@@ -9,6 +9,7 @@ class Page {
   File file
   Document document
   CommandList commands
+  List<String> original
 
   Page() {}
 
@@ -18,6 +19,7 @@ class Page {
     document = new Document(file.readLines('UTF-8'), [x: 0, y: 0])
     document.stripTrailingSpaces()
     updateCommands()
+    original = commands.toOldScript()
   }
 
   void updateCommands() {
@@ -30,7 +32,11 @@ class Page {
   }
 
   void save() {
-    file.setText(commands.toOldScript().join("\n"), 'UTF-8')
+    original = commands.toOldScript()
+    file.setText(original.join("\n"), 'UTF-8')
   }
 
+  boolean isModified() {
+    commands.toOldScript() != original
+  }
 }

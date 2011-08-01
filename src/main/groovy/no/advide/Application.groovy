@@ -26,6 +26,7 @@ class Application {
   void open(Page startingPage) {
     editor.kickstart(startingPage) { page ->
       appFrame.setHeaderText("Master - ${page.name}")
+      appFrame.setModified(page.isModified())
       editorPanel.updateContents(page.commands, page.document.cursor)
     }
 

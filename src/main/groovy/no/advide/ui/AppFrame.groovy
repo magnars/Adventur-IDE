@@ -1,12 +1,17 @@
 package no.advide.ui
 
 import groovy.swing.SwingBuilder
+import java.awt.BorderLayout
+import java.awt.Color
+import java.awt.Dimension
+import java.awt.GraphicsDevice
+import java.awt.GraphicsEnvironment
+import java.awt.Toolkit
 import javax.swing.BorderFactory
 import javax.swing.BoxLayout
 import javax.swing.JFrame
-import javax.swing.WindowConstants
-import java.awt.*
 import javax.swing.JLabel
+import javax.swing.WindowConstants
 
 class AppFrame extends JFrame {
 
@@ -20,6 +25,10 @@ class AppFrame extends JFrame {
     device = GraphicsEnvironment.localGraphicsEnvironment.defaultScreenDevice
     screenSize = Toolkit.getDefaultToolkit().getScreenSize()
     setupUI()
+  }
+
+  void setModified(modified) {
+    rootPane.putClientProperty("Window.documentModified", modified)
   }
 
   void toggleFullScreen() {

@@ -28,4 +28,11 @@ class PageTest extends GroovyTestCase {
     file.delete()
   }
 
+  void test_should_know_if_modified() {
+    room = Adventure.current.loadRoom(0)
+    assert !room.isModified()
+    room.document.removeCharBefore(1, 0)
+    assert room.isModified()
+  }
+
 }
