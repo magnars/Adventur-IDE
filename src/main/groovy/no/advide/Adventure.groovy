@@ -14,7 +14,7 @@ class Adventure {
     if (fc.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) System.exit(0)
     current = new Adventure(fc.selectedFile)
     */
-    current = new Adventure(new File("/Users/magnars/projects/adventur/eventyr/master"))
+    current = new Adventure(new File("/Users/fimasvee/projects/adventur/eventyr/master"))
   }
 
   def directoryPath

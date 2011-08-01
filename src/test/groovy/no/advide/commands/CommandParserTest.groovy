@@ -19,7 +19,6 @@ class CommandParserTest extends GroovyTestCase {
   void test_should_parse_UnknownCommand() {
     setUpCommands([":h"], null)
     assert commands.first().class == UnknownCommand.class
-    assert commands.first().input == ":h"
   }
 
   void test_should_parse_RemoveAlternativeCommand() {
@@ -30,6 +29,11 @@ class CommandParserTest extends GroovyTestCase {
   void test_should_parse_ProseCommand() {
     setUpCommands(["hei", "du"], null)
     assert commands.first().class == ProseCommand.class
+  }
+
+  void test_should_parse_ContinueCommand() {
+    setUpCommands(["!!!"], null)
+    assert commands.first().class == ContinueCommand.class
   }
 
 }

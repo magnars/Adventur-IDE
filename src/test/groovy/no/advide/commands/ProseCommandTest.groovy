@@ -23,10 +23,8 @@ class ProseCommandTest extends GroovyTestCase {
     assert ProseCommand.numMatchingLines(["Hei", "du"], 0) == 2
   }
 
-  void test_should_get_formatted_lines() {
+  void test_should_color_lines_black() {
     setUpCommand(["Hei"])
-    assert command.formattedLines.size() == 1
-    assert command.formattedLines.first().text == "Hei"
     assert command.formattedLines.first().color == Color.black
   }
 

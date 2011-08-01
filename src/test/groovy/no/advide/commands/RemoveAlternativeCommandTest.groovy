@@ -1,6 +1,5 @@
 package no.advide.commands
 
-import java.awt.Color
 import no.advide.AdventureTest
 import no.advide.Document
 
@@ -25,15 +24,8 @@ class RemoveAlternativeCommandTest extends GroovyTestCase {
     assert !RemoveAlternativeCommand.matches(["", "#SAVE#", ""], 1)
   }
 
-  void test_should_return_formatted_line() {
-    setUpCommand("#0")
-    assert command.formattedLines.size() == 1
-    assert command.formattedLines.first().text == "#0"
-  }
-
-  void test_should_color_red_if_does_not_exists() {
-    setUpCommand("#17")
-    assert command.formattedLines.first().changes[1].changeColor == Color.red
+  void test_should_match_one_line() {
+    assert RemoveAlternativeCommand.numMatchingLines(["", "#17", "#23"], 1) == 1
   }
 
 }
