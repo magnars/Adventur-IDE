@@ -68,9 +68,11 @@ class DocumentFragmentTest extends GroovyTestCase {
   }
 
   void test_should_replace_entire_fragment() {
+    document.cursor = [x:0, y:4]
     fragment.replaceWith(["new"])
     assert document.lines == ["outside", "outside", "new", "outside"]
     assert fragment.lines == ["new"]
+    assert document.cursor == [x:0, y:2]
   }
 
 }
