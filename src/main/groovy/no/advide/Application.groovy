@@ -1,8 +1,6 @@
 package no.advide
 
 import no.advide.commands.CommandList
-import no.advide.commands.CommandParser
-import no.advide.commands.ProseCommand
 import no.advide.ui.AppFrame
 import no.advide.ui.EditorPanel
 import no.advide.ui.KeyInterpreter

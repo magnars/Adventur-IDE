@@ -1,7 +1,5 @@
 package no.advide
 
-import no.advide.commands.CommandParser
-import no.advide.commands.CommandList
 import no.advide.commands.ProseCommand
 
 class PageEditor {
