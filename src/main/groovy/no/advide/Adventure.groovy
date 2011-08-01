@@ -1,5 +1,7 @@
 package no.advide
 
+import org.apache.commons.lang3.text.WordUtils
+
 class Adventure {
 
   static Adventure current
@@ -17,7 +19,7 @@ class Adventure {
     current = new Adventure(new File("/Users/fimasvee/projects/adventur/eventyr/master"))
   }
 
-  def directoryPath
+  String directoryPath
 
   Adventure(File directory) {
     directoryPath = directory.absolutePath
@@ -46,5 +48,9 @@ class Adventure {
 
   Page loadNotes() {
     new Page('Notatblokk', new File("${directoryPath}/notat.txt"))
+  }
+
+  String getName() {
+    WordUtils.capitalize(new File(directoryPath).name.replace("_", " "))
   }
 }

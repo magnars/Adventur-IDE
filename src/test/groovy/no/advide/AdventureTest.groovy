@@ -3,7 +3,7 @@ package no.advide
 class AdventureTest extends GroovyTestCase {
 
   static void setUpCurrent() {
-    def directory = new File(ClassLoader.getSystemResource('testeventyr').toURI())
+    def directory = new File(ClassLoader.getSystemResource('test_eventyr').toURI())
     Adventure.current = new Adventure(directory)
   }
 
@@ -35,6 +35,10 @@ class AdventureTest extends GroovyTestCase {
     def notes = adventure.loadNotes()
     assert notes.name == "Notatblokk"
     assert notes.document.lines == ["Notatblokka"]
+  }
+
+  void test_should_format_adventure_name() {
+    assert adventure.name == "Test Eventyr"
   }
 
 }
