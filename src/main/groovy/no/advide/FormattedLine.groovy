@@ -28,6 +28,10 @@ class FormattedLine {
     changeAt(startIndex + length).revertColorChange = true
   }
 
+  void highlightSubstring(int startIndex, int length, Color color) {
+    changeAt(startIndex).highlight = [length: length, color: color]
+  }
+
   private FormatChange changeAt(int startIndex) {
     if (!changes[startIndex]) {
       changes[startIndex] = new FormatChange(index: startIndex)

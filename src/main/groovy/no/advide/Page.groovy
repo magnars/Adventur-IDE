@@ -49,4 +49,11 @@ class Page {
     commands.toOldScript() != original
   }
 
+  RoomNumber getCurrentRoomNumber() {
+    commands.roomNumbers.find { it.position.y == document.cursor.y }
+  }
+
+  RoomNumber getNextRoomNumber() {
+    commands.roomNumbers.find { it.position.y >= document.cursor.y }
+  }
 }

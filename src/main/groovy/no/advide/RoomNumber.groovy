@@ -7,4 +7,8 @@ class RoomNumber {
   boolean exists() {
     Adventure.current.roomExists(number)
   }
+
+  int getLength() {
+    number.toString().length()
+  }
 }

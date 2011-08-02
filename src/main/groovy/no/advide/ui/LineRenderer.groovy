@@ -65,12 +65,19 @@ class LineRenderer {
   void apply(FormatChange change) {
     if (change.revertColorChange) {
       colorStack.pop()
-      g.setColor(colorStack.last())
     }
     if (change.changeColor) {
       colorStack.push(change.changeColor)
-      g.setColor(change.changeColor)
     }
+    if (change.highlight) {
+      g.setColor(change.highlight.color)
+      g.fillRect(x, y - metrics.ascent, metrics.stringWidth(nextChars(change.highlight.length)), metrics.height)
+    }
+    g.setColor(colorStack.last())
+  }
+
+  private String nextChars(length) {
+    return text.substring(index, (int) index + length)
   }
 
 
