@@ -54,6 +54,11 @@ class Page {
   }
 
   RoomNumber getNextRoomNumber() {
-    commands.roomNumbers.find { it.position.y >= document.cursor.y }
+    commands.roomNumbers.find { it.position.y > document.cursor.y }
+  }
+
+  RoomNumber getPreviousRoomNumber() {
+    def prev = commands.roomNumbers.findAll { it.position.y < document.cursor.y }
+    prev.empty ? null : prev.last()
   }
 }

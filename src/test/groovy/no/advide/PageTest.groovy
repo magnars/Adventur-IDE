@@ -40,10 +40,16 @@ class PageTest extends GroovyTestCase {
     assert room.document.lines == ["#1", "", "#2", "#3"]
 
     room.document.cursor = [x:0, y:0]
-    assert room.nextRoomNumber.number == 1
+    assert room.nextRoomNumber.number == 2
 
     room.document.cursor = [x:0, y:1]
     assert room.nextRoomNumber.number == 2
+
+    room.document.cursor = [x:0, y:2]
+    assert room.nextRoomNumber.number == 3
+
+    room.document.cursor = [x:0, y:3]
+    assert room.nextRoomNumber == null
   }
 
   void test_should_know_room_number_on_cursor() {
@@ -55,6 +61,23 @@ class PageTest extends GroovyTestCase {
 
     room.document.cursor = [x:0, y:1]
     assert room.currentRoomNumber == null
+  }
+
+  void test_should_know_previous_room_number_before_cursor() {
+    room = Adventure.current.loadRoom(3)
+    assert room.document.lines == ["#1", "", "#2", "#3"]
+
+    room.document.cursor = [x:0, y:0]
+    assert room.previousRoomNumber == null
+
+    room.document.cursor = [x:0, y:1]
+    assert room.previousRoomNumber.number == 1
+
+    room.document.cursor = [x:0, y:2]
+    assert room.previousRoomNumber.number == 1
+
+    room.document.cursor = [x:0, y:3]
+    assert room.previousRoomNumber.number == 2
   }
 
 }

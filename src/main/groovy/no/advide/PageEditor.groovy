@@ -7,6 +7,8 @@ class PageEditor {
 
   def actions = [
       "cmd+S":          { page.save() },
+      "tab":            { if (page.nextRoomNumber) page.document.cursor = page.nextRoomNumber.position },
+      "shift+tab":      { if (page.previousRoomNumber) page.document.cursor = page.previousRoomNumber.position },
       "ctrl+alt+cmd+O": { page.commands.each { it.replaceWithOldStyle() } },
       "ctrl+alt+cmd+N": { page.commands.each { it.replaceWithNewStyle() } }
   ]
