@@ -49,6 +49,10 @@ class Page {
     commands.toOldScript() != original
   }
 
+  RoomNumber getTargetRoomNumber() {
+    commands.roomNumbers.find { it.position.y >= document.cursor.y }
+  }
+
   RoomNumber getCurrentRoomNumber() {
     commands.roomNumbers.find { it.position.y == document.cursor.y }
   }
@@ -61,4 +65,11 @@ class Page {
     def prev = commands.roomNumbers.findAll { it.position.y < document.cursor.y }
     prev.empty ? null : prev.last()
   }
+
+  @Override
+  String toString() {
+    "Page[$name]"
+  }
+
+
 }

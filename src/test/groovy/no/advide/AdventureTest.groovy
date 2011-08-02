@@ -41,4 +41,8 @@ class AdventureTest extends GroovyTestCase {
     assert adventure.name == "Test Eventyr"
   }
 
+  void test_should_treat_pages_as_entities_and_not_give_out_copies() {
+    assert adventure.loadRoom(2) == adventure.loadRoom(2)
+  }
+
 }

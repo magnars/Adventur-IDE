@@ -63,6 +63,23 @@ class PageTest extends GroovyTestCase {
     assert room.currentRoomNumber == null
   }
 
+  void test_should_know_target_room_number_for_jumping() {
+    room = Adventure.current.loadRoom(3)
+    assert room.document.lines == ["#1", "", "#2", "#3"]
+
+    room.document.cursor = [x:0, y:0]
+    assert room.targetRoomNumber.number == 1
+
+    room.document.cursor = [x:0, y:1]
+    assert room.targetRoomNumber.number == 2
+
+    room.document.cursor = [x:0, y:2]
+    assert room.targetRoomNumber.number == 2
+
+    room.document.cursor = [x:0, y:3]
+    assert room.targetRoomNumber.number == 3
+  }
+
   void test_should_know_previous_room_number_before_cursor() {
     room = Adventure.current.loadRoom(3)
     assert room.document.lines == ["#1", "", "#2", "#3"]

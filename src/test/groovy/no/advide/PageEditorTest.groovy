@@ -43,4 +43,11 @@ class PageEditorTest extends GroovyTestCase {
     assert page.document.cursor == [x:1, y:0]
   }
 
+  void test_jump() {
+    def page = Adventure.current.loadRoom(3) // ["#1", "", "#2", "#3"]
+    def editor = new PageEditor(page: page)
+    editor.charTyped("'")
+    assert editor.page == Adventure.current.loadRoom(1)
+  }
+
 }

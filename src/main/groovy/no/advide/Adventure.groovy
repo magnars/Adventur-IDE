@@ -46,11 +46,20 @@ class Adventure {
   }
 
   Page loadRoom(int roomNumber) {
-    new Page("Rom ${roomNumber}", roomFile(roomNumber))
+    getPage("Rom ${roomNumber}", roomFile(roomNumber))
   }
 
   Page loadNotes() {
-    new Page('Notatblokk', new File("${directoryPath}/notat.txt"))
+    getPage('Notatblokk', new File("${directoryPath}/notat.txt"))
+  }
+
+  def pages = [:]
+
+  Page getPage(String name, File file) {
+    if (!pages[name]) {
+      pages[name] = new Page(name, file)
+    }
+    pages[name]
   }
 
   String getName() {

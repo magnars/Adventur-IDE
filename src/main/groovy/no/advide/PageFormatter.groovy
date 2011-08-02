@@ -18,12 +18,12 @@ class PageFormatter {
   List<FormattedLine> getFormattedLines() {
     def lines = commands.formattedLines
     colorNonexistantRoomNumbers(lines)
-    if (!page.modified) highlightCurrentRoomNumber(lines)
+    if (!page.modified) highlightTargetRoomNumber(lines)
     lines
   }
 
-  void highlightCurrentRoomNumber(List<FormattedLine> lines) {
-    def r = page.currentRoomNumber
+  void highlightTargetRoomNumber(List<FormattedLine> lines) {
+    def r = page.targetRoomNumber
     if (r) lines[r.position.y].highlightSubstring(r.position.x, r.length, new Color(0, 0, 150, 20))
   }
 

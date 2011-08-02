@@ -9,6 +9,7 @@ class PageEditor {
       "cmd+S":          { page.save() },
       "tab":            { if (page.nextRoomNumber) page.document.cursor = page.nextRoomNumber.position },
       "shift+tab":      { if (page.previousRoomNumber) page.document.cursor = page.previousRoomNumber.position },
+      "jump":           { if (page.targetRoomNumber) page = Adventure.current.loadRoom(page.targetRoomNumber.number) },
       "ctrl+alt+cmd+O": { page.commands.each { it.replaceWithOldStyle() } },
       "ctrl+alt+cmd+N": { page.commands.each { it.replaceWithNewStyle() } }
   ]
@@ -37,7 +38,8 @@ class PageEditor {
   }
 
   def charTyped(c) {
-    textEditor.charTyped(c)
+    if (c == "'" && !page.modified) { actionTyped("jump") }
+    else textEditor.charTyped(c)
   }
 
   def actionTyped(k) {
