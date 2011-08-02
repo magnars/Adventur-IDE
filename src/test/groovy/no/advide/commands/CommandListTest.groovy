@@ -22,6 +22,10 @@ class CommandListTest extends GroovyTestCase {
     assert list.toOldScript().size() == 2
   }
 
+  void test_should_get_room_numbers() {
+    assert list.getRoomNumbers().size() == 0
+  }
+
   void test_should_get_commands_of_particular_type() {
     list << null
     assert list.getAll(UnknownCommand).size() == 2

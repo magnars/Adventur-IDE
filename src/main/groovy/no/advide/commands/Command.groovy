@@ -3,6 +3,7 @@ package no.advide.commands
 import java.awt.Color
 import no.advide.DocumentFragment
 import no.advide.FormattedLine
+import no.advide.RoomNumber
 
 abstract class Command {
 
@@ -42,6 +43,10 @@ abstract class Command {
 
   boolean isInNewStyle() {
     fragment.lines == toNewScript()
+  }
+
+  List<RoomNumber> getRoomNumbers() {
+    []
   }
 
 }

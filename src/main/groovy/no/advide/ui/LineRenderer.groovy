@@ -1,10 +1,10 @@
 package no.advide.ui
 
-import java.awt.Graphics2D
-import no.advide.FormattedLine
-import no.advide.FormatChange
 import java.awt.Color
 import java.awt.FontMetrics
+import java.awt.Graphics2D
+import no.advide.FormatChange
+import no.advide.FormattedLine
 
 class LineRenderer {
   int x, y
@@ -63,6 +63,10 @@ class LineRenderer {
   }
 
   void apply(FormatChange change) {
+    if (change.revertColorChange) {
+      colorStack.pop()
+      g.setColor(colorStack.last())
+    }
     if (change.changeColor) {
       colorStack.push(change.changeColor)
       g.setColor(change.changeColor)

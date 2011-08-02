@@ -23,6 +23,11 @@ class FormattedLine {
     changeAt(startIndex).changeColor = color
   }
 
+  void formatSubstring(int startIndex, int length, Color color) {
+    changeAt(startIndex).changeColor = color
+    changeAt(startIndex + length).revertColorChange = true
+  }
+
   private FormatChange changeAt(int startIndex) {
     if (!changes[startIndex]) {
       changes[startIndex] = new FormatChange(index: startIndex)

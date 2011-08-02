@@ -28,4 +28,11 @@ class RemoveAlternativeCommandTest extends GroovyTestCase {
     assert RemoveAlternativeCommand.numMatchingLines(["", "#17", "#23"], 1) == 1
   }
 
+  void test_should_return_room_number() {
+    setUpCommand("#123")
+    assert command.roomNumbers.size() == 1
+    assert command.roomNumbers.first().number == 123
+    assert command.roomNumbers.first().position == [x:1, y:0]
+  }
+
 }

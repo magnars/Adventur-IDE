@@ -75,4 +75,8 @@ class DocumentFragmentTest extends GroovyTestCase {
     assert document.cursor == [x:0, y:2]
   }
 
+  void test_should_translate_cursor() {
+    assert fragment.translate([x:2, y:2]) == [x:2, y:4]
+  }
+
 }

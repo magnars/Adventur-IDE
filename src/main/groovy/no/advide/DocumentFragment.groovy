@@ -42,4 +42,8 @@ class DocumentFragment {
     while (hadCursor && cursor == null) document.moveCursorUp()
     document.replaceLine(startY, strings.first())
   }
+
+  def translate(cursor) {
+    [x: cursor.x, y: cursor.y + startY]
+  }
 }

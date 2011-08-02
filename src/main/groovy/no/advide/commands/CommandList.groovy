@@ -1,6 +1,7 @@
 package no.advide.commands
 
 import no.advide.FormattedLine
+import no.advide.RoomNumber
 
 class CommandList extends ArrayList<Command> {
 
@@ -14,5 +15,9 @@ class CommandList extends ArrayList<Command> {
 
   List<String> toOldScript() {
     collect { it.toOldScript() }.flatten()
+  }
+
+  List<RoomNumber> getRoomNumbers() {
+    (List<RoomNumber>) collect { it.getRoomNumbers() }.flatten()
   }
 }

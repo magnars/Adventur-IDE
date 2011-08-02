@@ -1,3 +1,12 @@
+Neste:
+ [ ] getRoomNumbers -> formattere
+ [ ] tabbe mellom roomNumbers
+ [ ] hoppe til nytt rom
+
+Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
+
+--------------------
+
 Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
 De trenger bare å svare på getRoomNumbers og getRequirements med [text, position: [x,y]],
 så vil egne klasser håndtere fargelegging av dem.
@@ -17,12 +26,6 @@ Du ber fortsatt Command om å få FormattedLines - men det flyttes opp til Comma
 gjennom fragmentet og lager dem ut fra lines.
 
 -------------------
-
-Neste: åpne og hoppe til rom
-
-Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
-
---------------------
 
 - et romnummers oppførsel (som at det er rødt) hører ikke hjemme i RemovedAlternativeCommand
 
@@ -76,6 +79,10 @@ En paragraf representeres med ':'
 
 [Y] + [X] kan løses ved at de vet om hverandre
  - ved rendring av Lines, sender [Y] en tom array hvis den er helt standard
+
+---------------------
+
+Vanlig skrivefeil for Grethe:   "Ingen tvil om det"; tenker du.   ; --> ,
 
 ---------------------
 

@@ -5,7 +5,7 @@ import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
 import javax.swing.JPanel
-import no.advide.commands.CommandList
+import no.advide.FormattedLine
 
 class EditorPanel extends JPanel {
 
@@ -27,8 +27,8 @@ class EditorPanel extends JPanel {
     new TextRenderer(textLayout, getWidth(), g).render()
   }
 
-  void updateContents(CommandList commands, cursor) {
-    textLayout = [lines: commands.formattedLines, cursor: cursor]
+  void updateContents(List<FormattedLine> lines, cursor) {
+    textLayout = [lines: lines, cursor: cursor]
     repaint()
   }
 }

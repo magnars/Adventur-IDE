@@ -28,10 +28,10 @@ class Application {
   }
 
   void open(Page startingPage) {
-    editor.kickstart(startingPage) { page ->
+    editor.kickstart(startingPage) { Page page ->
       appFrame.setHeaderText("${Adventure.current.name} - ${page.name}")
       appFrame.setModified(page.isModified())
-      editorPanel.updateContents(page.commands, page.document.cursor)
+      editorPanel.updateContents(page.formattedLines, page.document.cursor)
     }
 
     keys.addListener(editor)
