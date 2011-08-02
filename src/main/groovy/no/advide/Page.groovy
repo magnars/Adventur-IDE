@@ -1,6 +1,5 @@
 package no.advide
 
-import java.awt.Color
 import no.advide.commands.CommandList
 import no.advide.commands.CommandParser
 import no.advide.commands.ProseCommand
@@ -50,19 +49,4 @@ class Page {
     commands.toOldScript() != original
   }
 
-  List<FormattedLine> getFormattedLines() {
-    def lines = commands.formattedLines
-    formatRoomNumbers(lines)
-    lines
-  }
-
-  void formatRoomNumbers(List<FormattedLine> lines) {
-    commands.roomNumbers.each { RoomNumber r ->
-      if (!r.exists()) colorRed(r, lines[r.position.y])
-    }
-  }
-
-  private def colorRed(RoomNumber r, line) {
-    line.formatSubstring(r.position.x, r.number.toString().length(), Color.red)
-  }
 }
