@@ -5,8 +5,8 @@ import no.advide.RoomNumber
 
 class RemoveAlternativeCommand extends Command {
 
-  static def matches(List<String> strings, int fromIndex) {
-    strings[fromIndex] =~ /^#\d+$/
+  static def matches(List<String> strings, int i) {
+    strings[i] =~ /^#\d+$/
   }
 
   static int numMatchingLines(Object lines, Object fromIndex) {

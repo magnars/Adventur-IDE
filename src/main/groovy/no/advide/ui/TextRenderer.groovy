@@ -1,9 +1,8 @@
 package no.advide.ui
 
 import java.awt.Color
-import java.awt.Graphics2D
-
 import java.awt.FontMetrics
+import java.awt.Graphics2D
 import no.advide.Cursor
 import no.advide.FormattedLine
 
@@ -11,7 +10,7 @@ class TextRenderer {
 
   private static final int LEFT_PADDING = 20
   private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
-  private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 20)
+  private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 30)
 
   def render() {
     textLayout.lines.eachWithIndex { FormattedLine line, i ->

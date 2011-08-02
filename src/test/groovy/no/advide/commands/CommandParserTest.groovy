@@ -36,4 +36,9 @@ class CommandParserTest extends GroovyTestCase {
     assert commands.first().class == ContinueCommand.class
   }
 
+  void test_should_parse_ReinstateAlternativeCommand() {
+    setUpCommands(["*123"], null)
+    assert commands.first().class == ReinstateAlternativeCommand.class
+  }
+
 }

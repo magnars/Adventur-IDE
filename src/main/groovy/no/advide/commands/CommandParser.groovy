@@ -5,6 +5,7 @@ import no.advide.Document
 class CommandParser {
 
   static List commandTypes = [
+      ReinstateAlternativeCommand,
       ContinueCommand,
       ProseCommand,
       RemoveAlternativeCommand,
