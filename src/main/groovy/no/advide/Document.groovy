@@ -13,42 +13,6 @@ class Document {
     this.cursor = cursor
   }
 
-  String post() {
-    currentLine().substring(cursor.x)
-  }
-
-  String pre() {
-    currentLine().substring(0, cursor.x)
-  }
-
-  String currentLine() {
-    lines[cursor.y]
-  }
-
-  String previousLine() {
-    lines[cursor.y - 1]
-  }
-
-  String nextLine() {
-    lines[cursor.y + 1]
-  }
-
-  boolean atLastLine() {
-    lines.size() <= cursor.y + 1
-  }
-
-  boolean atEndOfLine() {
-    currentLine().size() <= cursor.x
-  }
-
-  boolean atFirstLine() {
-    cursor.y == 0
-  }
-
-  boolean atStartOfLine() {
-    cursor.x == 0
-  }
-
   void moveCursorRight() {
     if (!atEndOfLine()) {
       cursor.x += 1
@@ -145,6 +109,26 @@ class Document {
       lines[i] = StringUtils.stripBack(line, " ")
     }
     cursor.x = Math.min(cursor.x, currentLine().size())
+  }
+
+  String currentLine() {
+    lines[cursor.y]
+  }
+
+  boolean atLastLine() {
+    lines.size() <= cursor.y + 1
+  }
+
+  boolean atEndOfLine() {
+    currentLine().size() <= cursor.x
+  }
+
+  boolean atFirstLine() {
+    cursor.y == 0
+  }
+
+  boolean atStartOfLine() {
+    cursor.x == 0
   }
 
   List<DocumentFragment> fragments = []

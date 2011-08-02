@@ -8,7 +8,7 @@ class ProseCommand extends Command {
     strings[fromIndex] =~ /^[a-zA-ZæøåÆØÅ]/
   }
 
-  static Object numMatchingLines(List<String> strings, int fromIndex) {
+  static int numMatchingLines(List<String> strings, int fromIndex) {
     int index = fromIndex
     while (index < strings.size() && matches(strings, index)) index++
     index - fromIndex

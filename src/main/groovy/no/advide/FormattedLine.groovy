@@ -19,10 +19,6 @@ class FormattedLine {
     changeAt(0).changeColor
   }
 
-  void formatSubstring(int startIndex, Color color) {
-    changeAt(startIndex).changeColor = color
-  }
-
   void formatSubstring(int startIndex, int length, Color color) {
     changeAt(startIndex).changeColor = color
     changeAt(startIndex + length).revertColorChange = true

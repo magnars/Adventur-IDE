@@ -17,14 +17,13 @@ class PageFormatter {
 
   List<FormattedLine> getFormattedLines() {
     def lines = commands.formattedLines
-    colorNonexistantRoomNumbers(lines)
-    if (!page.modified) highlightTargetRoomNumber(lines)
+    formatLines(lines)
     lines
   }
 
-  void highlightTargetRoomNumber(List<FormattedLine> lines) {
-    def r = page.targetRoomNumber
-    if (r) lines[r.position.y].highlightSubstring(r.position.x, r.length, new Color(0, 0, 150, 20))
+  def formatLines(List<FormattedLine> lines) {
+    colorNonexistantRoomNumbers(lines)
+    if (!page.modified) highlightTargetRoomNumber(lines)
   }
 
   void colorNonexistantRoomNumbers(List<FormattedLine> lines) {
@@ -33,5 +32,9 @@ class PageFormatter {
     }
   }
 
+  void highlightTargetRoomNumber(List<FormattedLine> lines) {
+    def r = page.targetRoomNumber
+    if (r) lines[r.position.y].highlightSubstring(r.position.x, r.length, new Color(0, 0, 150, 20))
+  }
 
 }

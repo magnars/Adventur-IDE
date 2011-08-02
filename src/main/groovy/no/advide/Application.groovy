@@ -9,8 +9,7 @@ class Application {
   public static final String NAME = "Adventur IDE"
 
   static main(args) {
-    System.setProperty("apple.laf.useScreenMenuBar", "true");
-    System.setProperty("com.apple.mrj.application.apple.menu.about.name", NAME);
+    macify()
     Adventure.choose()
     new Application().open(Adventure.current.loadNotes())
   }
@@ -38,6 +37,11 @@ class Application {
     keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
 
     appFrame.show()
+  }
+
+  private static def macify() {
+    System.setProperty("apple.laf.useScreenMenuBar", "true");
+    System.setProperty("com.apple.mrj.application.apple.menu.about.name", NAME)
   }
 
 }

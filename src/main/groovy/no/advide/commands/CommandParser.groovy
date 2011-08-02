@@ -22,10 +22,10 @@ class CommandParser {
     strings = document.lines
     commands = new CommandList()
     index = 0
+    document.clearFragments()
   }
 
   CommandList parse() {
-    document.clearFragments()
     while (index < strings.size()) {
       commands << findMatchingCommand()
     }

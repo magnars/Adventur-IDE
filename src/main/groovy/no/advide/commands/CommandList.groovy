@@ -9,6 +9,10 @@ class CommandList extends ArrayList<Command> {
     (List<FormattedLine>) this*.formattedLines.flatten()
   }
 
+  List<RoomNumber> getRoomNumbers() {
+    (List<RoomNumber>) this*.roomNumbers.flatten()
+  }
+
   List<Command> getAll(commandType) {
     findAll { it?.class == commandType }
   }
@@ -17,7 +21,4 @@ class CommandList extends ArrayList<Command> {
     collect { it.toOldScript() }.flatten()
   }
 
-  List<RoomNumber> getRoomNumbers() {
-    (List<RoomNumber>) collect { it.getRoomNumbers() }.flatten()
-  }
 }

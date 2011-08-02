@@ -3,13 +3,12 @@ package no.advide.ui
 import java.awt.Color
 import java.awt.FontMetrics
 import java.awt.Graphics2D
-import no.advide.Cursor
 import no.advide.FormattedLine
 
 class TextRenderer {
 
   private static final int LEFT_PADDING = 20
-  private static final Color SOFT_HIGHLIGHT = new Color(255, 255, 255, 50)
+  private static final Color CURSOR_HIGHLIGHT = new Color(255, 255, 255, 50)
   private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 30)
 
   def render() {
@@ -39,15 +38,15 @@ class TextRenderer {
   }
 
   private int cursorX(String line) {
-    return fontMetrics.stringWidth(line.substring(0, cursor.x))
+    return fontMetrics.stringWidth(line.substring(0, (int)cursor.x))
   }
 
   private def renderText(FormattedLine line) {
-    new LineRenderer(line, LEFT_PADDING, y + ascent, g).render()
+    new LineRenderer(line, LEFT_PADDING, y, g).render()
   }
 
   private def renderCursorIndicatorBar() {
-    g.setColor(SOFT_HIGHLIGHT)
+    g.setColor(CURSOR_HIGHLIGHT)
     g.fillRect 0, y, componentWidth, fontHeight - 1
   }
 
@@ -57,7 +56,7 @@ class TextRenderer {
 
   def textLayout
   int componentWidth
-  Cursor cursor
+  def cursor
   Graphics2D g
   FontMetrics fontMetrics
   int ascent

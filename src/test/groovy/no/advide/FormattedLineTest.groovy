@@ -24,7 +24,8 @@ class FormattedLineTest extends GroovyTestCase {
   }
 
   void test_should_set_substring_color() {
-    line.formatSubstring(4, Color.yellow)
+    line.formatSubstring(4, 2, Color.yellow)
     assert line.changes[4].changeColor == Color.yellow
+    assert line.changes[6].revertColorChange
   }
 }

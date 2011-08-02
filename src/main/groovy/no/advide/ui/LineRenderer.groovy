@@ -58,22 +58,20 @@ class LineRenderer {
   }
 
   void draw(String s) {
-    g.drawString(s, x, y)
+    g.drawString(s, x, y + metrics.ascent)
     x += metrics.stringWidth(s)
   }
 
   void apply(FormatChange change) {
-    if (change.revertColorChange) {
-      colorStack.pop()
-    }
-    if (change.changeColor) {
-      colorStack.push(change.changeColor)
-    }
-    if (change.highlight) {
-      g.setColor(change.highlight.color)
-      g.fillRect(x, y - metrics.ascent, metrics.stringWidth(nextChars(change.highlight.length)), metrics.height)
-    }
+    if (change.revertColorChange) { colorStack.pop() }
+    if (change.changeColor)       { colorStack.push(change.changeColor) }
+    if (change.highlight)         { highlightNextChars(change.highlight.length, change.highlight.color) }
     g.setColor(colorStack.last())
+  }
+
+  private def highlightNextChars(length, color) {
+    g.setColor(color)
+    g.fillRect(x, y, metrics.stringWidth(nextChars(length)), metrics.height)
   }
 
   private String nextChars(length) {

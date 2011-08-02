@@ -7,8 +7,7 @@ class DocumentFragment {
   int length
 
   def getCursor() {
-    if (inside(document.cursor.y))
-      [x: document.cursor.x, y: document.cursor.y - startY]
+    if (inside(document.cursor.y)) { [x: document.cursor.x, y: document.cursor.y - startY] }
   }
 
   boolean inside(int y) {

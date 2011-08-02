@@ -9,7 +9,7 @@ class RemoveAlternativeCommand extends Command {
     strings[i] =~ /^#\d+$/
   }
 
-  static int numMatchingLines(Object lines, Object fromIndex) {
+  static int numMatchingLines(List<String> lines, int i) {
     1
   }
 

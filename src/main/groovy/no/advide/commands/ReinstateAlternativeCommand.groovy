@@ -4,9 +4,6 @@ import no.advide.DocumentFragment
 import no.advide.RoomNumber
 
 class ReinstateAlternativeCommand extends Command {
-  ReinstateAlternativeCommand(DocumentFragment fragment) {
-    super(fragment)
-  }
 
   static def matches(List<String> strings, int i) {
     matchesOldForm(strings, i) || matchesNewForm(strings, i)
@@ -20,8 +17,12 @@ class ReinstateAlternativeCommand extends Command {
     strings[i] =~ /^\*\d+$/
   }
 
-  static int numMatchingLines(Object lines, Object fromIndex) {
+  static int numMatchingLines(List<String> lines, int i) {
     1
+  }
+
+  ReinstateAlternativeCommand(DocumentFragment fragment) {
+    super(fragment)
   }
 
   @Override

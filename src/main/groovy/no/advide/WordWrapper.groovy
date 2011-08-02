@@ -46,7 +46,7 @@ class WordWrapper {
   }
 
   private boolean cursorIsAtStartOfSecondLine() {
-    return fragment.cursor && fragment.cursor.x == 0 && fragment.cursor.y == 1
+    fragment.cursor == [x:0, y:1]
   }
 
   private def addSpaceBetweenLinesAsNewlineReplacement(int y) {
@@ -54,7 +54,7 @@ class WordWrapper {
   }
 
   private boolean cursorAtEndOfLine(int y) {
-    return fragment.cursor && fragment.cursor.y == y && fragment.cursor.x == fragment.lines[y].size()
+    fragment.cursor == [x: fragment.lines[y].size(), y: y]
   }
 
   private boolean noWhiteSpaceAtEnd(int y) {

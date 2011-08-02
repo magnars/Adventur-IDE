@@ -59,7 +59,7 @@ class AppFrame extends JFrame {
     }
   }
 
-  private ArrayList<Integer> frameSize() {
+  private def frameSize() {
     return [1120, screenSize.height.intValue() - 100]
   }
 

@@ -9,25 +9,24 @@ import javax.swing.JPanel
 class BackgroundPanel extends JPanel {
 
   Image img
+  int imgWidth, imgHeight;
 
   BackgroundPanel() {
     img = new ImageIcon(ClassLoader.getSystemResource('background.jpg')).image
+    imgWidth = img.getHeight(this);
+    imgHeight = img.getWidth(this);
   }
 
   @Override
   protected void paintComponent(Graphics g) {
 		int x, y;
-		int width, height;
 
 		Rectangle clip = g.getClipBounds();
 
-		width = img.getHeight(this);
-		height = img.getWidth(this);
-
-		if(width > 0 && height > 0) {
-			for(x = clip.x; x < (clip.x + clip.width) ; x += width) {
-				for(y = clip.y; y < (clip.y + clip.height) ; y += height) {
-					g.drawImage(img,x,y,this);
+		if (imgWidth > 0 && imgHeight > 0) {
+			for (x = clip.x; x < (clip.x + clip.width) ; x += imgWidth) {
+				for (y = clip.y; y < (clip.y + clip.height) ; y += imgHeight) {
+					g.drawImage(img, x, y, this);
 				}
 			}
 		}

@@ -9,14 +9,16 @@ class TextEditor {
       "up":        { document.moveCursorUp() },
       "down":      { document.moveCursorDown() },
       "enter":     { document.splitAt(document.cursor.x, document.cursor.y) },
-      "backspace": {
-        if (!document.atStartOfLine()) {
-          document.removeCharBefore(document.cursor.x, document.cursor.y)
-        } else if (!document.atFirstLine()) {
-          document.mergeLineWithPrevious(document.cursor.y)
-        }
-      }
+      "backspace": { backspace() }
   ]
+
+  def backspace() {
+    if (!document.atStartOfLine()) {
+      document.removeCharBefore(document.cursor.x, document.cursor.y)
+    } else if (!document.atFirstLine()) {
+      document.mergeLineWithPrevious(document.cursor.y)
+    }
+  }
 
   def charTyped(c) {
     document.insertAt(document.cursor.x, document.cursor.y, c)

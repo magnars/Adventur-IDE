@@ -1,7 +1,7 @@
 Neste:
- [ ] getRoomNumbers -> formattere
- [ ] tabbe mellom roomNumbers
- [ ] hoppe til nytt rom
+ [x] getRoomNumbers -> formattere
+ [x] tabbe mellom roomNumbers
+ [x] hoppe til nytt rom
 
 Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
 

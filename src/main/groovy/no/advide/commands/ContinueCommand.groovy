@@ -3,6 +3,7 @@ package no.advide.commands
 import no.advide.FormattedLine
 
 class ContinueCommand extends Command {
+
   static boolean matches(List<String> strings, int i) {
     strings[i] in ["!!!", "-- fortsett --"]
   }

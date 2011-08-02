@@ -5,11 +5,11 @@ import no.advide.DocumentFragment
 
 class UnknownCommand extends Command {
 
-  static boolean matches(Object lines, Object fromIndex) {
+  static boolean matches(List<String> lines, int i) {
     true
   }
 
-  static int numMatchingLines(Object lines, Object fromIndex) {
+  static int numMatchingLines(List<String> lines, int i) {
     1
   }
 
