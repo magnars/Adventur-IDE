@@ -2,6 +2,7 @@ package no.advide.commands
 
 import java.awt.Color
 import no.advide.Document
+import no.advide.DocumentFragment
 
 class UnknownCommandTest extends GroovyTestCase {
 
@@ -16,6 +17,10 @@ class UnknownCommandTest extends GroovyTestCase {
     command = createTestCommand()
   }
 
+  DocumentFragment createFragment(List lines) {
+    new Document(lines, [x:0, y:0]).createFragment(0, lines.size())
+  }
+
   void test_line_should_match_input() {
     def lines = command.getFormattedLines()
     assert lines.size() == 1
@@ -23,15 +28,15 @@ class UnknownCommandTest extends GroovyTestCase {
   }
 
   void test_should_always_match() {
-    assert UnknownCommand.matches([""], 0)
+    assert UnknownCommand.matches(createFragment([""]))
   }
 
   void test_should_match_one_line() {
-    assert UnknownCommand.numMatchingLines(["", ""], 0) == 1
+    assert UnknownCommand.numMatchingLines(createFragment(["", ""])) == 1
   }
 
-  void test_should_format_lines_black() {
-    assert command.formattedLines.first().color == Color.black
+  void test_should_format_lines_grey() {
+    assert command.formattedLines.first().color == Color.gray
   }
 
 }

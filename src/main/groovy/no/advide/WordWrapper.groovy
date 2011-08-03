@@ -17,14 +17,12 @@ class WordWrapper {
   }
 
   void justify() {
-    concatenateToOneLine_orMaybeTwo()
-    if (fragment.length == 2) wrapWordsInLine(1)
+    concatenateToOneLine()
     wrapWordsInLine(0)
   }
 
-  private def concatenateToOneLine_orMaybeTwo() {
+  private def concatenateToOneLine() {
     while (fragment.length > 1) {
-      if (cursorIsAtStartOfSecondLine()) { concatenateToTwoLinesInstead(); break }
       addSpaceBetweenLinesAsNewlineReplacement(0)
       fragment.mergeLineWithPrevious(1)
     }
@@ -36,17 +34,6 @@ class WordWrapper {
       fragment.splitAt(lines[i].size() + 1, y + i)
       fragment.chop(y + i)
     }
-  }
-
-  private def concatenateToTwoLinesInstead() {
-    while (fragment.length > 2) {
-      addSpaceBetweenLinesAsNewlineReplacement(1)
-      fragment.mergeLineWithPrevious(2)
-    }
-  }
-
-  private boolean cursorIsAtStartOfSecondLine() {
-    fragment.cursor == [x:0, y:1]
   }
 
   private def addSpaceBetweenLinesAsNewlineReplacement(int y) {
@@ -62,6 +49,7 @@ class WordWrapper {
   }
 
   private List<String> wrapWords(String string) {
+    if (string.startsWith(" ")) throw new UnsupportedOperationException("word wrapper does not behave nicely on strings starting with whitespace")
     StringUtils.splitPreserveAllTokens(WordUtils.wrap(string, width), '\n')
   }
 }

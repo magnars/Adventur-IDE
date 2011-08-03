@@ -12,42 +12,26 @@ class WordWrapperTest extends GroovyTestCase {
     wrapper = new WordWrapper(fragment)
   }
 
-  void test_updateDocument_should_concatenate_lines() {
+  void test_should_concatenate_lines() {
     setUpFormatter(["Hei", "du"])
     wrapper.justify()
     assert document.lines == ["Hei du"]
   }
 
-  void test_updateDocument_should_avoid_double_spaces() {
+  void test_should_avoid_double_spaces() {
     setUpFormatter(["Hei ", "du"])
     wrapper.justify()
     assert document.lines == ["Hei du"]
   }
 
-  void test_updateDocument_should_not_concatenate_lines_with_cursor_at_start() {
-    setUpFormatter(["Hei", "du", "der", "borte"])
-    document.cursor = [x:0, y:2]
-    wrapper.justify()
-    assert document.lines == ["Hei du", "der borte"]
-    assert document.cursor == [x:0, y:1]
-  }
-
-  void test_updateDocument_should_wrap_long_lines() {
+  void test_should_wrap_long_lines() {
     setUpFormatter(["En ganske lang linje gitt width"])
     wrapper.width = 15
     wrapper.justify()
     assert document.lines == ["En ganske lang", "linje gitt", "width"]
   }
 
-  void test_updateDocument_should_wrap_long_lines_also_when_cursor_is_interfering() {
-    setUpFormatter(["En ganske", "lang linje gitt width"])
-    document.cursor = [x:0, y:1]
-    wrapper.width = 15
-    wrapper.justify()
-    assert document.lines == ["En ganske", "lang linje gitt", "width"]
-  }
-
-  void test_updateDocument_should_allow_cursor_to_be_placed_at_end_of_wrapped_lines() {
+  void test_should_allow_cursor_to_be_placed_at_end_of_wrapped_lines() {
     def lines = ["Det er noe snålt som skjer med cursoren når den når slutten av en linje som", "splittes"]
     setUpFormatter(lines)
     document.cursor = [x:75, y:0]
@@ -56,7 +40,7 @@ class WordWrapperTest extends GroovyTestCase {
     assert document.cursor == [x:75, y:0]
   }
 
-  void test_updateDocument_should_place_cursor_correctly_when_word_unwraps() {
+  void test_should_place_cursor_correctly_when_word_unwraps() {
     setUpFormatter(["En ganske", "lang linje"])
     document.cursor = [x:9, y:0]
     wrapper.width = 15
@@ -65,7 +49,7 @@ class WordWrapperTest extends GroovyTestCase {
     assert document.cursor == [x:9, y:0]
   }
 
-  void test_updateDocument_full_line_when_press_space_should_end_up_on_new_blank_line() {
+  void test_full_line_when_press_space_should_end_up_on_new_blank_line() {
     setUpFormatter(["En full linje"])
     wrapper.width = 13
     document.cursor = [x:13, y:0]
@@ -76,7 +60,7 @@ class WordWrapperTest extends GroovyTestCase {
     assert document.cursor == [x:0, y:1]
   }
 
-  void test_updateDocument_trailing_space_before_cursor_shouldnt_be_used_as_newline() {
+  void test_trailing_space_before_cursor_shouldnt_be_used_as_newline() {
     setUpFormatter(["En overfull", "linje"])
     wrapper.width = 13
     document.cursor = [x:11, y:0]
@@ -86,6 +70,5 @@ class WordWrapperTest extends GroovyTestCase {
     assert document.lines == ["En overfull ", "linje"]
     assert document.cursor == [x:12, y:0]
   }
-
 
 }

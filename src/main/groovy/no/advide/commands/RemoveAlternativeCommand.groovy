@@ -5,11 +5,11 @@ import no.advide.RoomNumber
 
 class RemoveAlternativeCommand extends Command {
 
-  static def matches(List<String> strings, int i) {
-    strings[i] =~ /^#\d+$/
+  static def matches(DocumentFragment fragment) {
+    fragment.lines.first() =~ /^#\d+$/
   }
 
-  static int numMatchingLines(List<String> lines, int i) {
+  static int numMatchingLines(DocumentFragment fragment) {
     1
   }
 

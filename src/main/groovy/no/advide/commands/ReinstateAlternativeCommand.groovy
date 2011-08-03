@@ -5,19 +5,19 @@ import no.advide.RoomNumber
 
 class ReinstateAlternativeCommand extends Command {
 
-  static def matches(List<String> strings, int i) {
-    matchesOldForm(strings, i) || matchesNewForm(strings, i)
+  static def matches(DocumentFragment fragment) {
+    matchesOldForm(fragment) || matchesNewForm(fragment)
   }
 
-  private static def matchesNewForm(List<String> strings, int i) {
-    strings[i] =~ /^- #\d+$/
+  private static def matchesNewForm(DocumentFragment fragment) {
+    fragment.lines.first() =~ /^- #\d+$/
   }
 
-  private static def matchesOldForm(List<String> strings, int i) {
-    strings[i] =~ /^\*\d+$/
+  private static def matchesOldForm(DocumentFragment fragment) {
+    fragment.lines.first() =~ /^\*\d+$/
   }
 
-  static int numMatchingLines(List<String> lines, int i) {
+  static int numMatchingLines(DocumentFragment fragment) {
     1
   }
 
@@ -48,7 +48,7 @@ class ReinstateAlternativeCommand extends Command {
   }
 
   private int getNumberIndex() {
-    return matchesOldForm(fragment.lines, 0) ? 1 : 3
+    return matchesOldForm(fragment) ? 1 : 3
   }
 
 }

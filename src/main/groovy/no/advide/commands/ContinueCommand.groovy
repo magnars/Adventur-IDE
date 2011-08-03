@@ -1,14 +1,15 @@
 package no.advide.commands
 
+import no.advide.DocumentFragment
 import no.advide.FormattedLine
 
 class ContinueCommand extends Command {
 
-  static boolean matches(List<String> strings, int i) {
-    strings[i] in ["!!!", "-- fortsett --"]
+  static boolean matches(DocumentFragment fragment) {
+    fragment.lines.first() in ["!!!", "-- fortsett --"]
   }
 
-  static int numMatchingLines(List<String> strings, int i) {
+  static int numMatchingLines(DocumentFragment fragment) {
     1
   }
 

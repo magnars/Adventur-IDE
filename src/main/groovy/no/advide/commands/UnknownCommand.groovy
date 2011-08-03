@@ -5,11 +5,11 @@ import no.advide.DocumentFragment
 
 class UnknownCommand extends Command {
 
-  static boolean matches(List<String> lines, int i) {
+  static boolean matches(DocumentFragment fragment) {
     true
   }
 
-  static int numMatchingLines(List<String> lines, int i) {
+  static int numMatchingLines(DocumentFragment fragment) {
     1
   }
 
@@ -20,7 +20,7 @@ class UnknownCommand extends Command {
 
   @Override
   Color getColor() {
-    Color.black
+    Color.gray
   }
 
 

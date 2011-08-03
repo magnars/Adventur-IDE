@@ -32,17 +32,19 @@ class CommandParser {
   }
 
   private Command findMatchingCommand() {
+    def fragment = document.createFragment(index, strings.size() - index)
     for (type in commandTypes) {
-      if (type.matches(strings, index)) {
-        return createCommand(type)
+      if (type.matches(fragment)) {
+        return createCommand(type, fragment)
       }
     }
     throw new IllegalStateException("no matching commands")
   }
 
-  private Command createCommand(type) {
-    int numLines = type.numMatchingLines(strings, index)
-    Command command = type.newInstance(document.createFragment(index, numLines))
+  private Command createCommand(type, fragment) {
+    int numLines = type.numMatchingLines(fragment)
+    fragment.length = numLines
+    Command command = type.newInstance(fragment)
     index += numLines
     return command
   }
