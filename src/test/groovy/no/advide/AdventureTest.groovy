@@ -26,13 +26,13 @@ class AdventureTest extends GroovyTestCase {
   }
 
   void test_should_load_room() {
-    def room = adventure.loadRoom(0)
+    def room = adventure.getRoom(0)
     assert room.name == "Rom 0"
     assert room.lines == ["Dette er rom 0 med blåbærsyltetøy."]
   }
 
   void test_should_load_notes() {
-    def notes = adventure.loadNotes()
+    def notes = adventure.getNotes()
     assert notes.name == "Notatblokk"
     assert notes.lines == ["Notatblokka"]
   }
@@ -42,7 +42,7 @@ class AdventureTest extends GroovyTestCase {
   }
 
   void test_should_treat_pages_as_entities_and_not_give_out_copies() {
-    assert adventure.loadRoom(2) == adventure.loadRoom(2)
+    assert adventure.getRoom(2) == adventure.getRoom(2)
   }
 
 }

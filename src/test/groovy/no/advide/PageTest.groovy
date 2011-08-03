@@ -1,7 +1,5 @@
 package no.advide
 
-import no.advide.commands.CommandParser
-
 class PageTest extends GroovyTestCase {
 
   def page
@@ -11,10 +9,7 @@ class PageTest extends GroovyTestCase {
   }
 
   Page getPage(int number) {
-    def room = Adventure.current.loadRoom(number)
-    def document = new Document(room.lines, room.cursor)
-    def commands = new CommandParser(document).parse()
-    new Page(document, commands)
+    new Page(Adventure.current.getRoom(number))
   }
 
   void test_should_know_next_room_number_after_cursor() {

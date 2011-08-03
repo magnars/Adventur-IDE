@@ -13,7 +13,7 @@ class RoomTest extends GroovyTestCase {
 
   void test_should_know_if_modified() {
     AdventureTest.setUpCurrent()
-    def room = Adventure.current.loadRoom(0)
+    def room = Adventure.current.getRoom(0)
     assert !room.modified
     room.lines = ["endret"]
     assert room.modified

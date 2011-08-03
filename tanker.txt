@@ -1,6 +1,5 @@
-Neste: få på plass justify på prose igjen. Hvor skal den hen???
 
-Etter det: undo, redo, esc --> framtvinger forskjell på cursorChanged og documentChanged -> som fremtvinger mer generisk callbacks on('documentChanged', {})
+Neste: undo, redo, esc --> framtvinger forskjell på cursorChanged og documentChanged -> som fremtvinger mer generisk callbacks on('documentChanged', {})
 
 Etter det: nesting
 
@@ -19,8 +18,7 @@ Dvs at Document og DocumentFragment må ha samme API
 
 --------------------
 
-Kan vurdere å fjerne loadRoom eller getRoom fra Adventure
-Kan vurdere å la new Page ta et Room - hadde blitt både penere Application og tester
+Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.optimizeDocument() et al
 
 --------------------
 

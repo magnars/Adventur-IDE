@@ -1,7 +1,5 @@
 package no.advide
 
-import no.advide.commands.CommandParser
-
 class PageEditorTest extends GroovyTestCase {
 
   void setUp() {
@@ -17,10 +15,7 @@ class PageEditorTest extends GroovyTestCase {
   }
 
   Page getPage(int number) {
-    def room = Adventure.current.loadRoom(number)
-    def document = new Document(room.lines, room.cursor)
-    def commands = new CommandParser(document).parse()
-    new Page(document, commands)
+    new Page(Adventure.current.getRoom(number))
   }
 
   void test_can_toggle_styles() {

@@ -1,16 +1,15 @@
 package no.advide
 
 import no.advide.commands.CommandList
+import no.advide.commands.CommandParser
 
 class Page {
   Document document
   CommandList commands
 
-  Page() {}
-
-  Page(document, commands) {
-    this.document = document
-    this.commands = commands
+  Page(room) {
+    document = new Document(room.lines, room.cursor)
+    commands = new CommandParser(document).parse()
   }
 
   RoomNumber getTargetRoomNumber() {

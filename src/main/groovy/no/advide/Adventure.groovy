@@ -46,11 +46,7 @@ class Adventure {
     hundreds < 10 ? "A0${hundreds}" : "A${hundreds}"
   }
 
-  Room loadRoom(int roomNumber) {
-    getRoom(roomNumber)
-  }
-
-  Room loadNotes() {
+  Room getNotes() {
     getRoom(-1)
   }
 
