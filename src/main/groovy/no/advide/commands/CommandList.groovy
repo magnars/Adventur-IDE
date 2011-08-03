@@ -17,4 +17,8 @@ class CommandList extends ArrayList<Command> {
     findAll { it?.class == commandType }
   }
 
+  void optimizeDocument() {
+    each { it.optimizeDocument() }
+  }
+
 }

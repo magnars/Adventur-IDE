@@ -53,7 +53,7 @@ class PageEditor {
   }
 
   def documentChanged() {
-    if (documentChangeCallback) documentChangeCallback.call page.document
+    if (documentChangeCallback) documentChangeCallback.call()
   }
 
   def roomChangeCallback

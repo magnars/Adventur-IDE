@@ -28,4 +28,10 @@ class ProseCommandTest extends GroovyTestCase {
     assert command.formattedLines.first().color == Color.black
   }
 
+  void test_should_optimize_document() {
+    setUpCommand(["Hei", "på du"])
+    command.optimizeDocument()
+    assert command.fragment.lines == ["Hei på du"]
+  }
+
 }

@@ -1,6 +1,7 @@
 package no.advide.commands
 
 import java.awt.Color
+import no.advide.WordWrapper
 
 class ProseCommand extends Command {
 
@@ -23,5 +24,9 @@ class ProseCommand extends Command {
     Color.black
   }
 
+  @Override
+  void optimizeDocument() {
+    new WordWrapper(fragment).justify()
+  }
 
 }

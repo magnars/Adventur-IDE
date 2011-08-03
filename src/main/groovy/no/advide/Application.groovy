@@ -58,9 +58,10 @@ class Application {
 
   private void waitForEvents(Page page) {
     def editor = new PageEditor(page, room)
-    editor.onDocumentChange { document ->
-      room.lines = document.lines
-      room.cursor = document.cursor
+    editor.onDocumentChange {
+      page.commands.optimizeDocument()
+      room.lines = page.document.lines
+      room.cursor = page.document.cursor
       roomChanged()
     }
     editor.onRoomChange { int number ->
