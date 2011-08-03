@@ -1,6 +1,6 @@
 package no.advide
 
-class TextEditor {
+class TextEditor extends EventEmitter {
   Document document
 
   TextEditor(Document document) {
@@ -38,14 +38,12 @@ class TextEditor {
     }
   }
 
-  def changeCallbacks = []
-
   def onChange(callback) {
-    changeCallbacks << callback
+    on('change', callback)
   }
 
   def changed() {
-    changeCallbacks.each { it.call document }
+    emit('change', document)
   }
 
 }

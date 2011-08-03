@@ -22,7 +22,7 @@ Kan vurdere å eksponere metoder fra commands og document i page, slik at vi sli
 
 --------------------
 
-Jeg har hatt litt problemer med å se prosessen. Slik må den være:
+Jeg har hatt litt problemer med å se prosessen. Slik er den:
 
 1. Det finnes et Room med tekstlinjer med en cursor. Dette er utgangspunktet og starten på flyten.
 2. Room må vises fram. Hvordan? Det vet Page, ved hjelp av Commands. Linjene parses til Commands.
@@ -33,9 +33,9 @@ Jeg har hatt litt problemer med å se prosessen. Slik må den være:
 
 Altså, skrevet med litt andre ord:
 
-1. Vent på Event. (kan være endring fra TextEditor, PageEditor eller "OpenStartingDocument")
+1. Vent på Event. (kan være endring fra TextEditor, PageEditor eller Application (ved første åpning))
 2. Eventen sender et Room. Den har name, file, lines og cursor. Observer at dette er enkle objecter. String, File, List<String>, [int, int]
-3. Et Document opprettes og brukes til å lage Commands. En Page får disse for å holde oversikt.
+3. En Page lages ut fra Room. Den oppretter Document som brukes til å lage Commands, for å holde oversikt.
 4. Page brukes av PageFormatter til å lage formattere linjer for rendring.
 5. TextEditor (vha Document) og PageEditor (vha Page) tolker tastetrykkene som kommer og gjør endringer.
 6. Room får oppdatert sin lines og cursor.

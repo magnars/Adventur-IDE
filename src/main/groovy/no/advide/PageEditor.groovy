@@ -1,6 +1,6 @@
 package no.advide
 
-class PageEditor {
+class PageEditor extends EventEmitter {
 
   Page page
   Room room
@@ -18,9 +18,7 @@ class PageEditor {
     this.page = page
     this.room = room
     textEditor = new TextEditor(page.document)
-    textEditor.onChange {
-      documentChanged()
-    }
+    textEditor.onChange { documentChanged() }
   }
 
   def charTyped(c) {
@@ -45,26 +43,20 @@ class PageEditor {
     }
   }
 
-  def documentChangeCallback
-
   def onDocumentChange(callback) {
-    if (documentChangeCallback) throw new UnsupportedOperationException("Only support for 1 callback at the moment")
-    documentChangeCallback = callback
+    on('documentChange', callback)
   }
 
   def documentChanged() {
-    if (documentChangeCallback) documentChangeCallback.call()
+    emit('documentChange')
   }
 
-  def roomChangeCallback
-
   def onRoomChange(callback) {
-    if (roomChangeCallback) throw new UnsupportedOperationException("Only support for 1 callback at the moment")
-    roomChangeCallback = callback
+    on('roomChange', callback)
   }
 
   def roomChanged(int number) {
-    if (roomChangeCallback) roomChangeCallback.call number
+    emit('roomChange', number)
   }
 
 }
