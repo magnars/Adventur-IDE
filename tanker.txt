@@ -1,12 +1,6 @@
 
-Bug: etter at Document kastes hver gang, så sluttet justify å funke igjen. ProseCommand gaper over for mye,
-     og bør slutte å hente linjer når den kommer til en cursor på starten av en linje.
-     Altså: Commands tar ikke lengre (List<String> lines, int index) men et DocumentFragment på lengde med resten av dokumentet.
-     Dette fragmentet blir så justert ned i størrelse.
-
 Neste: undo, redo, esc --> framtvinger forskjell på cursorChanged og documentChanged
-   -> nei, det gjør den ikke. begge må fortsatt optimizeDocument, og dermed sammenligne lines i room og pages
-   -> dermed kan room like gjerne holde styr på om den blir endret selv
+   -> nei, room kan like gjerne holde styr på om den blir endret selv
 
 Etter det: nesting
 

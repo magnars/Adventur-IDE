@@ -50,7 +50,7 @@ class Application {
   }
 
   private void waitForEvents(Page page) {
-    def editor = new PageEditor(page, room)
+    def editor = new RoomEditor(page, room)
     editor.onDocumentChange {
       room.lines = page.document.lines
       room.cursor = page.document.cursor
