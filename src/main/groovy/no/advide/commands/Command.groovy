@@ -21,28 +21,28 @@ abstract class Command {
     fragment.lines.collect { new FormattedLine(text: it, color: color)}
   }
 
-  List<String> toOldScript() {
+  List<String> toOldStyle() {
     fragment.lines
   }
 
-  List<String> toNewScript() {
+  List<String> toNewStyle() {
     fragment.lines
   }
 
   void replaceWithNewStyle() {
-    if (!isInNewStyle()) fragment.replaceWith(toNewScript())
+    if (!isInNewStyle()) fragment.replaceWith(toNewStyle())
   }
 
   void replaceWithOldStyle() {
-    if (!isInOldStyle()) fragment.replaceWith(toOldScript())
+    if (!isInOldStyle()) fragment.replaceWith(toOldStyle())
   }
 
   boolean isInOldStyle() {
-    fragment.lines == toOldScript()
+    fragment.lines == toOldStyle()
   }
 
   boolean isInNewStyle() {
-    fragment.lines == toNewScript()
+    fragment.lines == toNewStyle()
   }
 
   List<RoomNumber> getRoomNumbers() {

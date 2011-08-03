@@ -6,9 +6,11 @@ import no.advide.commands.CommandList
 class PageFormatter {
 
   Page page
+  boolean modified
 
-  PageFormatter(Page page) {
+  PageFormatter(Page page, boolean isModified) {
     this.page = page
+    this.modified = isModified
   }
 
   CommandList getCommands() {
@@ -23,7 +25,7 @@ class PageFormatter {
 
   def formatLines(List<FormattedLine> lines) {
     colorNonexistantRoomNumbers(lines)
-    if (!page.modified) highlightTargetRoomNumber(lines)
+    if (!modified) highlightTargetRoomNumber(lines)
   }
 
   void colorNonexistantRoomNumbers(List<FormattedLine> lines) {

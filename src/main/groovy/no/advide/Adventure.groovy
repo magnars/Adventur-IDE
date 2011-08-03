@@ -33,7 +33,8 @@ class Adventure {
   }
 
   private File roomFile(int roomNumber) {
-    return new File(pathTo(roomNumber))
+    if (roomNumber == -1) { return new File("${directoryPath}/notat.txt") }
+    else return new File(pathTo(roomNumber))
   }
 
   String pathTo(int roomNumber) {
@@ -45,21 +46,21 @@ class Adventure {
     hundreds < 10 ? "A0${hundreds}" : "A${hundreds}"
   }
 
-  Page loadRoom(int roomNumber) {
-    getPage("Rom ${roomNumber}", roomFile(roomNumber))
+  Room loadRoom(int roomNumber) {
+    getRoom(roomNumber)
   }
 
-  Page loadNotes() {
-    getPage('Notatblokk', new File("${directoryPath}/notat.txt"))
+  Room loadNotes() {
+    getRoom(-1)
   }
 
-  def pages = [:]
+  def rooms = [:]
 
-  Page getPage(String name, File file) {
-    if (!pages[name]) {
-      pages[name] = new Page(name, file)
+  Room getRoom(int number) {
+    if (!rooms[number]) {
+      rooms[number] = new Room(number, roomFile(number))
     }
-    pages[name]
+    rooms[number]
   }
 
   String getName() {

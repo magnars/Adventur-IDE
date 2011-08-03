@@ -17,12 +17,11 @@ class CommandParser {
   Document document
   int index
 
-  CommandParser(Document document) {
-    this.document = document
+  CommandParser(Document doc) {
+    document = doc
     strings = document.lines
     commands = new CommandList()
     index = 0
-    document.clearFragments()
   }
 
   CommandList parse() {

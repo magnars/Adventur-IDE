@@ -26,12 +26,12 @@ class ReinstateAlternativeCommand extends Command {
   }
 
   @Override
-  List<String> toNewScript() {
+  List<String> toNewStyle() {
     return [ "- #${number}" ]
   }
 
   @Override
-  List<String> toOldScript() {
+  List<String> toOldStyle() {
     return [ "*${number}" ]
   }
 

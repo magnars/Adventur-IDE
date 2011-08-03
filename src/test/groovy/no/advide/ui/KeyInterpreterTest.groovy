@@ -11,7 +11,7 @@ class KeyInterpreterTest extends GroovyTestCase {
   void setUp() {
     listener = new MockKeyListener()
     interpreter = new KeyInterpreter(new JPanel())
-    interpreter.addListener(listener)
+    interpreter.setListener(listener)
   }
 
   void test_normal_key() {

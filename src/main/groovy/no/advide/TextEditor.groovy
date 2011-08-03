@@ -3,6 +3,10 @@ package no.advide
 class TextEditor {
   Document document
 
+  TextEditor(Document document) {
+    this.document = document
+  }
+
   def actions = [
       "right":     { document.moveCursorRight() },
       "left":      { document.moveCursorLeft() },

@@ -18,10 +18,6 @@ class CommandListTest extends GroovyTestCase {
     assert list.getFormattedLines().size() == 2
   }
 
-  void test_should_convert_to_old_script() {
-    assert list.toOldScript().size() == 2
-  }
-
   void test_should_get_room_numbers() {
     assert list.getRoomNumbers().size() == 0
   }

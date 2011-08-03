@@ -35,12 +35,12 @@ class ReinstateAlternativeCommandTest extends GroovyTestCase {
 
   void test_should_convert_to_new_form() {
     setUpCommand("*123")
-    assert command.toNewScript() == ["- #123"]
+    assert command.toNewStyle() == ["- #123"]
   }
 
   void test_should_convert_to_old_form() {
     setUpCommand("- #123")
-    assert command.toOldScript() == ["*123"]
+    assert command.toOldStyle() == ["*123"]
   }
 
   void test_should_return_room_number_in_old_form() {

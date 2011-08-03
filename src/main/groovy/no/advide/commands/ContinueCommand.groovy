@@ -24,12 +24,12 @@ class ContinueCommand extends Command {
   }
 
   @Override
-  List<String> toOldScript() {
+  List<String> toOldStyle() {
     ["!!!"]
   }
 
   @Override
-  List<String> toNewScript() {
+  List<String> toNewStyle() {
     ["-- fortsett --"]
   }
 

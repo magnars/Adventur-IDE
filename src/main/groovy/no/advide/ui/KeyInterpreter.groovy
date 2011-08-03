@@ -7,8 +7,8 @@ class KeyInterpreter {
   def listeners = []
   def actionCallbacks = [:]
 
-  void addListener(l) {
-    listeners << l
+  void setListener(l) {
+    listeners = [l]
   }
 
   void onAction(action, callback) {

@@ -24,12 +24,12 @@ class ContinueCommandTest extends GroovyTestCase {
 
   void test_should_convert_to_old_script() {
     def command = new ContinueCommand([ getLines: {["-- fortsett --"]} ] as DocumentFragment)
-    assert command.toOldScript() == ["!!!"]
+    assert command.toOldStyle() == ["!!!"]
   }
 
   void test_should_convert_to_new_script() {
     def command = new ContinueCommand([ getLines: {["!!!"]} ] as DocumentFragment)
-    assert command.toNewScript() == ["-- fortsett --"]
+    assert command.toNewStyle() == ["-- fortsett --"]
   }
 
 }

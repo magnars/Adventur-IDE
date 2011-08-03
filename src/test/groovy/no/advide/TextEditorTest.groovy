@@ -7,7 +7,7 @@ class TextEditorTest extends GroovyTestCase {
   
   def setUpEditor(lines, cursor) {
     document = new Document(lines, cursor)
-    editor = new TextEditor(document: document)
+    editor = new TextEditor(document)
   }
   
   void test_when_empty_arrows_does_nothing() {

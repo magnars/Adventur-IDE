@@ -6,11 +6,9 @@ class Document {
   List<String> lines
   def cursor = [x:0, y:0]
 
-  Document() {}
-
   Document(List<String> lines, cursor) {
-    this.lines = lines
-    this.cursor = cursor
+    this.lines = [] + lines
+    this.cursor = [x:cursor.x, y:cursor.y]
   }
 
   void moveCursorRight() {
@@ -119,8 +117,12 @@ class Document {
     return f
   }
 
-  void clearFragments() {
-    fragments = []
+  def boolean atFirstLine() {
+    cursor.y == 0
+  }
+
+  def boolean atStartOfLine() {
+    cursor.x == 0
   }
 
   private String currentLine() {
@@ -133,14 +135,6 @@ class Document {
 
   private boolean atEndOfLine() {
     currentLine().size() <= cursor.x
-  }
-
-  private boolean atFirstLine() {
-    cursor.y == 0
-  }
-
-  private boolean atStartOfLine() {
-    cursor.x == 0
   }
 
   private List<DocumentFragment> fragmentsAt(int y) {
