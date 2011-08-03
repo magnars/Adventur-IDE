@@ -1,21 +1,56 @@
-Neste:
- [x] getRoomNumbers -> formattere
- [x] tabbe mellom roomNumbers
- [x] hoppe til nytt rom
+Neste: oppdater til ny forståelse, der Room består, men andre parsede elementer kastes mellom hver endring.
 
-Etter det: nesting --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
+Etter det: nesting
+
+--> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
+
+For at typ [C] skal fungere riktig må Prose stacke seg opp på en linje i gammel form.
+Dermed er nesting ikke bundet til typ [!], men rett på brackets.
+Typ [!] vil fortsatt ha en command, men det kan være en CommandBlock
+
+en blokket kommando grabber alt den ønsker seg vha numLines
+lager en CommandBlock, sitt eget DocumentFragment og sin egen CommandParser
+bruker disse for å snakke med omverdenen
+
+Dvs at Document og DocumentFragment må ha samme API
+  --> DocumentFragments delegerer fortsatt alt rett videre til Document
+
+--------------------
+
+Jeg har hatt litt problemer med å se prosessen. Slik må den være:
+
+1. Det finnes et Room med tekstlinjer med en cursor. Dette er utgangspunktet og starten på flyten.
+2. Room må vises fram. Hvordan? Det vet Page, ved hjelp av Commands. Linjene parses til Commands.
+3. Commands blir bedt om å rendre seg selv. De lager formatterte linjer som matcher linjene i dokumentet.
+4. De formatterte linjene blir rendret.
+5. Editoren lytter etter endringer. Når de kommer så gjøres endringer i tekstdokumentet. Dette via Document, som har ansvar for å at cursor-posisjon er bra.
+6. Endringene fra Document går til Room, som så starter prosessen på nytt.
+
+Altså, skrevet med litt andre ord:
+
+1. Vent på Event. (kan være endring fra TextEditor, PageEditor eller "OpenStartingDocument")
+2. Eventen sender et Room. Den har name, file, lines og cursor. Observer at dette er enkle objecter. String, File, List<String>, [int, int]
+3. Et Document opprettes og brukes til å lage Commands. En Page får disse for å holde oversikt.
+4. Page brukes av PageFormatter til å lage formattere linjer for rendring.
+5. TextEditor (vha Document) og PageEditor (vha Page) tolker tastetrykkene som kommer og gjør endringer.
+6. Room får oppdatert sin lines og cursor.
+7. Endring rapporteres.
+
+--------------------
+
+* Fiksing av Page ved førstegangs åpning gjøre av PageReformatter, som også bruker Document og Commands for å gjøre dette.
+* En singleton PageHistory tar vare på stacken av sider for rask navigasjon.
 
 --------------------
 
 Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
-De trenger bare å svare på getRoomNumbers og getRequirements med [text, position: [x,y]],
-så vil egne klasser håndtere fargelegging av dem.
+De trenger bare å svare på getRoomNumbers og getRequirements så vil egne klasser håndtere fargelegging av dem.
 
 ------------------
 
 Commands vet alt om kommandoene i Adventur. De kan rendre seg som ny og som gammel, og vet hvor de kan finne
 romnummer og krav. De endrer ikke på dokumenter uten å bli bedt om det.
-De kan svare på "er dette den gamle eller nye formen?", slik at editoren kan la deg trykke ctrl+space for å endre til ny form.
+De kan svare på "er dette den gamle eller nye formen?", slik at editoren kan la deg trykke cmd+f for å endre til ny form.
 
 Det gjøres bare automatisk konvertering til newScript ved innlasting av rom.
 
@@ -27,24 +62,20 @@ gjennom fragmentet og lager dem ut fra lines.
 
 -------------------
 
-- et romnummers oppførsel (som at det er rødt) hører ikke hjemme i RemovedAlternativeCommand
-
---------------------
-
 Istedet for automatisk fiksing mens du skriver, så vil jeg ha små lyspærer i margen som ordner.
 
 --------------------
 
-Page har Document:
+Room holdes åpne i Adventure (og RoomHistory).
   - Det er en måte å beholde cursor-posisionen.
-  - Da kan man hoppe til et annet rom uten å lagre ... feature? tror det føles som bug
+  - Da er det teoretisk mulig å la spilleren hoppe fram og tilbake mellom rommene uten å lagre.
+    Er det ålreit? Det tror jeg faktisk. I hvert fall hvis jeg får en oversikt over rom som ikke er lagret.
 
 --------------------
 
-Command får ikke List<String> lines
-- den får istedet et DocumentFragment
+Command får et DocumentFragment
    - et DocumentFragment er et view inn i dokumentet
-   - med en index og en lengde
+   - med en offset og en lengde
    - når dokumentet endres, oppdaterer den tilkoblede fragmenter
    - DocumentFragment tilbyr metoder for å endre teksten
       - oversettes til Document-index og sendes rett videre
@@ -55,17 +86,9 @@ En paragraf representeres med ':'
   - en paragraf med cursor på linja er uten ':'
   - en paragraf på øverste nivå er uten ':'
 
-
 ---------------------
 
  TextRenderer vet ikke om annet enn rendring. Tar bare imot en rekke linjer og en cursor.
-
- Application åpner vinduet, instansierer Editor og View. Lytter på events.
-   Tastetrykk sendes til Editor.
-
- En Page har et nummer, kan lagres, inneholder Commands.
-
- TextLayout er en liste med Line som består av Text, sendes til View for rendring sammen med Cursor
 
  TextEditor kjenner til et document, som består av tekst og en cursor. Vet ingenting annet.
  PageEditor har en Page, kjenner til Commands, og er mer opptatt av domenet. Delegerer videre til TextEditor.
@@ -74,8 +97,8 @@ En paragraf representeres med ':'
 
  Kommandoen har flere roller:
    - static: parse tekst til seg selv (old + new)
-   - rendre seg som tekst (old script)
-   - rendre seg som Line (new script)
+   - rendre seg som i ny og gammel form
+   - vite hvilke romnummer og krav som er i teksten sin
 
 [Y] + [X] kan løses ved at de vet om hverandre
  - ved rendring av Lines, sender [Y] en tom array hvis den er helt standard
@@ -83,12 +106,7 @@ En paragraf representeres med ':'
 ---------------------
 
 Vanlig skrivefeil for Grethe:   "Ingen tvil om det"; tenker du.   ; --> ,
-
----------------------
-
-Ettersom jeg kaster alle Commands og parser hele teksten på nytt når brukeren gjør endringer,
-så legger det føringer for hvordan DocumentFragments brukes. De må nemlig cleares hver gang
-jeg parser, for at ikke utdaterte Commands skal leve videre i en grotesk vandød tilstand.
+Vanlig skrivefeil: Alternativ som begynner eller slutter med " uten å ha noen flere
 
 ---------------------
 

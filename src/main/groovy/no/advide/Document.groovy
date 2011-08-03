@@ -111,26 +111,6 @@ class Document {
     cursor.x = Math.min(cursor.x, currentLine().size())
   }
 
-  String currentLine() {
-    lines[cursor.y]
-  }
-
-  boolean atLastLine() {
-    lines.size() <= cursor.y + 1
-  }
-
-  boolean atEndOfLine() {
-    currentLine().size() <= cursor.x
-  }
-
-  boolean atFirstLine() {
-    cursor.y == 0
-  }
-
-  boolean atStartOfLine() {
-    cursor.x == 0
-  }
-
   List<DocumentFragment> fragments = []
 
   DocumentFragment createFragment(int y, int length) {
@@ -143,11 +123,31 @@ class Document {
     fragments = []
   }
 
-  List<DocumentFragment> fragmentsAt(int y) {
+  private String currentLine() {
+    lines[cursor.y]
+  }
+
+  private boolean atLastLine() {
+    lines.size() <= cursor.y + 1
+  }
+
+  private boolean atEndOfLine() {
+    currentLine().size() <= cursor.x
+  }
+
+  private boolean atFirstLine() {
+    cursor.y == 0
+  }
+
+  private boolean atStartOfLine() {
+    cursor.x == 0
+  }
+
+  private List<DocumentFragment> fragmentsAt(int y) {
     fragments.findAll { it.inside(y) }
   }
 
-  List<DocumentFragment> fragmentsAfter(int y) {
+  private List<DocumentFragment> fragmentsAfter(int y) {
     fragments.findAll { it.startY > y }
   }
 
