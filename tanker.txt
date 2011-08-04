@@ -1,4 +1,4 @@
-Etter det: nesting
+Nå: nesting
 
 --> fragment sin cursor
 

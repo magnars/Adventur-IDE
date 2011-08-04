@@ -6,6 +6,9 @@ class FormattedLine {
   String text
   Map<Integer, FormatChange> changes = [:]
   boolean hasSeparatorLine
+  boolean isEmbossedTop
+  boolean isEmbossed
+  boolean isEmbossedBottom
 
   FormattedLine() {
     changes[0] = new FormatChange(index: 0, changeColor: Color.black)

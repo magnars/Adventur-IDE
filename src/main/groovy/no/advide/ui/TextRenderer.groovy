@@ -10,6 +10,9 @@ class TextRenderer {
   private static final int LEFT_PADDING = 20
   private static final Color CURSOR_HIGHLIGHT = new Color(255, 255, 255, 50)
   private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 30)
+  private static final Color EMBOSSED_COLOR_TOP = new Color(0, 0, 0, 30)
+  private static final Color EMBOSSED_COLOR = new Color(0, 0, 0, 7)
+  private static final Color EMBOSSED_COLOR_BOTTOM = new Color(255, 255, 255, 150)
 
   def render() {
     textLayout.lines.eachWithIndex { FormattedLine line, i ->
@@ -19,10 +22,28 @@ class TextRenderer {
   }
 
   private def renderLine(i, FormattedLine line) {
-    if (cursor.atLine(i)) renderCursorIndicatorBar()
+    if (cursor.atLine(i))      renderCursorIndicatorBar()
+    if (line.isEmbossedTop)    renderEmbossedTop()
+    if (line.isEmbossed)       renderEmbossed()
+    if (line.isEmbossedBottom) renderEmbossedBottom()
     if (line.hasSeparatorLine) renderSeparatorLine(line.text)
-    renderText(line)
-    if (cursor.atLine(i)) renderCursor(line.text)
+                               renderText(line)
+    if (cursor.atLine(i))      renderCursor(line.text)
+  }
+
+  private def renderEmbossedTop() {
+    g.setColor(EMBOSSED_COLOR_TOP)
+    g.drawLine(0, y, componentWidth, y)
+  }
+
+  private def renderEmbossed() {
+    g.setColor(EMBOSSED_COLOR)
+    g.fillRect(0, y, componentWidth, fontHeight)
+  }
+
+  private def renderEmbossedBottom() {
+    g.setColor(EMBOSSED_COLOR_BOTTOM)
+    g.drawLine(0, y + fontHeight, componentWidth, y + fontHeight)
   }
 
   private def renderSeparatorLine(text) {
