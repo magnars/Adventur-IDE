@@ -1,8 +1,8 @@
 package no.advide
 
 class Room {
-  int number
-  File file
+  final int number
+  final File file
   List history
   int historyIndex = 0
   int originalIndex = 0

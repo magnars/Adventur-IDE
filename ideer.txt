@@ -19,3 +19,8 @@ Bedre skrivefeil -> liste, som før, men også andre regler
 Ting -> bilder, tekst, beskrivelse
 
 Støtte for Magnar-typiske [ ] sjekkbokser
+
+cmd+w i tekst: -> select ord -> select setning -> select avsnitt -> select tekst -> select hele rommet
+cmd+w i alternativ: -> select ord -> select setningen -> select alternativet -> select alle alternativer -> select hele rommet
+
+støtte både ctrl+k/y og cmd+c/v/x

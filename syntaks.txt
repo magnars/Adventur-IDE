@@ -98,7 +98,8 @@ Oppbygging av krav
 [!])(kr.200                             ? ikke 200 rupi
 [!]+06kr.100)(kr.101                    ? akkurat 100 rupi
 
-[!]*1*                                  ? max 2.
+[!]*0*                                  ? 1.
+[!]*1*                                  ? 2.
 
 
 

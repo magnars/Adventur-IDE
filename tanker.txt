@@ -1,7 +1,3 @@
-
-Neste: undo, redo, esc --> framtvinger forskjell på cursorChanged og documentChanged
-   -> nei, room kan like gjerne holde styr på om den blir endret selv
-
 Etter det: nesting
 
 --> fragment sin cursor
