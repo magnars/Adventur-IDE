@@ -6,15 +6,26 @@ class Room {
   List history
   int historyIndex = 0
   int originalIndex = 0
-  def cursor
 
   Room() {}
 
   Room(int num, File f) {
     number = num
     file = f
-    history = [RoomConverter.toNewStyle(file.readLines('UTF-8'))]
-    cursor = [x:0, y:0]
+    history = [[
+        lines: RoomConverter.toNewStyle(file.readLines('UTF-8')),
+        cursor: [x:0, y:0]
+    ]]
+  }
+
+  Document createDocument() {
+    def lineCopy = [] + lines
+    new Document(lineCopy, [x:cursor.x, y:cursor.y])
+  }
+
+  void update(Document document) {
+    lines = [] + document.lines
+    cursor = [x:document.cursor._x, y:document.cursor._y]
   }
 
   void save() {
@@ -26,29 +37,33 @@ class Room {
     lines != original
   }
 
-  def getCursor() {
-    [x: Math.min((int)cursor.x, lines[cursor.y].size()), y: Math.min((int)cursor.y, lines.size() - 1)]
-  }
-
   String getName() {
     if (number == -1) "Notatblokk"
     else "Rom $number"
   }
 
-  void setLines(l) { // det ser ut som om et snapshot av cursoren skal være med i historikken
+  void setLines(l) {
     if (l != lines) {
       history = history.subList(0, historyIndex + 1)
-      history << l
+      history << [lines: l, cursor: getCursor()]
       historyIndex += 1
     }
   }
 
+  void setCursor(c) {
+    history[historyIndex].cursor = c
+  }
+
+  def getCursor() {
+    history[historyIndex].cursor
+  }
+
   List<String> getLines() {
-    history[historyIndex]
+    history[historyIndex].lines
   }
 
   List<String> getOriginal() {
-    history[originalIndex]
+    history[originalIndex].lines
   }
 
   void undo() {
@@ -58,4 +73,5 @@ class Room {
   void redo() {
     if (historyIndex < history.size() - 1) historyIndex++
   }
+
 }

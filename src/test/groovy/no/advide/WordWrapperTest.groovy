@@ -54,7 +54,7 @@ class WordWrapperTest extends GroovyTestCase {
     wrapper.width = 13
     document.cursor = [x:13, y:0]
     document.insertAt(document.cursor.x, document.cursor.y, " ")
-    document.moveCursorRight()
+    document.cursor.right()
     wrapper.justify()
     assert document.lines == ["En full linje", ""]
     assert document.cursor == [x:0, y:1]
@@ -65,7 +65,7 @@ class WordWrapperTest extends GroovyTestCase {
     wrapper.width = 13
     document.cursor = [x:11, y:0]
     document.insertAt(document.cursor.x, document.cursor.y, " ")
-    document.moveCursorRight()
+    document.cursor.right()
     wrapper.justify()
     assert document.lines == ["En overfull ", "linje"]
     assert document.cursor == [x:12, y:0]

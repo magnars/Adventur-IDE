@@ -38,7 +38,7 @@ class DocumentFragment {
     if (strings.size() != 1) throw new IllegalArgumentException("replaceWith only supports replacing with 1 line for now")
     def hadCursor = cursor != null
     while (length > 1) document.removeLine(startY + 1)
-    while (hadCursor && cursor == null) document.moveCursorUp()
+    while (hadCursor && cursor == null) document.cursor.up()
     document.replaceLine(startY, strings.first())
   }
 

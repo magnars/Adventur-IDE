@@ -7,9 +7,9 @@ class Page {
   Document document
   CommandList commands
 
-  Page(room) {
-    document = new Document(room.lines, room.cursor)
-    commands = new CommandParser(document).parse()
+  Page(document) {
+    this.document = document
+    this.commands = new CommandParser(document).parse()
   }
 
   RoomNumber getTargetRoomNumber() {

@@ -19,10 +19,10 @@ class TextRenderer {
   }
 
   private def renderLine(i, FormattedLine line) {
-    if (atCursorLine(i)) renderCursorIndicatorBar()
+    if (cursor.atLine(i)) renderCursorIndicatorBar()
     if (line.hasSeparatorLine) renderSeparatorLine(line.text)
     renderText(line)
-    if (atCursorLine(i)) renderCursor(line.text)
+    if (cursor.atLine(i)) renderCursor(line.text)
   }
 
   private def renderSeparatorLine(text) {
@@ -48,10 +48,6 @@ class TextRenderer {
   private def renderCursorIndicatorBar() {
     g.setColor(CURSOR_HIGHLIGHT)
     g.fillRect 0, y, componentWidth, fontHeight - 1
-  }
-
-  private boolean atCursorLine(i) {
-    cursor.y == i
   }
 
   def textLayout

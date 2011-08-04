@@ -7,7 +7,7 @@ class PageEditorTest extends GroovyTestCase {
   }
 
   Page getPage(int number) {
-    new Page(Adventure.current.getRoom(number))
+    new Page(Adventure.current.getRoom(number).createDocument())
   }
 
   void test_can_toggle_styles() {

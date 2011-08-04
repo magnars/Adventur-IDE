@@ -2,13 +2,11 @@ package no.advide
 
 class DocumentFragmentTest extends GroovyTestCase {
 
-  static CURSOR = [x: 0, y: 0]
-
   Document document
   DocumentFragment fragment
 
   void setUp() {
-    document = new Document(["outside", "outside", "inside 1", "inside 2", "inside 3", "outside"], CURSOR)
+    document = new Document(["outside", "outside", "inside 1", "inside 2", "inside 3", "outside"], [x:0, y:0])
     fragment = document.createFragment(2, 3)
   }
 
@@ -52,7 +50,7 @@ class DocumentFragmentTest extends GroovyTestCase {
   void test_should_have_relative_cursor() {
     document.cursor = [x:0, y:3]
     assert fragment.cursor == [x:0, y:1]
-    document.cursor.y -= 1
+    document.cursor.up()
     assert fragment.cursor == [x:0, y:0]
   }
 

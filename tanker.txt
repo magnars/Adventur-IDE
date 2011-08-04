@@ -4,6 +4,8 @@ Neste: undo, redo, esc --> framtvinger forskjell på cursorChanged og documentCh
 
 Etter det: nesting
 
+--> fragment sin cursor
+
 --> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
 
 For at typ [C] skal fungere riktig må Prose stacke seg opp på en linje i gammel form.

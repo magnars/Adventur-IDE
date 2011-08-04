@@ -9,7 +9,7 @@ class PageTest extends GroovyTestCase {
   }
 
   Page getPage(int number) {
-    new Page(Adventure.current.getRoom(number))
+    new Page(Adventure.current.getRoom(number).createDocument())
   }
 
   void test_should_know_next_room_number_after_cursor() {

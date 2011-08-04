@@ -9,7 +9,7 @@ class UnknownCommandTest extends GroovyTestCase {
   Command command
 
   static Command createTestCommand() {
-    def document = new Document([":hm"], [x: 0, y: 0])
+    def document = new Document([":hm"], [x:0, y:0])
     return new UnknownCommand(document.createFragment(0, 1))
   }
 

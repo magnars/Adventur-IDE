@@ -26,9 +26,9 @@ class ProseCommandTest extends GroovyTestCase {
     assert ProseCommand.numMatchingLines(createFragment(["Hei", "du"])) == 2
   }
 
-  void test_should_stop_when_cursor_is_at_start_of_next_line() {
+  void test_should_stop_when_cursor_on_next_line() {
     def fragment = createFragment(["Hei", "på", "deg", "!!!"])
-    fragment.document.cursor = [x:0, y:2]
+    fragment.document.cursor = [x:1, y:2]
     assert ProseCommand.numMatchingLines(fragment) == 2
   }
 

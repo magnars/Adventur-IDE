@@ -8,25 +8,25 @@ class TextEditor extends EventEmitter {
   }
 
   def actions = [
-      "right":     { document.moveCursorRight() },
-      "left":      { document.moveCursorLeft() },
-      "up":        { document.moveCursorUp() },
-      "down":      { document.moveCursorDown() },
+      "right":     { document.cursor.right() },
+      "left":      { document.cursor.left() },
+      "up":        { document.cursor.up() },
+      "down":      { document.cursor.down() },
       "enter":     { document.splitAt(document.cursor.x, document.cursor.y) },
       "backspace": { backspace() }
   ]
 
   def backspace() {
-    if (!document.atStartOfLine()) {
+    if (document.cursor.x != 0) {
       document.removeCharBefore(document.cursor.x, document.cursor.y)
-    } else if (!document.atFirstLine()) {
+    } else if (!document.cursor.y != 0) {
       document.mergeLineWithPrevious(document.cursor.y)
     }
   }
 
   def charTyped(c) {
     document.insertAt(document.cursor.x, document.cursor.y, c)
-    document.moveCursorRight()
+    document.cursor.right()
     changed()
   }
 

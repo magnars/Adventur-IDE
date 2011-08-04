@@ -13,7 +13,7 @@ class ProseCommand extends Command {
   static int numMatchingLines(DocumentFragment fragment) {
     for (int i = 0; i < fragment.length; i++) {
       if (!startsWithLetter(fragment.lines[i])) return i
-      if (i > 0 && fragment.cursor == [x:0, y:i]) return i
+      if (i > 0 && fragment.cursor && fragment.cursor.y == i) return i
     }
     return fragment.length
   }

@@ -33,7 +33,7 @@ class Application {
   }
 
   void roomChanged() {
-    def page = new Page(room)
+    def page = new Page(room.createDocument())
     page.commands.optimizeDocument()
     renderPage(page)
     updateAppFrame()
@@ -46,14 +46,13 @@ class Application {
   }
 
   private void renderPage(Page page) {
-    editorPanel.updateContents(new PageFormatter(page, room.modified).formattedLines, room.cursor)
+    editorPanel.updateContents(new PageFormatter(page, room.modified).formattedLines, page.document.cursor)
   }
 
   private void waitForEvents(Page page) {
     def editor = new RoomEditor(page, room)
     editor.onDocumentChange {
-      room.lines = page.document.lines
-      room.cursor = page.document.cursor
+      room.update(page.document)
       roomChanged()
     }
     editor.onRoomChange { int number ->

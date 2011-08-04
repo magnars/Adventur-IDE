@@ -17,8 +17,14 @@ class WordWrapper {
   }
 
   void justify() {
-    concatenateToOneLine()
-    wrapWordsInLine(0)
+    if (!alreadyJustified()) {
+      concatenateToOneLine()
+      wrapWordsInLine(0)
+    }
+  }
+
+  boolean alreadyJustified() {
+    fragment.lines == wrapWords(fragment.lines.join(" "))
   }
 
   private def concatenateToOneLine() {

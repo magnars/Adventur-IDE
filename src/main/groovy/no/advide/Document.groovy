@@ -4,59 +4,31 @@ import antlr.StringUtils
 
 class Document {
   List<String> lines
-  def cursor = [x:0, y:0]
+  Cursor cursor
 
-  Document(List<String> lines, cursor) {
-    this.lines = [] + lines
-    this.cursor = [x:cursor.x, y:cursor.y]
+  Document(List<String> lines, coords) {
+    this.lines = lines
+    this.cursor = new Cursor(lines, coords.x, coords.y)
   }
 
-  void moveCursorRight() {
-    if (!atEndOfLine()) {
-      cursor.x += 1
-    } else if (!atLastLine()) {
-      cursor.y += 1
-      cursor.x = 0
-    }
-  }
-
-  void moveCursorLeft() {
-    if (!atStartOfLine()) {
-      cursor.x -= 1
-    } else if (!atFirstLine()) {
-      cursor.y -= 1
-      cursor.x = currentLine().size()
-    }
-  }
-
-  void moveCursorUp() {
-    if (!atFirstLine()) {
-      cursor.y -= 1
-      cursor.x = Math.min(cursor.x, currentLine().size())
-    } else if (!atStartOfLine()) {
-      cursor.x = 0
-    }
-  }
-
-  void moveCursorDown() {
-    if (!atLastLine()) {
-      cursor.y += 1
-      cursor.x = Math.min(cursor.x, currentLine().size())
-    } else if (!atEndOfLine()) {
-      cursor.x = currentLine().size()
-    }
+  void setCursor(LinkedHashMap coords) {
+    this.cursor._x = coords.x
+    this.cursor._y = coords.y
   }
 
   void removeCharBefore(Integer x, Integer y) {
-    if (cursor.y == y && cursor.x >= x) cursor.x -= 1
+    cursor.anchor()
+    if (cursor.y == y && cursor.x >= x) cursor.left()
+
     def pre = lines[y].substring(0, x - 1)
     def post = lines[y].substring(x)
     lines[y] = pre + post
   }
 
   void mergeLineWithPrevious(int y) {
-    if (cursor.y == y) cursor.x += lines[y - 1].size()
-    if (cursor.y >= y) cursor.y -= 1
+    cursor.anchor()
+    if (cursor.y == y) cursor._x += lines[y - 1].size()
+    if (cursor.y >= y) cursor.up()
 
     fragmentsAt(y).each { it.length -= 1 }
     fragmentsAfter(y).each { it.startY -= 1 }
@@ -70,8 +42,9 @@ class Document {
     def post = lines[y].substring(x)
     def split = [pre, post]
 
-    if (cursor.y == y && cursor.x >= x) { cursor.y += 1; cursor.x -= pre.size() }
-    else if (cursor.y > y) cursor.y += 1
+    cursor.anchor()
+    if (cursor.y == y && cursor.x >= x) { cursor._y += 1; cursor._x -= pre.size() }
+    else if (cursor.y > y) cursor.down()
 
     fragmentsAt(y).each { it.length += 1 }
     fragmentsAfter(y).each { it.startY += 1 }
@@ -81,10 +54,11 @@ class Document {
   }
 
   void removeLine(int y) {
+    cursor.anchor()
+    if (cursor.y == y) cursor.allLeft()
+    if (cursor.y > y) cursor.up()
+
     lines.remove(y)
-    if (cursor.y == y) cursor.x = 0
-    if (cursor.y > y) cursor.y -= 1
-    if (cursor.y == lines.size()) cursor.y -= 1
 
     fragmentsAt(y).each { it.length -= 1 }
     fragmentsAfter(y).each { it.startY -= 1 }
@@ -92,11 +66,13 @@ class Document {
 
   void replaceLine(int y, String string) {
     lines[y] = string
-    if (cursor.y == y && cursor.x > 0) cursor.x = string.size()
+    cursor.anchor()
+    if (cursor.y == y && cursor.x > 0) cursor.allRight()
   }
 
   void insertAt(int x, int y, s) {
-    if (cursor.y == y && cursor.x > x) cursor.x += s.size()
+    cursor.anchor()
+    if (cursor.y == y && cursor.x > x) cursor._x += s.size()
     def pre = lines[y].substring(0, x)
     def post = lines[y].substring(x)
     lines[y] = pre + s + post
@@ -106,7 +82,6 @@ class Document {
     lines.eachWithIndex { line, i ->
       lines[i] = StringUtils.stripBack(line, " ")
     }
-    cursor.x = Math.min(cursor.x, currentLine().size())
   }
 
   List<DocumentFragment> fragments = []
@@ -115,26 +90,6 @@ class Document {
     def f = new DocumentFragment(startY: y, length: length, document: this)
     fragments << f
     return f
-  }
-
-  def boolean atFirstLine() {
-    cursor.y == 0
-  }
-
-  def boolean atStartOfLine() {
-    cursor.x == 0
-  }
-
-  private String currentLine() {
-    lines[cursor.y]
-  }
-
-  private boolean atLastLine() {
-    lines.size() <= cursor.y + 1
-  }
-
-  private boolean atEndOfLine() {
-    currentLine().size() <= cursor.x
   }
 
   private List<DocumentFragment> fragmentsAt(int y) {
