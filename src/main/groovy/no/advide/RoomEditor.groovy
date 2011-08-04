@@ -7,7 +7,9 @@ class RoomEditor extends EventEmitter {
   PageEditor pageEditor
 
   def actions = [
-      "cmd+S":          { room.save() }
+      "cmd+S":          { room.save() },
+      "cmd+Z":          { room.undo() },
+      "shift+cmd+Z":    { room.redo() }
   ]
 
   RoomEditor(Page page, Room room) {
