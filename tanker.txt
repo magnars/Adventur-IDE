@@ -1,20 +1,7 @@
 
-Nå: nesting
+Nå: switche mellom ny og gammel på ConditionalCommand
 
---> fragment sin cursor
-
---> fragments med x-komponent? må nok det ja. startY -> offset: [x, y]
-
-For at typ [C] skal fungere riktig må Prose stacke seg opp på en linje i gammel form.
-Dermed er nesting ikke bundet til typ [!], men rett på brackets.
-Typ [!] vil fortsatt ha en command, men det kan være en CommandBlock
-
-en blokket kommando grabber alt den ønsker seg vha numLines
-lager en CommandBlock, sitt eget DocumentFragment og sin egen CommandParser
-bruker disse for å snakke med omverdenen
-
-Dvs at Document og DocumentFragment må ha samme API
-  --> DocumentFragments delegerer fortsatt alt rett videre til Document
+Så: extract BlockCommand ut av ConditionalCommand
 
 --------------------
 

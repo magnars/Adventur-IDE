@@ -137,6 +137,20 @@ class TextEditorTest extends GroovyTestCase {
     assert document.cursor == [x:0, y:1]
   }
 
+  void test_enter_keeps_indentation() {
+    setUpEditor(["  Føretter"], [x:5, y:0])
+    editor.actionTyped("enter")
+    assert document.lines == ["  Før", "  etter"]
+    assert document.cursor == [x:2, y:1]
+  }
+
+  void test_enter_keeps_deep_indentation() {
+    setUpEditor(["    Føretter"], [x:7, y:0])
+    editor.actionTyped("enter")
+    assert document.lines == ["    Før", "    etter"]
+    assert document.cursor == [x:4, y:1]
+  }
+
   void test_backspace_removes_char() {
     setUpEditor(["Hei"], [x:2, y:0])
     editor.actionTyped("backspace")

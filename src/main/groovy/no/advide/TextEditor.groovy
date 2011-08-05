@@ -12,9 +12,22 @@ class TextEditor extends EventEmitter {
       "left":      { document.cursor.left() },
       "up":        { document.cursor.up() },
       "down":      { document.cursor.down() },
-      "enter":     { document.splitAt(document.cursor.x, document.cursor.y) },
+      "enter":     { enter() },
       "backspace": { backspace() }
   ]
+
+  def enter() {
+    def indentation = currentIndentation()
+    document.splitAt(document.cursor.x, document.cursor.y)
+    document.insertAt(document.cursor.x, document.cursor.y, indentation)
+  }
+
+  String currentIndentation() {
+    int x = 0
+    String currentLine = document.lines[document.cursor.y]
+    while (currentLine.startsWith("  ", x)) x += 2
+    return " " * x
+  }
 
   def backspace() {
     if (document.cursor.x != 0) {
