@@ -11,7 +11,7 @@ class RoomConverter {
     def commands = new CommandParser(document).parse()
     commands.each {
       it.replaceWithNewStyle()
-      it.optimizeDocument()
+      it.justifyProse(80)
     }
 
     return document.lines

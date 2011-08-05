@@ -1,5 +1,6 @@
 package no.advide.commands
 
+import java.awt.Color
 import no.advide.Document
 import no.advide.DocumentFragment
 
@@ -31,6 +32,14 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert command.roomNumbers.size() == 1
   }
 
+  void test_should_color_brackets_gray() {
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "}"]))
+    assert command.formattedLines[1].text == "{"
+    assert command.formattedLines[1].color == Color.gray
+    assert command.formattedLines[3].text == "}"
+    assert command.formattedLines[3].color == Color.gray
+  }
+
   void test_should_emboss_entire_block() {
     def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "}"]))
     assert command.formattedLines.first().isEmbossedTop
@@ -40,5 +49,36 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert command.formattedLines[3].isEmbossed
     assert command.formattedLines.last().isEmbossedBottom
   }
+
+  // New form //////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  void test_should_match_new_form() {
+    assert ConditionalCommand.matches(createFragment(["? KRAV", "  abc", "def"]))
+    assert !ConditionalCommand.matches(createFragment(["@12 ? KRAV", ""]))
+  }
+
+  void test_should_match_indented_lines() {
+    assert ConditionalCommand.numMatchingLines(createFragment(["? KRAV", "  abc", "def"])) == 2
+    assert ConditionalCommand.numMatchingLines(createFragment(["? KRAV", "  abc", "  def"])) == 3
+  }
+
+  void test_should_get_room_numbers_from_subcommands_in_new_form_too() {
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  #123"]))
+    assert command.roomNumbers.size() == 1
+    assert command.roomNumbers.first().number == 123
+    assert command.roomNumbers.first().position == [x:3, y:1]
+  }
+
+  void test_should_keep_indentation_in_new_form() {
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  abc", "  #123"]))
+    assert command.formattedLines.first().text == "? KRAV"
+    assert command.formattedLines.last().text == "  #123"
+  }
+
+  void test_should_accept_new_form_without_commands() {
+    def command = new ConditionalCommand(createFragment(["? KRAV"]))
+    assert command.commands.size() == 0
+  }
+
 
 }

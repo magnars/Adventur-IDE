@@ -39,8 +39,8 @@ class ProseCommandTest extends GroovyTestCase {
 
   void test_should_optimize_document() {
     setUpCommand(["Hei", "på du"])
-    command.optimizeDocument()
-    assert command.fragment.lines == ["Hei på du"]
+    command.justifyProse(7)
+    assert command.fragment.lines == ["Hei på", "du"]
   }
 
 }

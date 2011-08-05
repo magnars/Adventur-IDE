@@ -6,10 +6,11 @@ import org.apache.commons.lang3.text.WordUtils
 class WordWrapper {
 
   DocumentFragment fragment
-  int width = 80
+  int width
 
-  WordWrapper(DocumentFragment documentFragment) {
-    fragment = documentFragment
+  WordWrapper(DocumentFragment documentFragment, int width) {
+    this.fragment = documentFragment
+    this.width = width
   }
 
   void setWidth(int width) {

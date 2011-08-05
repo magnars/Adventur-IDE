@@ -1,3 +1,9 @@
+
+To ting med nesting:
+ * Problemer med space på slutten av en setning der cursoren er (som vanlig)
+
+-----------------------------
+
 Nå: nesting
 
 --> fragment sin cursor
@@ -17,7 +23,7 @@ Dvs at Document og DocumentFragment må ha samme API
 
 --------------------
 
-Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.optimizeDocument() et al
+Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.justifyProse() et al
 
 --------------------
 

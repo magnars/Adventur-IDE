@@ -34,7 +34,7 @@ class Application {
 
   void roomChanged() {
     def page = new Page(room.createDocument())
-    page.commands.optimizeDocument()
+    page.commands.justifyProse(80)
     renderPage(page)
     updateAppFrame()
     waitForEvents(page)

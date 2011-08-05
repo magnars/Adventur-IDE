@@ -37,7 +37,7 @@ abstract class Command {
     if (!isInOldStyle()) fragment.replaceWith(toOldStyle())
   }
 
-  void optimizeDocument() {}
+  void justifyProse(int width) {}
 
   boolean isInOldStyle() {
     fragment.lines == toOldStyle()

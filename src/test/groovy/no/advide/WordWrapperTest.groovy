@@ -9,7 +9,7 @@ class WordWrapperTest extends GroovyTestCase {
   void setUpFormatter(List lines) {
     document = new Document(lines, [x:0, y:0])
     fragment = document.createFragment([x:0, y:0], lines.size())
-    wrapper = new WordWrapper(fragment)
+    wrapper = new WordWrapper(fragment, 80)
   }
 
   void test_should_concatenate_lines() {

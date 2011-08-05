@@ -28,8 +28,8 @@ class ProseCommand extends Command {
   }
 
   @Override
-  void optimizeDocument() {
-    new WordWrapper(fragment).justify()
+  void justifyProse(int width) {
+    new WordWrapper(fragment, width).justify()
   }
 
   private static def startsWithLetter(String line) {
