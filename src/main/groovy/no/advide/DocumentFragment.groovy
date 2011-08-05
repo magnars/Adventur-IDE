@@ -41,6 +41,13 @@ class DocumentFragment {
     document.insertAt(offset.x + lines[y].size(), offset.y + y, s)
   }
 
+  void appendTo_butDontMoveCursor(int y, String s) {
+    def old = [x: document.cursor._x, y: document.cursor._y]
+    appendTo(y, s)
+    document.cursor._x = old.x
+    document.cursor._y = old.y
+  }
+
   void splitAt(int x, int y) {
     document.splitAt(offset.x + x, offset.y + y)
     document.insertAt(0, offset.y + y + 1, getOutsideLeft(y))
@@ -65,4 +72,5 @@ class DocumentFragment {
   DocumentFragment createFragment(o, length) {
     document.createFragment([x:o.x + offset.x, y: o.y + offset.y], length)
   }
+
 }

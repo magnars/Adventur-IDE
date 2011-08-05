@@ -26,7 +26,6 @@ class TextEditor extends EventEmitter {
 
   def charTyped(c) {
     document.insertAt(document.cursor.x, document.cursor.y, c)
-    document.cursor.right()
     changed()
   }
 

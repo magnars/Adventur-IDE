@@ -72,7 +72,7 @@ class Document {
 
   void insertAt(Integer x, Integer y, s) {
     cursor.anchor()
-    if (cursor.y == y && cursor.x > x) cursor._x += s.size()
+    if (cursor.y == y && cursor.x >= x) cursor._x += s.size()
     def pre = lines[y].substring(0, x)
     def post = lines[y].substring(x)
     lines[y] = pre + s + post

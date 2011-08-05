@@ -1,9 +1,4 @@
 
-To ting med nesting:
- * Problemer med space på slutten av en setning der cursoren er (som vanlig)
-
------------------------------
-
 Nå: nesting
 
 --> fragment sin cursor

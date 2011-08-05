@@ -21,16 +21,15 @@ class DocumentTest extends GroovyTestCase {
   }
 
   void test_insertAt() {
-    document.insertAt(0, 0, "in")
-    assert document.lines[0] == "inabc"
+    document.insertAt(1, 0, "in")
+    assert document.lines[0] == "ainbc"
     assert document.cursor == [x:0, y:0]
   }
 
   void test_insertAt_moves_cursor_if_after() {
-    document.cursor = [x:2, y:2]
-    document.insertAt(1, 2, "in")
-    assert document.lines[2] == "ginhi"
-    assert document.cursor == [x:4, y:2]
+    document.insertAt(0, 0, "in")
+    assert document.lines[0] == "inabc"
+    assert document.cursor == [x:2, y:0]
   }
 
   void test_splitAt_moves_cursor_down_when_on_line_below() {

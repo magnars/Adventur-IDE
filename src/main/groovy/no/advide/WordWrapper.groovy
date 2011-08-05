@@ -44,7 +44,7 @@ class WordWrapper {
   }
 
   private def addSpaceBetweenLinesAsNewlineReplacement(int y) {
-    if (noWhiteSpaceAtEnd(y) || cursorAtEndOfLine(y)) fragment.appendTo(y, " ")
+    if (noWhiteSpaceAtEnd(y) || cursorAtEndOfLine(y)) fragment.appendTo_butDontMoveCursor(y, " ")
   }
 
   private boolean cursorAtEndOfLine(int y) {

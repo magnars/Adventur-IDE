@@ -54,7 +54,6 @@ class WordWrapperTest extends GroovyTestCase {
     wrapper.width = 13
     document.cursor = [x:13, y:0]
     document.insertAt(document.cursor.x, document.cursor.y, " ")
-    document.cursor.right()
     wrapper.justify()
     assert document.lines == ["En full linje", ""]
     assert document.cursor == [x:0, y:1]
@@ -65,10 +64,22 @@ class WordWrapperTest extends GroovyTestCase {
     wrapper.width = 13
     document.cursor = [x:11, y:0]
     document.insertAt(document.cursor.x, document.cursor.y, " ")
-    document.cursor.right()
     wrapper.justify()
     assert document.lines == ["En overfull ", "linje"]
     assert document.cursor == [x:12, y:0]
+  }
+
+  void test_shouldnt_be_confused_by_fragments_with_x_offset() {
+    def lines = ["  En full linje"]
+
+    document = new Document(lines, [x:15, y:0])
+    fragment = document.createFragment([x:2, y:0], 1)
+    wrapper = new WordWrapper(fragment, 13)
+
+    document.insertAt(document.cursor.x, document.cursor.y, " ")
+    wrapper.justify()
+    assert document.lines == ["  En full linje", "  "]
+    assert document.cursor == [x:2, y:1]
   }
 
 }
