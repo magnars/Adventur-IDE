@@ -1,5 +1,6 @@
 
-Nå: switche mellom ny og gammel på ConditionalCommand
+Bug:
+* Når du lagrer, så endres hele rommet til OldStyle
 
 Så: extract BlockCommand ut av ConditionalCommand
 
@@ -9,7 +10,8 @@ Kan vurdere å eksponere metoder fra commands og document i page, slik at vi sli
 
 --------------------
 
-Husk at Prose i gammel form skal være på en lang linje.
+* Husk at Prose i gammel form skal være på en lang linje.
+  Hmm ... [C] kan selv si ifra til Prose om å rendre seg som én lang linje, de andre kan fortsette å bruke prose som før.
 
 --------------------
 
@@ -34,7 +36,6 @@ Altså, skrevet med litt andre ord:
 
 --------------------
 
-* Fiksing av Page ved førstegangs åpning gjøre av PageReformatter, som også bruker Document og Commands for å gjøre dette.
 * En singleton PageHistory tar vare på stacken av sider for rask navigasjon.
 
 --------------------

@@ -58,6 +58,7 @@ class ConditionalCommandTest extends GroovyTestCase {
   }
 
   void test_should_match_indented_lines() {
+    assert ConditionalCommand.numMatchingLines(createFragment(["? KRAV", "abc", "def"])) == 1
     assert ConditionalCommand.numMatchingLines(createFragment(["? KRAV", "  abc", "def"])) == 2
     assert ConditionalCommand.numMatchingLines(createFragment(["? KRAV", "  abc", "  def"])) == 3
   }
@@ -95,6 +96,16 @@ class ConditionalCommandTest extends GroovyTestCase {
   void test_should_avoid_unneccessary_braces_in_old_style() {
     def command = new ConditionalCommand(createFragment(["? KRAV", "  - #123"]))
     assert command.toOldStyle() == ["[!]KRAV", "*123"]
+  }
+
+  void test_should_use_brackets_for_single_command_with_multiple_lines_in_old_style() {
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  ? NESTED", "    abc"]))
+    assert command.toOldStyle() == ["[!]KRAV", "{", "[!]NESTED", "abc", "}"]
+  }
+
+  void test_invalid_new_style_should_add_blank_line_to_avoid_corrupting_old_lines() {
+    def command = new ConditionalCommand(createFragment(["? KRAV"]))
+    assert command.toOldStyle() == ["[!]KRAV", ""]
   }
 
 }

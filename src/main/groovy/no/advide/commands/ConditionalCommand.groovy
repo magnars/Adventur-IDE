@@ -116,10 +116,18 @@ class ConditionalCommand extends Command {
   @Override
   List<String> toOldStyle() {
     def lines = ["[!]${requirement}"]
-    if (commands.size() > 1) lines << "{"
-    commands.collect { it.toOldStyle() }.flatten().each { lines << it }
-    if (commands.size() > 1) lines << "}"
+    if (commands.empty) {
+      lines << ""
+    } else {
+      if (oldStyleNeedsBrackets()) lines << "{"
+      commands.collect { it.toOldStyle() }.flatten().each { lines << it }
+      if (oldStyleNeedsBrackets()) lines << "}"
+    }
     lines
+  }
+
+  private boolean oldStyleNeedsBrackets() {
+    return commands.size() > 1 || (commands.size() > 0 && commands.first().toOldStyle().size() > 1)
   }
 
   String getRequirement() {
