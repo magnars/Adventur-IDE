@@ -7,7 +7,7 @@ import no.advide.RoomNumber
 
 abstract class Command {
 
-  DocumentFragment fragment
+  final DocumentFragment fragment
 
   public Command(fragment) {
     this.fragment = fragment

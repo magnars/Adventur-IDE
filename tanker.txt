@@ -21,6 +21,10 @@ Kan vurdere å eksponere metoder fra commands og document i page, slik at vi sli
 
 --------------------
 
+Husk at Prose i gammel form skal være på en lang linje.
+
+--------------------
+
 Jeg har hatt litt problemer med å se prosessen. Slik er den:
 
 1. Det finnes et Room med tekstlinjer med en cursor. Dette er utgangspunktet og starten på flyten.

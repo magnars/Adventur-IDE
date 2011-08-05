@@ -26,6 +26,11 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert ConditionalCommand.numMatchingLines(createFragment(["[!]KRAV", "{", "[!]TMP", "{", "abc", "}", "def", "}", "outside"])) == 8
   }
 
+  void test_should_get_room_numbers_from_subcommands() {
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "#123"]))
+    assert command.roomNumbers.size() == 1
+  }
+
   void test_should_emboss_entire_block() {
     def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "}"]))
     assert command.formattedLines.first().isEmbossedTop
