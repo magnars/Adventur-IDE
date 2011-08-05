@@ -70,6 +70,16 @@ class Document {
     if (cursor.y == y && cursor.x > 0) cursor.allRight()
   }
 
+  void addLineAfter(Integer y, String s) {
+    cursor.anchor()
+    if (cursor.y > y) cursor.down()
+
+    lines.add(y + 1, s)
+
+    fragmentsAt(y).each { it.length += 1 }
+    fragmentsAfter(y).each { it.offset.y += 1 }
+  }
+
   void insertAt(Integer x, Integer y, s) {
     cursor.anchor()
     if (cursor.y == y && cursor.x >= x) cursor._x += s.size()

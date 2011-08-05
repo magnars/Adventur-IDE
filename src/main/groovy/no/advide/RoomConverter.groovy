@@ -8,11 +8,7 @@ class RoomConverter {
     def document = new Document(lines, [x:0, y:0])
     document.stripTrailingSpaces()
 
-    def commands = new CommandParser(document).parse()
-    commands.each {
-      it.replaceWithNewStyle()
-      it.justifyProse(80)
-    }
+    new CommandParser(document).parse().each { it.replaceWithNewStyle() }
 
     return document.lines
   }

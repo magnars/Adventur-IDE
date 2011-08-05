@@ -80,5 +80,21 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert command.commands.size() == 0
   }
 
+  // Switching ////////////
+
+  void test_should_convert_to_new_style() {
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "def", "*123", "}"]))
+    assert command.toNewStyle() == ["? KRAV", "  abc", "  def", "  - #123"]
+  }
+
+  void test_should_convert_to_old_style() {
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  abc", "  - #123"]))
+    assert command.toOldStyle() == ["[!]KRAV", "{", "abc", "*123", "}"]
+  }
+
+  void test_should_avoid_unneccessary_braces_in_old_style() {
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  - #123"]))
+    assert command.toOldStyle() == ["[!]KRAV", "*123"]
+  }
 
 }

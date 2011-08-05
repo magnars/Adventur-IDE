@@ -9,7 +9,7 @@ class Page {
 
   Page(document) {
     this.document = document
-    this.commands = new CommandParser(document).parse()
+    this.commands = new CommandParser(this.document).parse()
   }
 
   RoomNumber getTargetRoomNumber() {

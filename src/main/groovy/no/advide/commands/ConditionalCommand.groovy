@@ -106,5 +106,24 @@ class ConditionalCommand extends Command {
     commands.each { it.justifyProse(width - 2) }
   }
 
+  @Override
+  List<String> toNewStyle() {
+    def lines = ["? ${requirement}"]
+    commands.collect { it.toNewStyle() }.flatten().each { lines << "  $it" }
+    lines
+  }
+
+  @Override
+  List<String> toOldStyle() {
+    def lines = ["[!]${requirement}"]
+    if (commands.size() > 1) lines << "{"
+    commands.collect { it.toOldStyle() }.flatten().each { lines << it }
+    if (commands.size() > 1) lines << "}"
+    lines
+  }
+
+  String getRequirement() {
+    matchesNewForm(fragment) ? fragment.lines.first().substring(2) : fragment.lines.first().substring(3)
+  }
 
 }

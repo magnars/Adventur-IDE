@@ -58,11 +58,16 @@ class DocumentFragment {
   }
 
   void replaceWith(List<String> strings) {
-    if (strings.size() != 1) throw new IllegalArgumentException("replaceWith only supports replacing with 1 line for now")
-    def hadCursor = cursor != null
-    while (length > 1) document.removeLine(offset.y + 1)
-    while (hadCursor && cursor == null) document.cursor.up()
-    document.replaceLine(offset.y, getOutsideLeft(0) + strings.first())
+    for (int i = 0; i < strings.size() && i < length; i++) {
+      document.replaceLine(offset.y + i, getOutsideLeft(0) + strings[i])
+    }
+    while (length < strings.size()) {
+      document.addLineAfter(offset.y + length - 1, getOutsideLeft(0) + strings[length])
+    }
+    while (length > strings.size()) {
+      if (cursor && cursor.y == strings.size()) document.cursor.up()
+      document.removeLine(offset.y + strings.size())
+    }
   }
 
   def translate(cursor) {
