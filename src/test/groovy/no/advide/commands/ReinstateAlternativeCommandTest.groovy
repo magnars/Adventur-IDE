@@ -17,7 +17,7 @@ class ReinstateAlternativeCommandTest extends GroovyTestCase {
   }
 
   DocumentFragment createFragment(List lines) {
-    new Document(lines, [x:0, y:0]).createFragment(0, lines.size())
+    new Document(lines, [x:0, y:0]).createFragment([x:0, y:0], lines.size())
   }
 
   void test_should_match_old_form() {

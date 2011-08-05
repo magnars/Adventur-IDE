@@ -1,25 +1,25 @@
 package no.advide
 
-class DocumentFragmentTest extends GroovyTestCase {
+class DocumentFragmentWithXTest extends GroovyTestCase {
 
   Document document
   DocumentFragment fragment
 
   void setUp() {
-    document = new Document(["outside", "outside", "inside 1", "inside 2", "inside 3", "outside"], [x:0, y:0])
-    fragment = document.createFragment([x:0, y:2], 3)
+    document = new Document(["outside", "outside", "  inside 1", "  inside 2", "  inside 3", "outside"], [x:0, y:0])
+    fragment = document.createFragment([x:2, y:2], 3)
   }
 
   void test_should_get_lines_from_document() {
     assert fragment.lines == ["inside 1", "inside 2", "inside 3"]
-    document.lines[2] = "changed"
+    document.lines[2] = "  changed"
     assert fragment.lines == ["changed", "inside 2", "inside 3"]
   }
 
   void test_should_combine_lines() {
     fragment.mergeLineWithPrevious(1)
     assert fragment.lines == ["inside 1inside 2", "inside 3"]
-    assert document.lines == ["outside", "outside", "inside 1inside 2", "inside 3", "outside"]
+    assert document.lines == ["outside", "outside", "  inside 1inside 2", "  inside 3", "outside"]
   }
 
   void test_should_update_y_when_outside_contracts() {
@@ -28,8 +28,8 @@ class DocumentFragmentTest extends GroovyTestCase {
   }
 
   void test_should_append_to_line() {
-    fragment.appendTo(0, " ")
-    assert fragment.lines == ["inside 1 ", "inside 2", "inside 3"]
+    fragment.appendTo(0, "x")
+    assert fragment.lines == ["inside 1x", "inside 2", "inside 3"]
   }
 
   void test_should_split_line() {
@@ -48,7 +48,7 @@ class DocumentFragmentTest extends GroovyTestCase {
   }
 
   void test_should_have_relative_cursor() {
-    document.cursor = [x:0, y:3]
+    document.cursor = [x:2, y:3]
     assert fragment.cursor == [x:0, y:1]
     document.cursor.up()
     assert fragment.cursor == [x:0, y:0]
@@ -66,15 +66,15 @@ class DocumentFragmentTest extends GroovyTestCase {
   }
 
   void test_should_replace_entire_fragment() {
-    document.cursor = [x:0, y:4]
+    document.cursor = [x:2, y:4]
     fragment.replaceWith(["new"])
-    assert document.lines == ["outside", "outside", "new", "outside"]
+    assert document.lines == ["outside", "outside", "  new", "outside"]
     assert fragment.lines == ["new"]
-    assert document.cursor == [x:0, y:2]
+    assert document.cursor == [x:0, y:2] // this can be fixed with TranslatedCursor
   }
 
   void test_should_translate_cursor() {
-    assert fragment.translate([x:2, y:2]) == [x:2, y:4]
+    assert fragment.translate([x:2, y:2]) == [x:4, y:4]
   }
 
 }

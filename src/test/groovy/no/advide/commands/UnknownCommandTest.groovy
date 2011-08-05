@@ -10,7 +10,7 @@ class UnknownCommandTest extends GroovyTestCase {
 
   static Command createTestCommand() {
     def document = new Document([":hm"], [x:0, y:0])
-    return new UnknownCommand(document.createFragment(0, 1))
+    return new UnknownCommand(document.createFragment([x:0, y:0], 1))
   }
 
   void setUp() {
@@ -18,7 +18,7 @@ class UnknownCommandTest extends GroovyTestCase {
   }
 
   DocumentFragment createFragment(List lines) {
-    new Document(lines, [x:0, y:0]).createFragment(0, lines.size())
+    new Document(lines, [x:0, y:0]).createFragment([x:0, y:0], lines.size())
   }
 
   void test_line_should_match_input() {

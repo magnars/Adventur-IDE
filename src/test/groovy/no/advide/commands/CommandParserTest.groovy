@@ -6,7 +6,7 @@ class CommandParserTest extends GroovyTestCase {
 
   def commands
   
-  void setUpCommands(lines) {
+  void setUpCommands(List lines) {
     def document = new Document(lines, [x:0, y:0])
     commands = new CommandParser(document).parse()
   }

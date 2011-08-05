@@ -25,19 +25,19 @@ class Document {
     lines[y] = pre + post
   }
 
-  void mergeLineWithPrevious(int y) {
+  void mergeLineWithPrevious(Integer y) {
     cursor.anchor()
     if (cursor.y == y) cursor._x += lines[y - 1].size()
     if (cursor.y >= y) cursor.up()
 
     fragmentsAt(y).each { it.length -= 1 }
-    fragmentsAfter(y).each { it.startY -= 1 }
+    fragmentsAfter(y).each { it.offset.y -= 1 }
 
     lines[y - 1] += lines[y]
     lines.remove(y)
   }
 
-  void splitAt(int x, int y) {
+  void splitAt(Integer x, Integer y) {
     def pre = lines[y].substring(0, x)
     def post = lines[y].substring(x)
     def split = [pre, post]
@@ -47,13 +47,13 @@ class Document {
     else if (cursor.y > y) cursor.down()
 
     fragmentsAt(y).each { it.length += 1 }
-    fragmentsAfter(y).each { it.startY += 1 }
+    fragmentsAfter(y).each { it.offset.y += 1 }
 
     lines.remove(y)
     lines.addAll(y, split)
   }
 
-  void removeLine(int y) {
+  void removeLine(Integer y) {
     cursor.anchor()
     if (cursor.y == y) cursor.allLeft()
     if (cursor.y > y) cursor.up()
@@ -61,16 +61,16 @@ class Document {
     lines.remove(y)
 
     fragmentsAt(y).each { it.length -= 1 }
-    fragmentsAfter(y).each { it.startY -= 1 }
+    fragmentsAfter(y).each { it.offset.y -= 1 }
   }
 
-  void replaceLine(int y, String string) {
+  void replaceLine(Integer y, String string) {
     lines[y] = string
     cursor.anchor()
     if (cursor.y == y && cursor.x > 0) cursor.allRight()
   }
 
-  void insertAt(int x, int y, s) {
+  void insertAt(Integer x, Integer y, s) {
     cursor.anchor()
     if (cursor.y == y && cursor.x > x) cursor._x += s.size()
     def pre = lines[y].substring(0, x)
@@ -86,8 +86,8 @@ class Document {
 
   List<DocumentFragment> fragments = []
 
-  DocumentFragment createFragment(int y, int length) {
-    def f = new DocumentFragment(startY: y, length: length, document: this)
+  DocumentFragment createFragment(offset, length) {
+    def f = new DocumentFragment(offset, length, this)
     fragments << f
     return f
   }
@@ -97,7 +97,7 @@ class Document {
   }
 
   private List<DocumentFragment> fragmentsAfter(int y) {
-    fragments.findAll { it.startY > y }
+    fragments.findAll { it.offset.y > y }
   }
 
 }

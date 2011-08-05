@@ -1,6 +1,7 @@
 package no.advide.commands
 
 import no.advide.Document
+import no.advide.DocumentFragment
 
 class CommandParser {
 
@@ -15,10 +16,14 @@ class CommandParser {
 
   List<String> strings
   CommandList commands
-  Document document
+  DocumentFragment document
   int index
 
   CommandParser(Document doc) {
+    this(doc.createFragment([x:0, y:0], doc.lines.size()))
+  }
+
+  CommandParser(DocumentFragment doc) {
     document = doc
     strings = document.lines
     commands = new CommandList()
@@ -33,7 +38,7 @@ class CommandParser {
   }
 
   private Command findMatchingCommand() {
-    def fragment = document.createFragment(index, strings.size() - index)
+    def fragment = document.createFragment([x:0, y:index], strings.size() - index)
     for (type in commandTypes) {
       if (type.matches(fragment)) {
         return createCommand(type, fragment)

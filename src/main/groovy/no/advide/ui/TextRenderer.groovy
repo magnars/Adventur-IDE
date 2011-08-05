@@ -8,7 +8,7 @@ import no.advide.FormattedLine
 class TextRenderer {
 
   private static final int LEFT_PADDING = 20
-  private static final Color CURSOR_HIGHLIGHT = new Color(255, 255, 255, 50)
+  private static final Color CURSOR_HIGHLIGHT = new Color(0, 0, 0, 4)
   private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 30)
   private static final Color EMBOSSED_COLOR_TOP = new Color(0, 0, 0, 30)
   private static final Color EMBOSSED_COLOR = new Color(0, 0, 0, 7)

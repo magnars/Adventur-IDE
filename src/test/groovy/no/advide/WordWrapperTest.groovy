@@ -8,7 +8,7 @@ class WordWrapperTest extends GroovyTestCase {
 
   void setUpFormatter(List lines) {
     document = new Document(lines, [x:0, y:0])
-    fragment = document.createFragment(0, lines.size())
+    fragment = document.createFragment([x:0, y:0], lines.size())
     wrapper = new WordWrapper(fragment)
   }
 
