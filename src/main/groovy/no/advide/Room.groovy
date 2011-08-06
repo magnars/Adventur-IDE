@@ -32,6 +32,11 @@ class Room {
     file.setText(RoomConverter.toOldStyle(lines).join("\n"), 'UTF-8')
   }
 
+  void restoreOriginal() {
+    lines = original
+    cursor = originalCursor
+  }
+
   boolean isModified() {
     lines != original
   }
@@ -55,6 +60,11 @@ class Room {
 
   def getCursor() {
     def c = history[historyIndex].cursor
+    [x:c.x, y:c.y, scrollTop:c.scrollTop]
+  }
+
+  def getOriginalCursor() {
+    def c = history[originalIndex].cursor
     [x:c.x, y:c.y, scrollTop:c.scrollTop]
   }
 

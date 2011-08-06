@@ -1,9 +1,11 @@
 
-Nå: Skrolling ...
+Nå: ESC
+* En singleton PageHistory tar vare på stacken av sider for rask navigasjon.
 
- ---> er scrollTop en del av cursor? Jeg tror det. Men den må få "gi meg scrollTop basert på at jeg kan rendre X antall linjer"
+--------------------
 
 Så: Siste store vanskelighet er krav?
+  -> før jeg begynner på det, gå gjennom og gjør generell rydding i klasser og tester.
 
 --------------------
 
@@ -34,10 +36,6 @@ Altså, skrevet med litt andre ord:
 5. TextEditor (vha Document) og PageEditor (vha Page) tolker tastetrykkene som kommer og gjør endringer.
 6. Room får oppdatert sin lines og cursor.
 7. Endring rapporteres.
-
---------------------
-
-* En singleton PageHistory tar vare på stacken av sider for rask navigasjon.
 
 --------------------
 

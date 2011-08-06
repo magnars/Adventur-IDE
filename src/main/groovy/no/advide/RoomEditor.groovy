@@ -3,25 +3,31 @@ package no.advide
 class RoomEditor extends EventEmitter {
 
   Page page
-  Room room
+  RoomHistory roomHistory
   PageEditor pageEditor
 
   def actions = [
+      "jump":           { if (page.targetRoomNumber) roomHistory.push(page.targetRoomNumber.number) },
+      "escape":         { if (room.modified) { room.restoreOriginal() } else { roomHistory.pop() } },
       "cmd+S":          { room.save() },
       "cmd+Z":          { room.undo() },
       "shift+cmd+Z":    { room.redo() }
   ]
 
-  RoomEditor(Page page, Room room) {
+  RoomEditor(Page page, RoomHistory history) {
     this.page = page
-    this.room = room
+    this.roomHistory = history
     pageEditor = new PageEditor(page)
     pageEditor.onChange { documentChanged() }
   }
 
+  Room getRoom() {
+    roomHistory.current
+  }
+
   def charTyped(c) {
     if (isJump(c)) {
-      if (page.targetRoomNumber) roomChanged(page.targetRoomNumber.number)
+      actionTyped('jump')
     } else {
       pageEditor.charTyped(c)
     }
@@ -35,7 +41,7 @@ class RoomEditor extends EventEmitter {
     def a = actions[k]
     if (a) {
       a.call()
-      roomChanged(room.number)
+      roomChanged()
     } else {
       pageEditor.actionTyped(k)
     }
@@ -53,8 +59,8 @@ class RoomEditor extends EventEmitter {
     on('roomChange', callback)
   }
 
-  def roomChanged(int number) {
-    emit('roomChange', number)
+  def roomChanged() {
+    emit('roomChange')
   }
 
 }

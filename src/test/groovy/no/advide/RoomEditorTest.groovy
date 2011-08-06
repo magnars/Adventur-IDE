@@ -15,7 +15,7 @@ class RoomEditorTest extends GroovyTestCase {
 
   void test_cmd_S_should_save_room() {
     def called = false
-    def editor = new RoomEditor(page, [ save: { called = true } ] as Room)
+    def editor = new RoomEditor(page, new RoomHistory([ save: { called = true } ] as Room))
 
     editor.actionTyped("cmd+S")
     assert called
@@ -23,7 +23,7 @@ class RoomEditorTest extends GroovyTestCase {
 
   void test_cmd_Z_should_undo() {
     def called = false
-    def editor = new RoomEditor(page, [ undo: { called = true } ] as Room)
+    def editor = new RoomEditor(page, new RoomHistory([ undo: { called = true } ] as Room))
 
     editor.actionTyped("cmd+Z")
     assert called
@@ -31,21 +31,22 @@ class RoomEditorTest extends GroovyTestCase {
 
   void test_shift_cmd_Z_should_undo() {
     def called = false
-    def editor = new RoomEditor(page, [ redo: { called = true } ] as Room)
+    def editor = new RoomEditor(page, new RoomHistory([ redo: { called = true } ] as Room))
 
     editor.actionTyped("shift+cmd+Z")
     assert called
   }
 
   void test_jump() {
-    def editor = new RoomEditor(page, [ isModified: { false } ] as Room)
-    def changedTo = null
-    editor.onRoomChange { number ->
-      changedTo = number
+    def history = new RoomHistory([isModified: { false }] as Room)
+    def editor = new RoomEditor(page, history)
+    def called = false
+    editor.onRoomChange {
+      called = true
     }
-
     editor.charTyped("'")
-    assert changedTo == 1
+    assert called
+    assert history.current.number == 1
   }
 
 }

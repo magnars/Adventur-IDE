@@ -17,7 +17,7 @@ class Application {
   EditorPanel editorPanel
   AppFrame appFrame
   KeyInterpreter keys
-  Room room
+  RoomHistory roomHistory
 
   Application() {
     editorPanel = new EditorPanel()
@@ -26,10 +26,14 @@ class Application {
   }
 
   void open(Room startingRoom) {
-    room = startingRoom
+    roomHistory = new RoomHistory(startingRoom)
     roomChanged()
     keys.onAction "cmd+enter", { appFrame.toggleFullScreen() }
     appFrame.show()
+  }
+
+  Room getRoom() {
+    roomHistory.current
   }
 
   void roomChanged() {
@@ -50,13 +54,13 @@ class Application {
   }
 
   private void waitForEvents(Page page) {
-    def editor = new RoomEditor(page, room)
+    def editor = new RoomEditor(page, roomHistory)
     editor.onDocumentChange {
       room.update(page.document)
       roomChanged()
     }
-    editor.onRoomChange { int number ->
-      room = Adventure.current.getRoom(number)
+    editor.onRoomChange {
+      if (roomHistory.empty()) System.exit(0)
       roomChanged()
     }
     keys.setListener(editor)
