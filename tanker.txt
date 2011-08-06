@@ -1,8 +1,7 @@
 
-Bug:
-* Når du lagrer, så endres hele rommet til OldStyle
+Nå: extract BlockCommand ut av ConditionalCommand
 
-Så: extract BlockCommand ut av ConditionalCommand
+Så: Siste store vanskelighet er krav?
 
 --------------------
 

@@ -41,4 +41,9 @@ class CommandParserTest extends GroovyTestCase {
     assert commands.first().class == ReinstateAlternativeCommand.class
   }
 
+  void test_should_parse_ConditionalCommand() {
+    setUpCommands(["? KRAV"])
+    assert commands.first().class == ConditionalCommand.class
+  }
+
 }
