@@ -1,15 +1,10 @@
 
-Nå: ESC
-* En singleton PageHistory tar vare på stacken av sider for rask navigasjon.
-
---------------------
-
 Så: Siste store vanskelighet er krav?
   -> før jeg begynner på det, gå gjennom og gjør generell rydding i klasser og tester.
+     * Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.justifyProse() et al
 
---------------------
-
-Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.justifyProse() et al
+Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
+De trenger bare å svare på getRoomNumbers og getRequirements så vil egne klasser håndtere fargelegging av dem.
 
 --------------------
 
@@ -37,11 +32,6 @@ Altså, skrevet med litt andre ord:
 6. Room får oppdatert sin lines og cursor.
 7. Endring rapporteres.
 
---------------------
-
-Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
-De trenger bare å svare på getRoomNumbers og getRequirements så vil egne klasser håndtere fargelegging av dem.
-
 ------------------
 
 Commands vet alt om kommandoene i Adventur. De kan rendre seg som ny og som gammel, og vet hvor de kan finne
@@ -50,11 +40,14 @@ De kan svare på "er dette den gamle eller nye formen?", slik at editoren kan la
 
 Det gjøres bare automatisk konvertering til newScript ved innlasting av rom.
 
-Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker de det til å finne
-sine romnummer og krav - det har blitt deres nye hovedformål.
+Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker de det til å finne sine romnummer og krav.
 
-Du ber fortsatt Command om å få FormattedLines - men det flyttes opp til Command-superklassen som bare løper
-gjennom fragmentet og lager dem ut fra lines.
+Editor spør kommando:
+  "Hei, inneholder du noen romnummer?" --> er cursoren der nå? Vis info om rom
+  "Hei, inneholder du noen krav?" --> er cursoren der nå? Vis info om krav
+  "Hei, inneholder du noen feil?" --> er cursoren der nå? Vis info om feil
+  "Hei, kan du oppgraderes til ny form?" --> vis lyspære   ---.__ ctrl+f = fiks
+  "Hei, inneholder du noen skrivefeil?" --> vis rød blyant ---'
 
 -------------------
 
@@ -65,7 +58,8 @@ Istedet for automatisk fiksing mens du skriver, så vil jeg ha små lyspærer i 
 Room holdes åpne i Adventure (og RoomHistory).
   - Det er en måte å beholde cursor-posisionen.
   - Da er det teoretisk mulig å la spilleren hoppe fram og tilbake mellom rommene uten å lagre.
-    Er det ålreit? Det tror jeg faktisk. I hvert fall hvis jeg får en oversikt over rom som ikke er lagret.
+    Er det ålreit? Jeg er veldig usikker. Da nærmer vi oss mer normal dokumenthåndtering, med tabs og skit.
+    Da føler jeg at fokus forsvinner.
 
 --------------------
 
@@ -88,6 +82,7 @@ En paragraf representeres med ':'
 
  TextEditor kjenner til et document, som består av tekst og en cursor. Vet ingenting annet.
  PageEditor har en Page, kjenner til Commands, og er mer opptatt av domenet. Delegerer videre til TextEditor.
+ RoomEditor kjenner til Rooms, kan lagre dem, undo, redo, hoppe mellom, etc. Delegerer videre til PageEditor.
 
 -------------------
 

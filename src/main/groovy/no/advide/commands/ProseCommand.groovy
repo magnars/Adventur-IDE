@@ -7,12 +7,12 @@ import no.advide.WordWrapper
 class ProseCommand extends Command {
 
   static def matches(DocumentFragment fragment) {
-    startsWithLetter(fragment.lines.first())
+    startsWithProseIndicatingChar(fragment.lines.first())
   }
 
   static int numMatchingLines(DocumentFragment fragment) {
     for (int i = 0; i < fragment.length; i++) {
-      if (!startsWithLetter(fragment.lines[i])) return i
+      if (!startsWithProseIndicatingChar(fragment.lines[i])) return i
       if (i > 0 && fragment.cursor && fragment.cursor.y == i) return i
     }
     return fragment.length
@@ -32,8 +32,8 @@ class ProseCommand extends Command {
     new WordWrapper(fragment, width).justify()
   }
 
-  private static def startsWithLetter(String line) {
-    line =~ /^[a-zA-ZæøåÆØÅ]/
+  private static def startsWithProseIndicatingChar(String line) {
+    line =~ /^[0-9a-zA-ZæøåÆØÅ"]/
   }
 
 }
