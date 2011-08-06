@@ -25,7 +25,7 @@ class TextEditor extends EventEmitter {
   String currentIndentation() {
     int x = 0
     String currentLine = document.lines[document.cursor.y]
-    while (currentLine.startsWith("  ", x)) x += 2
+    while (currentLine.startsWith("  ", x) || currentLine.startsWith("? ", x)) x += 2
     return " " * x
   }
 

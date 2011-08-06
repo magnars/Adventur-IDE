@@ -137,6 +137,13 @@ class TextEditorTest extends GroovyTestCase {
     assert document.cursor == [x:0, y:1]
   }
 
+  void test_enter_knows_about_new_style_indentation_starters() {
+    setUpEditor(["? KRAV"], [x:6, y:0])
+    editor.actionTyped("enter")
+    assert document.lines == ["? KRAV", "  "]
+    assert document.cursor == [x:2, y:1]
+  }
+
   void test_enter_keeps_indentation() {
     setUpEditor(["  Føretter"], [x:5, y:0])
     editor.actionTyped("enter")
