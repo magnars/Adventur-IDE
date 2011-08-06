@@ -3,6 +3,7 @@ package no.advide.ui
 import java.awt.Color
 import java.awt.FontMetrics
 import java.awt.Graphics2D
+import no.advide.Cursor
 import no.advide.FormattedLine
 
 class TextRenderer {
@@ -15,10 +16,17 @@ class TextRenderer {
   private static final Color EMBOSSED_COLOR_BOTTOM = new Color(255, 255, 255, 150)
 
   def render() {
-    textLayout.lines.eachWithIndex { FormattedLine line, i ->
-      renderLine(i, line)
+    int startIndex = cursor.calculateScrollTop(maxLines - 1)
+    int numLinesToRender = maxLines + 1 // want the overflow line to show partially
+    int stopIndex = startIndex + numLinesToRender
+    for (int i = startIndex; i < stopIndex && i < lines.size(); i++) {
+      renderLine(i, lines[i])
       y = y + fontHeight
     }
+  }
+
+  private int getMaxLines() {
+    g.clipBounds.height / fontHeight
   }
 
   private def renderLine(i, FormattedLine line) {
@@ -71,9 +79,9 @@ class TextRenderer {
     g.fillRect 0, y, componentWidth, fontHeight - 1
   }
 
-  def textLayout
+  def lines
   int componentWidth
-  def cursor
+  Cursor cursor
   Graphics2D g
   FontMetrics fontMetrics
   int ascent
@@ -82,13 +90,13 @@ class TextRenderer {
 
   TextRenderer(layout, width, graphics) {
     g = graphics
-    textLayout = layout
+    lines = layout.lines
+    cursor = layout.cursor
     componentWidth = width
     y = 0
     fontMetrics = g.getFontMetrics()
     ascent = fontMetrics.getAscent()
     fontHeight = ascent + fontMetrics.getDescent()
-    cursor = textLayout.cursor
   }
 
 }

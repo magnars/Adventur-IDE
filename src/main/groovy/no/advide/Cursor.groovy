@@ -4,11 +4,17 @@ class Cursor {
   int _x
   int _y
   private List<String> lines
+  def scrollTop
+
+  Cursor(List<String> lines, x, y, scrollTop) {
+    this.lines = lines
+    this._x = x
+    this._y = y
+    this.scrollTop = scrollTop
+  }
 
   Cursor(List<String> lines, x, y) {
-    this.lines = lines
-    _x = x
-    _y = y
+    this(lines, x, y, 0)
   }
 
   boolean at(LinkedHashMap coords) {
@@ -129,5 +135,15 @@ class Cursor {
     obj.x == x && obj.y == y
   }
 
+  int calculateScrollTop(height) {
+    if (y >= height + scrollTop) {
+      scrollTop = y - height + 1
+    }
+    if (scrollTop >= y) {
+      scrollTop = y - 1
+    }
+    scrollTop = Math.max(0, (int)scrollTop)
+    return scrollTop
+  }
 
 }

@@ -122,4 +122,28 @@ class CursorTest extends GroovyTestCase {
     assert cursor.at(x:0, y:0)
   }
 
+  void test_should_move_scrollTop_down_if_below_height_and_stay() {
+    def cursor = new Cursor(["", "", "", "", ""], 0, 5, 0)
+    assert cursor.calculateScrollTop(3) == 2
+    cursor.up()
+    assert cursor.calculateScrollTop(3) == 2
+  }
+
+  void test_should_move_scrollTop_up_if_under_cursor() {
+    def cursor = new Cursor(["", "", "", "", ""], 0, 0, 2)
+    assert cursor.calculateScrollTop(3) == 0
+    cursor.down()
+    assert cursor.calculateScrollTop(3) == 0
+  }
+
+  void test_should_move_scrollTop_down_so_line_under_cursor_shows() {
+    def cursor = new Cursor(["", "", "", "", ""], 0, 3, 0)
+    assert cursor.calculateScrollTop(3) == 1
+  }
+
+  void test_should_move_scrollTop_up_so_line_over_cursor_shows() {
+    def cursor = new Cursor(["", "", "", "", ""], 0, 2, 2)
+    assert cursor.calculateScrollTop(3) == 1
+  }
+
 }

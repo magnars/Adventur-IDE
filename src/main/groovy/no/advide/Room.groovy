@@ -14,7 +14,7 @@ class Room {
     file = f
     history = [[
         lines: RoomConverter.toNewStyle(file.readLines('UTF-8')),
-        cursor: [x:0, y:0]
+        cursor: [x:0, y:0, scrollTop:0]
     ]]
   }
 
@@ -24,7 +24,7 @@ class Room {
 
   void update(Document document) {
     lines = [] + document.lines
-    cursor = [x:document.cursor._x, y:document.cursor._y]
+    cursor = [x:document.cursor._x, y:document.cursor._y, scrollTop:document.cursor.scrollTop]
   }
 
   void save() {
@@ -55,7 +55,7 @@ class Room {
 
   def getCursor() {
     def c = history[historyIndex].cursor
-    [x:c.x, y:c.y]
+    [x:c.x, y:c.y, scrollTop:c.scrollTop]
   }
 
   List<String> getLines() {

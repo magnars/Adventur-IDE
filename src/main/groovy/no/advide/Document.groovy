@@ -8,7 +8,7 @@ class Document {
 
   Document(List<String> lines, coords) {
     this.lines = lines
-    this.cursor = new Cursor(lines, coords.x, coords.y)
+    this.cursor = new Cursor(lines, coords.x, coords.y, coords.scrollTop)
   }
 
   void setCursor(LinkedHashMap coords) {

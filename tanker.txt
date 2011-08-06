@@ -1,5 +1,7 @@
 
-Nå: extract BlockCommand ut av ConditionalCommand
+Nå: Skrolling ...
+
+ ---> er scrollTop en del av cursor? Jeg tror det. Men den må få "gi meg scrollTop basert på at jeg kan rendre X antall linjer"
 
 Så: Siste store vanskelighet er krav?
 
