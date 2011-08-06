@@ -4,7 +4,7 @@ import no.advide.commands.CommandParser
 
 class RoomConverter {
 
-  static List<String> toNewStyle(List<String> lines) {
+  static List<String> toNewStyle(lines) {
     def document = new Document(lines, [x:0, y:0])
     document.stripTrailingSpaces()
 
@@ -13,7 +13,7 @@ class RoomConverter {
     return document.lines
   }
 
-  static List<String> toOldStyle(List<String> lines) {
+  static List<String> toOldStyle(lines) {
     def document = new Document(lines, [x:0, y:0])
     document.stripTrailingSpaces()
 

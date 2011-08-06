@@ -19,8 +19,7 @@ class Room {
   }
 
   Document createDocument() {
-    def lineCopy = [] + lines
-    new Document(lineCopy, [x:cursor.x, y:cursor.y])
+    new Document(lines, cursor)
   }
 
   void update(Document document) {
@@ -55,15 +54,16 @@ class Room {
   }
 
   def getCursor() {
-    history[historyIndex].cursor
+    def c = history[historyIndex].cursor
+    [x:c.x, y:c.y]
   }
 
   List<String> getLines() {
-    history[historyIndex].lines
+    [] + history[historyIndex].lines
   }
 
   List<String> getOriginal() {
-    history[originalIndex].lines
+    [] + history[originalIndex].lines
   }
 
   void undo() {
