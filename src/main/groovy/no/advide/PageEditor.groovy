@@ -6,10 +6,10 @@ class PageEditor extends EventEmitter {
   TextEditor textEditor
 
   def actions = [
-      "tab":            { if (page.nextRoomNumber) page.document.cursor = page.nextRoomNumber.position },
-      "shift+tab":      { if (page.previousRoomNumber) page.document.cursor = page.previousRoomNumber.position },
-      "ctrl+alt+cmd+O": { page.commands.each { it.replaceWithOldStyle() } },
-      "ctrl+alt+cmd+N": { page.commands.each { it.replaceWithNewStyle() } }
+      "tab":            { if (page.nextRoomNumber) page.cursor = page.nextRoomNumber.position },
+      "shift+tab":      { if (page.previousRoomNumber) page.cursor = page.previousRoomNumber.position },
+      "ctrl+alt+cmd+O": { page.changeToOldStyle() },
+      "ctrl+alt+cmd+N": { page.changeToNewStyle() }
   ]
 
   PageEditor(Page page) {

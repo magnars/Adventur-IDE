@@ -1,27 +1,37 @@
 
-Så: Siste store vanskelighet er krav?
-  -> før jeg begynner på det, gå gjennom og gjør generell rydding i klasser og tester.
-     * Kan vurdere å eksponere metoder fra commands og document i page, slik at vi slipper page.commands.justifyProse() et al
+Hva skal jeg velge som neste? Krav? Selection? Mouse? Lyspærer? Skrivefeil?
 
-Jeg skal nok også fjerne håndtering av krav og romnummer fra Commands.
-De trenger bare å svare på getRoomNumbers og getRequirements så vil egne klasser håndtere fargelegging av dem.
+
+
 
 --------------------
 
-Siste store vanskelig er nok Selection.
-Cursor får en selectionOrigin
-Selection bruker Document med sin lines og Cursor
- - har selectionStart og selectionEnd, der den ene er cursor (avhengig av om Cursor er først eller sist)
-PageEditor og RoomEditor fjerner selection ved endring.
-TextEditor har ctrl+c/v/x og fikser alt med selection.
-PageRenderer tar selection og formatterer (husk å fjerne annen formattering på linjene)
+Selection:
+  Cursor får en selectionOrigin
+  Selection bruker Document med sin lines og Cursor
+   - har selectionStart og selectionEnd, der den ene er cursor (avhengig av om Cursor er først eller sist)
+  PageEditor og RoomEditor fjerner selection ved endring.
+  TextEditor har ctrl+c/v/x og fikser alt med selection.
+  PageRenderer tar selection og formatterer (husk å fjerne annen formattering på linjene)
+
+--------------------
+
+Mouse:
+  Regn ut hvilken linje vha fontHeight
+  Regn ut hvilket tegn vha fontMetrics --> cursor-posisjon! No problem.
+  Klikke på lyspærer og blyanter er temmelig enkelt etter det.
+  Select er kjipere, med drag og greier.
 
 --------------------
 
 * Husk at Prose i gammel form skal være på en lang linje.
-  Hmm ... [C] kan selv si ifra til Prose om å rendre seg som én lang linje, de andre kan fortsette å bruke prose som før.
+  Hmm ... [C] og alternativer kan selv si ifra til Prose om å rendre seg som én lang linje, de andre kan fortsette å bruke prose som før.
 
 * Prose takler for øyeblikket dårlig lange linjer fra gammel editor som inneholder ekstra spacing for å få 80-char linjer
+
+--------------------
+
+Burde samle alle fargene i en klasse, slik at jeg kan få meg en fin beksvart skjerm om jeg skulle ønske det.
 
 --------------------
 

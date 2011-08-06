@@ -7,9 +7,9 @@ class CommandParser {
 
   static List commandTypes = [
       ConditionalCommand,
-      ReinstateAlternativeCommand,
       ContinueCommand,
       ProseCommand,
+      ReinstateAlternativeCommand,
       RemoveAlternativeCommand,
       UnknownCommand
   ]

@@ -21,7 +21,7 @@ class BackgroundPanel extends JPanel {
   protected void paintComponent(Graphics g) {
 		int x, y;
 
-		Rectangle clip = g.getClipBounds();
+		Rectangle clip = g.clipBounds;
 
 		if (imgWidth > 0 && imgHeight > 0) {
 			for (x = clip.x; x < (clip.x + clip.width) ; x += imgWidth) {

@@ -29,4 +29,28 @@ class Page {
     prev.empty ? null : prev.last()
   }
 
+  void justifyProse() {
+    commands.each { it.justifyProse(80) }
+  }
+
+  void changeToOldStyle() {
+    commands.each { it.replaceWithOldStyle() }
+  }
+
+  void changeToNewStyle() {
+    commands.each { it.replaceWithNewStyle() }
+  }
+
+  def getCursor() {
+    document.cursor
+  }
+
+  void setCursor(cursor) {
+    document.cursor = cursor
+  }
+
+  def getLines() {
+    document.lines
+  }
+
 }

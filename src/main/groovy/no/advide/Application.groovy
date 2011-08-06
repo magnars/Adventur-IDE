@@ -38,7 +38,7 @@ class Application {
 
   void roomChanged() {
     def page = new Page(room.createDocument())
-    page.commands.justifyProse(80)
+    page.justifyProse()
     renderPage(page)
     updateAppFrame()
     waitForEvents(page)
@@ -50,7 +50,7 @@ class Application {
   }
 
   private void renderPage(Page page) {
-    editorPanel.updateContents(new PageFormatter(page, room.modified).formattedLines, page.document.cursor)
+    editorPanel.updateContents(new PageFormatter(page, room.modified).formattedLines, page.cursor)
   }
 
   private void waitForEvents(Page page) {

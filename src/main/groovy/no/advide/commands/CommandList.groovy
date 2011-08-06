@@ -17,8 +17,4 @@ class CommandList extends ArrayList<Command> {
     findAll { it?.class == commandType }
   }
 
-  void justifyProse(int width) {
-    each { it.justifyProse(width) }
-  }
-
 }
