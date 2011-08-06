@@ -8,8 +8,20 @@ De trenger bare å svare på getRoomNumbers og getRequirements så vil egne klas
 
 --------------------
 
+Siste store vanskelig er nok Selection.
+Cursor får en selectionOrigin
+Selection bruker Document med sin lines og Cursor
+ - har selectionStart og selectionEnd, der den ene er cursor (avhengig av om Cursor er først eller sist)
+PageEditor og RoomEditor fjerner selection ved endring.
+TextEditor har ctrl+c/v/x og fikser alt med selection.
+PageRenderer tar selection og formatterer (husk å fjerne annen formattering på linjene)
+
+--------------------
+
 * Husk at Prose i gammel form skal være på en lang linje.
   Hmm ... [C] kan selv si ifra til Prose om å rendre seg som én lang linje, de andre kan fortsette å bruke prose som før.
+
+* Prose takler for øyeblikket dårlig lange linjer fra gammel editor som inneholder ekstra spacing for å få 80-char linjer
 
 --------------------
 

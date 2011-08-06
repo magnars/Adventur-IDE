@@ -21,6 +21,16 @@ class ProseCommandTest extends GroovyTestCase {
     assert !ProseCommand.matches(createFragment(["#12"]))
   }
 
+  void test_should_match_lines_starting_with_quote() {
+    assert ProseCommand.matches(createFragment(['"Hei']))
+    assert !ProseCommand.matches(createFragment(['"']))
+  }
+
+  void test_should_match_lines_starting_with_numbers() {
+    assert ProseCommand.matches(createFragment(['13 baller']))
+    assert !ProseCommand.matches(createFragment(['13']))
+  }
+
   void test_should_request_all_continuous_lines_of_prose() {
     assert ProseCommand.numMatchingLines(createFragment(["Hei", "på", "deg", "!!!"])) == 3
     assert ProseCommand.numMatchingLines(createFragment(["Hei", "du"])) == 2
