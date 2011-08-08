@@ -1,7 +1,7 @@
 
 Hva skal jeg velge som neste? Krav? Selection? Mouse? Lyspærer? Skrivefeil?
 
-
+... det ble Lyspærer nå.
 
 
 --------------------
@@ -28,6 +28,8 @@ Mouse:
   Hmm ... [C] og alternativer kan selv si ifra til Prose om å rendre seg som én lang linje, de andre kan fortsette å bruke prose som før.
 
 * Prose takler for øyeblikket dårlig lange linjer fra gammel editor som inneholder ekstra spacing for å få 80-char linjer
+
+* Husk ´ og é i KeyInterpreter
 
 --------------------
 
@@ -67,9 +69,9 @@ Commands får altså fortsatt et DocumentFragment som er sitt eget. Også bruker
 Editor spør kommando:
   "Hei, inneholder du noen romnummer?" --> er cursoren der nå? Vis info om rom
   "Hei, inneholder du noen krav?" --> er cursoren der nå? Vis info om krav
-  "Hei, inneholder du noen feil?" --> er cursoren der nå? Vis info om feil
+  "Hei, inneholder du noen feil?" --> er cursoren der nå? Vis info om feil  --> vis advarselstrekant
   "Hei, kan du oppgraderes til ny form?" --> vis lyspære   ---.__ ctrl+f = fiks
-  "Hei, inneholder du noen skrivefeil?" --> vis rød blyant ---'
+  "Hei, inneholder du noen skrivefeil?" --> vis blyant ---'
 
 -------------------
 
@@ -127,3 +129,9 @@ Document testes gjennom tre forskjellige klasser:
    - DocumentTest bryr seg først og fremst om at cursoren oppdateres riktig når teksten endres.
    - DocumentFragmentTest sjekker grunnfunksjonalitet når den tester integrasjon, samt oppdatering av Fragments.
    - EditorTest sjekker at de "lettere abstrakte" Document-metodene mapper godt over til lettforståelige tastetrykk.
+
+---------------------
+
+* Vurdere et felles repo for romnummer ... hva da med offline? hver bruker kan få tildelt 300 nummer i slengen, og kontakter
+  repo for nye nummer når den bare har 100 igjen. Ikke lengre noe gjenbruk av romnummer.
+

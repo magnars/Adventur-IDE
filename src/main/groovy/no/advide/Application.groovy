@@ -45,7 +45,7 @@ class Application {
   }
 
   private void updateAppFrame() {
-    appFrame.setHeaderText("${Adventure.current.name} - ${room.name}")
+    appFrame.setHeaderText("${Adventure.current.name} - ${room.name}${room.modified ? ' (endret)' : ''}")
     appFrame.setModified(room.modified)
   }
 

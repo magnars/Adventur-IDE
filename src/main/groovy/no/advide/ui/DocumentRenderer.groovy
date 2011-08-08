@@ -6,7 +6,7 @@ import java.awt.Graphics2D
 import no.advide.Cursor
 import no.advide.FormattedLine
 
-class TextRenderer {
+class DocumentRenderer {
 
   private static final int LEFT_PADDING = 20
   private static final Color CURSOR_HIGHLIGHT = new Color(0, 0, 0, 4)
@@ -88,7 +88,7 @@ class TextRenderer {
   int fontHeight
   int y
 
-  TextRenderer(layout, width, graphics) {
+  DocumentRenderer(layout, width, graphics) {
     g = graphics
     lines = layout.lines
     cursor = layout.cursor

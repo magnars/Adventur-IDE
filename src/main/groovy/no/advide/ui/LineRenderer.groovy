@@ -3,6 +3,8 @@ package no.advide.ui
 import java.awt.Color
 import java.awt.FontMetrics
 import java.awt.Graphics2D
+import java.awt.Image
+import javax.swing.ImageIcon
 import no.advide.FormatChange
 import no.advide.FormattedLine
 
@@ -12,10 +14,12 @@ class LineRenderer {
   String text
   Map<Integer, FormatChange> changes
   FontMetrics metrics
+  FormattedLine line
 
   LineRenderer(FormattedLine line, int x, int y, Graphics2D g) {
     changes = line.changes
     text = line.text
+    this.line = line
     this.x = x
     this.y = y
     this.g = g
@@ -28,6 +32,14 @@ class LineRenderer {
   void render() {
     index = 0
     renderFromIndex()
+    if (line.icon) {
+      Image img = new ImageIcon(ClassLoader.getSystemResource("${line.icon}.png")).image
+      g.drawImage(img, 2, centerIconY(), null)
+    }
+  }
+
+  private int centerIconY() {
+    return y + (metrics.height / 2) - 9
   }
 
   void renderFromIndex() {

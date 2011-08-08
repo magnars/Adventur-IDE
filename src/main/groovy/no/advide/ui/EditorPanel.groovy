@@ -24,7 +24,7 @@ class EditorPanel extends JPanel {
     g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
     g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
     g.setFont(defaultFont)
-    new TextRenderer(textLayout, getWidth(), g).render()
+    new DocumentRenderer(textLayout, getWidth(), g).render()
   }
 
   void updateContents(List<FormattedLine> lines, cursor) {

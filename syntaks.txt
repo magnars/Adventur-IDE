@@ -1,4 +1,7 @@
 
+Få på plass støtte for @@@ og ### (fra skribent), slippe at import skal være så enormt med hassle.
+
+
 Kommandoer
 ===========
 Prøver å finne en bedre syntaks på kommandoer: 

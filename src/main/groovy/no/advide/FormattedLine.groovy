@@ -9,6 +9,7 @@ class FormattedLine {
   boolean isEmbossedTop
   boolean isEmbossed
   boolean isEmbossedBottom
+  String icon
 
   FormattedLine() {
     changes[0] = new FormatChange(index: 0, changeColor: Color.black)
