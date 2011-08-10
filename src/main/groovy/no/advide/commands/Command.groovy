@@ -2,6 +2,7 @@ package no.advide.commands
 
 import java.awt.Color
 import no.advide.DocumentFragment
+import no.advide.Fix
 import no.advide.FormattedLine
 import no.advide.RoomNumber
 
@@ -27,6 +28,10 @@ abstract class Command {
 
   List<String> toNewStyle() {
     fragment.lines
+  }
+
+  List<Fix> getFixes() {
+    isInNewStyle() ? [] : [new Fix(fragment.offset.y, { replaceWithNewStyle() })]
   }
 
   void replaceWithNewStyle() {

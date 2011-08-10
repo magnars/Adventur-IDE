@@ -108,4 +108,9 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert command.toOldStyle() == ["[!]KRAV", ""]
   }
 
+  void test_should_get_fixes_also_for_subcommands() {
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "*123", "}"]))
+    assert command.fixes.size() == 2
+  }
+
 }

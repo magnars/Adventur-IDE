@@ -39,4 +39,13 @@ class PageEditorTest extends GroovyTestCase {
     assert page.cursor == [x:1, y:0]
   }
 
+  void test_fixing() {
+    def page = getPage(2)
+    page.changeToOldStyle()
+    assert page.lines == ["Side 1", "!!!", "Side 2"]
+    def editor = new PageEditor(page)
+    editor.actionTyped("cmd+F")
+    assert page.lines == ["Side 1", "-- fortsett --", "Side 2"]
+  }
+
 }

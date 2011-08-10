@@ -2,6 +2,7 @@ package no.advide.commands
 
 import java.awt.Color
 import no.advide.DocumentFragment
+import no.advide.Fix
 import no.advide.FormattedLine
 import no.advide.RoomNumber
 
@@ -53,6 +54,19 @@ abstract class BlockCommand extends Command {
 
   abstract boolean isOldForm()
   abstract boolean isNewForm()
+
+  @Override
+  List<Fix> getFixes() {
+    myFixes() + subcommandFixes()
+  }
+
+  private def subcommandFixes() {
+    (List<Fix>) commands.collect { it.fixes }.flatten()
+  }
+
+  private def myFixes() {
+    newForm ? [] : [new Fix(fragment.offset.y, { replaceWithNewStyle() })]
+  }
 
   @Override
   List<FormattedLine> getFormattedLines() {

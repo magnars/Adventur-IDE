@@ -29,6 +29,18 @@ class Page {
     prev.empty ? null : prev.last()
   }
 
+  void moveCursorTo(RoomNumber number) {
+    if (number) cursor = number.position
+  }
+
+  List<Fix> getFixes() {
+    commands.fixes
+  }
+
+  Fix getNextFix() {
+    commands.fixes.find { it.line >= cursor.y }
+  }
+
   void justifyProse() {
     commands.each { it.justifyProse(80) }
   }

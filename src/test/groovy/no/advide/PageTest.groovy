@@ -74,4 +74,15 @@ class PageTest extends GroovyTestCase {
     assert page.previousRoomNumber.number == 2
   }
 
+  void test_next_fix_should_be_after_cursor() {
+    page = getPage(2)
+    page.changeToOldStyle() // ["Side 1", "!!!", "Side 2"]
+
+    page.cursor = [x:0, y:0]
+    assert page.nextFix.line == 1
+
+    page.cursor = [x:0, y:2]
+    assert page.nextFix == null
+  }
+
 }

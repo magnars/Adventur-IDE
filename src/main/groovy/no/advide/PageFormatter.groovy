@@ -20,7 +20,13 @@ class PageFormatter {
   List<FormattedLine> getFormattedLines() {
     def lines = commands.formattedLines
     formatLines(lines)
+    addFixIcons(lines)
     lines
+  }
+
+  void addFixIcons(List<FormattedLine> lines) {
+    page.fixes.each { lines[it.line].icon = it.icon }
+    if (page.nextFix) { lines[page.nextFix.line].icon = "${page.nextFix.icon}_active" }
   }
 
   def formatLines(List<FormattedLine> lines) {
