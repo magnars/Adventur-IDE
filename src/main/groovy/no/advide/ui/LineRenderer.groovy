@@ -28,7 +28,7 @@ class LineRenderer {
   }
 
   int index
-  List<Color> colorStack = []
+  List<Color> colorStack = [ Color.gray ]
 
   void render() {
     index = 0
@@ -80,7 +80,7 @@ class LineRenderer {
     if (change.revertColorChange) { colorStack.pop() }
     if (change.changeColor)       { colorStack.push(change.changeColor) }
     if (change.highlight)         { highlightNextChars(change.highlight.length, change.highlight.color) }
-    if (!colorStack.isEmpty())    { g.setColor(colorStack.last()) }
+    g.setColor(colorStack.last())
   }
 
   private def highlightNextChars(length, color) {

@@ -68,4 +68,113 @@ class AlternativeCommandTest extends GroovyTestCase {
     assert command.formattedLines[7].prefix == "Krav: "
   }
 
+  void test_get_alternatives() {
+    def command = new AlternativeCommand(createFragment(["-", "2", "Alt 1", "16", "Alt 2", "17"]))
+    assert command.alternatives.size() == 2
+
+    assert command.alternatives.first().index == 2
+    assert command.alternatives.first().number == 1
+    assert command.alternatives.first().text == "Alt 1"
+    assert command.alternatives.first().room == "16"
+    assert command.alternatives.first().requirement == "-"
+
+    assert command.alternatives.last().index == 4
+    assert command.alternatives.last().number == 2
+    assert command.alternatives.last().text == "Alt 2"
+    assert command.alternatives.last().room == "17"
+    assert command.alternatives.last().requirement == "-"
+  }
+
+  void test_get_alternatives_with_requirements() {
+    def command = new AlternativeCommand(createFragment(["+", "2", "Alt 1", "16", "-", "Alt 2", "17", "KRAV"]))
+    assert command.alternatives.size() == 2
+
+    assert command.alternatives.first().index == 2
+    assert command.alternatives.first().number == 1
+    assert command.alternatives.first().text == "Alt 1"
+    assert command.alternatives.first().room == "16"
+    assert command.alternatives.first().requirement == "-"
+
+    assert command.alternatives.last().index == 5
+    assert command.alternatives.last().number == 2
+    assert command.alternatives.last().text == "Alt 2"
+    assert command.alternatives.last().room == "17"
+    assert command.alternatives.last().requirement == "KRAV"
+  }
+
+  // ---------------- new style ---------------------------------------------
+
+  void test_should_convert_to_new_style() {
+    def command = new AlternativeCommand(createFragment(["-", "2", "Alt 1", "13", "Alt 2", "14"]))
+    assert command.toNewStyle() == ["--", "Alt 1", "13", "Alt 2", "14"]
+  }
+
+  void test_should_convert_to_old_style() {
+    def command = new AlternativeCommand(createFragment(["--", "Alt 1", "13", "Alt 2", "14"]))
+    assert command.toOldStyle() == ["-", "2", "Alt 1", "13", "Alt 2", "14"]
+  }
+
+  void test_should_convert_to_new_style_with_requirements() {
+    def command = new AlternativeCommand(createFragment(["+", "2", "Alt 1", "13", "-", "Alt 2", "14", "KRAV"]))
+    assert command.toNewStyle() == ["--", "Alt 1", "13", "Alt 2", "14 ? KRAV"]
+  }
+
+  void test_should_convert_to_old_style_with_requirements() {
+    def command = new AlternativeCommand(createFragment(["--", "Alt 1", "13", "Alt 2", "14 ? KRAV"]))
+    assert command.toOldStyle() == ["+", "2", "Alt 1", "13", "-", "Alt 2", "14", "KRAV"]
+  }
+
+  void test_should_match_new_style() {
+    assert AlternativeCommand.matches(createFragment(["--"]))
+    assert !AlternativeCommand.matches(createFragment(["---"]))
+  }
+
+  void test_should_get_alternatives_new_style() {
+    def command = new AlternativeCommand(createFragment(["--", "Alt 1", "16", "Alt 2", "17 ? KRAV"]))
+    assert command.alternatives.size() == 2
+
+    assert command.alternatives.first().index == 1
+    assert command.alternatives.first().number == 1
+    assert command.alternatives.first().text == "Alt 1"
+    assert command.alternatives.first().room == "16"
+    assert command.alternatives.first().requirement == "-"
+
+    assert command.alternatives.last().index == 3
+    assert command.alternatives.last().number == 2
+    assert command.alternatives.last().text == "Alt 2"
+    assert command.alternatives.last().room == "17"
+    assert command.alternatives.last().requirement == "KRAV"
+  }
+
+  void test_should_format_new_style_properly() {
+    def command = new AlternativeCommand(createFragment(["--", "Alt 1", "16", "Alt 2", "17 ? KRAV"]))
+    assert command.formattedLines.size() == 5
+    assert command.formattedLines[1].prefix == "1. "
+    assert command.formattedLines[2].prefix == "--> "
+    assert command.formattedLines[3].prefix == "2. "
+    assert command.formattedLines[4].prefix == "--> "
+  }
+
+  void test_should_indent_numbers_if_more_than_9() {
+    def command = new AlternativeCommand(createFragment(["--",
+        "Alt 1", "1",
+        "Alt 2", "2",
+        "Alt 3", "3",
+        "Alt 4", "4",
+        "Alt 5", "5",
+        "Alt 6", "6",
+        "Alt 7", "7",
+        "Alt 8", "8",
+        "Alt 9", "9",
+        "Alt 10", "10"
+    ]))
+    assert command.formattedLines.size() == 21
+    assert command.formattedLines[1].prefix  == " 1. "
+    assert command.formattedLines[2].prefix  == "--> "
+    assert command.formattedLines[3].prefix  == " 2. "
+    assert command.formattedLines[4].prefix  == "--> "
+    assert command.formattedLines[19].prefix == "10. "
+    assert command.formattedLines[20].prefix == "--> "
+  }
+
 }

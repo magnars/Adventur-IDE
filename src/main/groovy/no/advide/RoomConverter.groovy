@@ -26,8 +26,8 @@ class RoomConverter {
 
   static List<String> toOldStyle(lines) {
     def document = new Document(lines, [x:0, y:0])
-    document.stripTrailingSpaces()
     new CommandParser(document).parse().each { it.replaceWithOldStyle() }
+    document.stripTrailingSpaces()
     return document.lines
   }
 
