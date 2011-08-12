@@ -34,9 +34,9 @@ class DocumentRenderer {
     if (line.isEmbossedTop)    renderEmbossedTop()
     if (line.isEmbossed)       renderEmbossed()
     if (line.isEmbossedBottom) renderEmbossedBottom()
-    if (line.hasSeparatorLine) renderSeparatorLine(line.text)
+    if (line.hasSeparatorLine) renderSeparatorLine(line)
                                renderText(line)
-    if (cursor.atLine(i))      renderCursor(line.text)
+    if (cursor.atLine(i))      renderCursor(line)
   }
 
   private def renderEmbossedTop() {
@@ -54,20 +54,25 @@ class DocumentRenderer {
     g.drawLine(0, y + fontHeight, componentWidth, y + fontHeight)
   }
 
-  private def renderSeparatorLine(text) {
+  private def renderSeparatorLine(line) {
     int centerY = 1 + y + fontHeight / 2
-    int endOfText = LEFT_PADDING + fontMetrics.stringWidth(text)
+    int endOfText = LEFT_PADDING + fontMetrics.stringWidth(line.text) + prefixWidth(line)
     g.setColor(SEPARATOR_LINE_COLOR)
     g.drawRect(endOfText, centerY, componentWidth - endOfText, 1)
   }
 
-  private def renderCursor(String line) {
+  private def renderCursor(FormattedLine line) {
     g.setColor(Color.black)
     g.drawRect LEFT_PADDING + cursorX(line), y, 1, fontHeight - 1
   }
 
-  private int cursorX(String line) {
-    return fontMetrics.stringWidth(line.substring(0, (int)cursor.x))
+  private int prefixWidth(line) {
+    return line.prefix ? fontMetrics.stringWidth(line.prefix) : 0
+  }
+
+  private int cursorX(FormattedLine line) {
+    int prefix_shift = line.prefix && cursor.x >= line.prefixPosition ? prefixWidth(line) : 0
+    return prefix_shift + fontMetrics.stringWidth(line.text.substring(0, (int)cursor.x))
   }
 
   private def renderText(FormattedLine line) {

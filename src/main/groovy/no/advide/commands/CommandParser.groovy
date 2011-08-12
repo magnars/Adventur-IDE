@@ -6,6 +6,7 @@ import no.advide.DocumentFragment
 class CommandParser {
 
   static List commandTypes = [
+      AlternativeCommand,
       ConditionalCommand,
       ContinueCommand,
       ProseCommand,

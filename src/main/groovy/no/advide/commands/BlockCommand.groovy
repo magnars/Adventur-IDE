@@ -84,7 +84,7 @@ abstract class BlockCommand extends Command {
 
   private def addFormattedLinesForCommands(lines) {
     def commandLines = commands.collect { it.formattedLines }.flatten()
-    if (isNewForm()) commandLines.each { it.text = "  ${it.text}" }
+    if (isNewForm()) commandLines.each { it.text = "  ${it.text}"; it.prefixPosition += 2 }
     lines << commandLines
     lines.flatten()
   }

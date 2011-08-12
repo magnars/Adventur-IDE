@@ -46,4 +46,9 @@ class CommandParserTest extends GroovyTestCase {
     assert commands.first().class == ConditionalCommand.class
   }
 
+  void test_should_parse_AlternativeCommand() {
+    setUpCommands(["-", "1", "Tekst", "123"])
+    assert commands.first().class == AlternativeCommand.class
+  }
+
 }

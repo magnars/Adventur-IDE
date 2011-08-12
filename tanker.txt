@@ -1,5 +1,22 @@
 
-Hva skal jeg velge som neste? Krav? Selection? Mouse? Skrivefeil?
+Nå: Alternativer.
+  Uredigerbar tekst foran. Fikses med FormattedLine.prefix.
+  Fikser indentation ved at prefix får en x-posisjon i linja, så de som legger på "  " også øker prefix-posisjon
+
+--------------------
+
+Interessante utfordringer som gjenstår:
+ * Krav
+ * Selection
+ * Muspeker
+ * Skrivefeil
+ * Autocomplete
+
+--------------------
+
+Krav:
+  Forskjell på å gi krav, fjerne krav og bruke krav.
+  Autocomplete midt i setningen.
 
 --------------------
 
@@ -13,7 +30,7 @@ Selection:
 
 --------------------
 
-Mouse:
+Muspeker:
   Regn ut hvilken linje vha fontHeight
   Regn ut hvilket tegn vha fontMetrics --> cursor-posisjon! No problem.
   Klikke på lyspærer og blyanter er temmelig enkelt etter det.
@@ -67,8 +84,8 @@ Editor spør kommando:
   "Hei, inneholder du noen romnummer?" --> er cursoren der nå? Vis info om rom
   "Hei, inneholder du noen krav?" --> er cursoren der nå? Vis info om krav
   "Hei, inneholder du noen feil?" --> er cursoren der nå? Vis info om feil  --> vis advarselstrekant
-  "Hei, kan du oppgraderes til ny form?" --> vis lyspære   ---.__ ctrl+f = fiks
-  "Hei, inneholder du noen skrivefeil?" --> vis blyant ---'
+  "Hei, kan du oppgraderes til ny form?" --> vis lyspære   ---.__ cmd+f = fiks
+  "Hei, inneholder du noen skrivefeil?" --> vis blyant     ---'
 
 -------------------
 

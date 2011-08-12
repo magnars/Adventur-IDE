@@ -30,13 +30,13 @@ class PageFormatter {
   }
 
   def formatLines(List<FormattedLine> lines) {
-    colorNonexistantRoomNumbers(lines)
+    colorRoomNumbers(lines)
     if (!modified) highlightTargetRoomNumber(lines)
   }
 
-  void colorNonexistantRoomNumbers(List<FormattedLine> lines) {
+  void colorRoomNumbers(List<FormattedLine> lines) {
     commands.roomNumbers.each { RoomNumber r ->
-      if (!r.exists()) lines[r.position.y].formatSubstring(r.position.x, r.length, Color.red)
+      lines[r.position.y].formatSubstring(r.position.x, r.length, r.exists() ? new Color(60, 60, 200) : Color.red)
     }
   }
 

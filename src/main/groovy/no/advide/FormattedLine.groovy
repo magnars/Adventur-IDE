@@ -10,6 +10,8 @@ class FormattedLine {
   boolean isEmbossed
   boolean isEmbossedBottom
   String icon
+  String prefix
+  int prefixPosition = 0
 
   FormattedLine() {
     changes[0] = new FormatChange(index: 0, changeColor: Color.black)
@@ -32,7 +34,11 @@ class FormattedLine {
     changeAt(startIndex).highlight = [length: length, color: color]
   }
 
-  private FormatChange changeAt(int startIndex) {
+  void cementPrefix() {
+    if (prefix) changeAt(prefixPosition).prefix = prefix
+  }
+
+  FormatChange changeAt(int startIndex) {
     if (!changes[startIndex]) {
       changes[startIndex] = new FormatChange(index: startIndex)
     }

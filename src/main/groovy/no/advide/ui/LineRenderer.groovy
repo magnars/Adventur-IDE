@@ -17,6 +17,7 @@ class LineRenderer {
   FormattedLine line
 
   LineRenderer(FormattedLine line, int x, int y, Graphics2D g) {
+    line.cementPrefix()
     changes = line.changes
     text = line.text
     this.line = line
@@ -75,10 +76,11 @@ class LineRenderer {
   }
 
   void apply(FormatChange change) {
+    if (change.prefix)            { g.setColor(Color.gray); draw(change.prefix) }
     if (change.revertColorChange) { colorStack.pop() }
     if (change.changeColor)       { colorStack.push(change.changeColor) }
     if (change.highlight)         { highlightNextChars(change.highlight.length, change.highlight.color) }
-    g.setColor(colorStack.last())
+    if (!colorStack.isEmpty())    { g.setColor(colorStack.last()) }
   }
 
   private def highlightNextChars(length, color) {
