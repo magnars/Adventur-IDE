@@ -1,8 +1,8 @@
 package no.advide.commands
 
-import java.awt.Color
 import no.advide.Document
 import no.advide.DocumentFragment
+import no.advide.ui.Theme
 
 class ConditionalCommandTest extends GroovyTestCase {
 
@@ -32,12 +32,12 @@ class ConditionalCommandTest extends GroovyTestCase {
     assert command.roomNumbers.size() == 1
   }
 
-  void test_should_color_brackets_gray() {
+  void test_should_color_brackets_according_to_theme() {
     def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "}"]))
     assert command.formattedLines[1].text == "{"
-    assert command.formattedLines[1].color == Color.gray
+    assert command.formattedLines[1].color == Theme.brackets
     assert command.formattedLines[3].text == "}"
-    assert command.formattedLines[3].color == Color.gray
+    assert command.formattedLines[3].color == Theme.brackets
   }
 
   void test_should_emboss_entire_block() {
@@ -84,18 +84,18 @@ class ConditionalCommandTest extends GroovyTestCase {
   // Switching ////////////
 
   void test_should_convert_to_new_style() {
-    def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "def", "*123", "}"]))
-    assert command.toNewStyle() == ["? KRAV", "  abc", "  def", "  - #123"]
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "{", "abc", "def", "!!!", "}"]))
+    assert command.toNewStyle() == ["? KRAV", "  abc", "  def", "  -- fortsett --"]
   }
 
   void test_should_convert_to_old_style() {
-    def command = new ConditionalCommand(createFragment(["? KRAV", "  abc", "  - #123"]))
-    assert command.toOldStyle() == ["[!]KRAV", "{", "abc", "*123", "}"]
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  abc", "  -- fortsett --"]))
+    assert command.toOldStyle() == ["[!]KRAV", "{", "abc", "!!!", "}"]
   }
 
   void test_should_avoid_unneccessary_braces_in_old_style() {
-    def command = new ConditionalCommand(createFragment(["? KRAV", "  - #123"]))
-    assert command.toOldStyle() == ["[!]KRAV", "*123"]
+    def command = new ConditionalCommand(createFragment(["? KRAV", "  -- fortsett --"]))
+    assert command.toOldStyle() == ["[!]KRAV", "!!!"]
   }
 
   void test_should_use_brackets_for_single_command_with_multiple_lines_in_old_style() {
@@ -109,7 +109,7 @@ class ConditionalCommandTest extends GroovyTestCase {
   }
 
   void test_should_get_fixes_also_for_subcommands() {
-    def command = new ConditionalCommand(createFragment(["[!]KRAV", "*123", "}"]))
+    def command = new ConditionalCommand(createFragment(["[!]KRAV", "!!!", "}"]))
     assert command.fixes.size() == 2
   }
 

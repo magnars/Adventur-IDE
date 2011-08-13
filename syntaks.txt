@@ -164,7 +164,7 @@ istedet:
 
 
 1. Jeg plukker opp sabotasjetønna og legger den i sekken.
-=> 1256 ? ikke SABOTASJETØNNE
+--> 1256 ? ikke SABOTASJETØNNE
 
 
 
@@ -240,42 +240,42 @@ Du står på torget. Det er en bunke mennesker her som selger diverse saker.
 :save => på torget i Dypvann
 --
 1. Jeg roper: "ER DET NOEN SOM HAR SETT EN PLANKE?"
-=> 15649 ? SKAL_HENTE_PLANK og (verken PLANK5 eller FÅTT_INFO_OM_SJØRØVERTATT_PLANK)
+--> 15649 ? SKAL_HENTE_PLANK og (verken PLANK5 eller FÅTT_INFO_OM_SJØRØVERTATT_PLANK)
 2. Jeg stikker bort og bryter opp slåsskampen.
-=> 13792 ? SLÅSSKAMP-OM-BORGERMESTERENS-DATTER
+--> 13792 ? SLÅSSKAMP-OM-BORGERMESTERENS-DATTER
 3. Jeg går og prater med de tre kara ved teltet.
-=> 1514 ? VETOMKEN
+--> 1514 ? VETOMKEN
 4. Jeg tusler bort til den snåle dommedagsprofeten.
-=> 2362 ? ORKVSDYPVANN men ikke DOMMEDAGBORTE
+--> 2362 ? ORKVSDYPVANN men ikke DOMMEDAGBORTE
 5. Jeg labber over til han som fortalte om borgermesterens datter.
-=> 6974 ? BORGERMESTERDUDE
+--> 6974 ? BORGERMESTERDUDE
 6. Jeg tar en tur bort til guiden og forhører meg om hva som skjer.
-=> 2525 ? ikke ERFAREN
+--> 2525 ? ikke ERFAREN
 7. Jeg går tilbake til guiden.
-=> 2526 ? ERFAREN og (VETOMSVARTHAUG og HARVÆRTPÅBANANØYAHARVÆRTHOSGUIDE)
+--> 2526 ? ERFAREN og (VETOMSVARTHAUG og HARVÆRTPÅBANANØYAHARVÆRTHOSGUIDE)
 8. Jeg stikker en tur bort til fyren som selger vannflasker.
-=> 4947 ? VANNFLASKEMANNEN
+--> 4947 ? VANNFLASKEMANNEN
 9. Jeg leter etter Trulsen, skopusseren som mista beina.
-=> 5189 ? #5188
+--> 5189 ? #5188
 10. Jeg snakker med damen som leter etter pinnsvinet sitt.
-=> 168 ? PINNSVINDAME-PÅ-PLASS
+--> 168 ? PINNSVINDAME-PÅ-PLASS
 11. Jeg kjøper smultringer.
-=> 167 ? SMULTRINGER
+--> 167 ? SMULTRINGER
 12. Jeg ser etter en mann med en stor, grønn hatt ved navn Draume.
-=> 1167 ? DRAUME men ikke DRAUMEDØD
+--> 1167 ? DRAUME men ikke DRAUMEDØD
 13. Jeg lusker bort til en luguber mann, og spørre om han vil lære deg å dirke.
-=> 1165 ? LÆREDIRKE
+--> 1165 ? LÆREDIRKE
 14. Jeg roper høyt ut "VIL NOEN LÆRE MEG Å DIRKE!?"
-=> 1164 ? LÆREDIRKE
+--> 1164 ? LÆREDIRKE
 15. Jeg hilser på den fyren som lesser noen tønner på en vogn.
-=> 439 ? verken SABOTASJETØNNE eller DATO3110
+--> 439 ? verken SABOTASJETØNNE eller DATO3110
 16. Jeg hilser på den fyren som lesser noen gresskar på en vogn.
-=> 439 ? ikke GRESSKARLYKT men DATO3110
+--> 439 ? ikke GRESSKARLYKT men DATO3110
 17. Jeg går bort til fiskedelen av torget.
-=> 6485 ? minst 1 rupi eller VÆRTI6485
+--> 6485 ? minst 1 rupi eller VÆRTI6485
 18. Jeg stikker bort til Didrikk og luftballongen.
-=> 7821 ? DIDRIKK_I_DYPVANN
+--> 7821 ? DIDRIKK_I_DYPVANN
 19. Jeg går rundt i byen og ser meg litt om.
-=> 171
+--> 171
 20. Jeg forlater byen og finner på noe annet.
-=> 1343
+--> 1343

@@ -5,6 +5,7 @@ import no.advide.Alternative
 import no.advide.DocumentFragment
 import no.advide.FormattedLine
 import no.advide.RoomNumber
+import no.advide.ui.Theme
 
 class AlternativeCommand extends Command {
 
@@ -39,7 +40,7 @@ class AlternativeCommand extends Command {
 
   @Override
   Color getColor() {
-    Color.black
+    Theme.alternatives
   }
 
   @Override
@@ -65,6 +66,7 @@ class AlternativeCommand extends Command {
       if (alt.number == 10) extraSpace = ""
       lines[alt.index].prefix = "${extraSpace}${alt.number}. "
       lines[alt.index + 1]?.prefix = "--> "
+      lines[alt.index + 1]?.prefixColor = Theme.altArrow
     }
     lines
   }

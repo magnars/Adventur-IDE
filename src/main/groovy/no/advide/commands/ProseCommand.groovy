@@ -3,6 +3,7 @@ package no.advide.commands
 import java.awt.Color
 import no.advide.DocumentFragment
 import no.advide.WordWrapper
+import no.advide.ui.Theme
 
 class ProseCommand extends Command {
 
@@ -24,7 +25,7 @@ class ProseCommand extends Command {
 
   @Override
   Color getColor() {
-    Color.black
+    Theme.prose
   }
 
   @Override

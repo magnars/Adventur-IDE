@@ -19,8 +19,8 @@ class FormattedLineTest extends GroovyTestCase {
     assert line.color == Color.blue
   }
 
-  void test_should_start_with_default_color() {
-    assert line.color == Color.black
+  void test_should_start_with_garish_default_color() {
+    assert line.color == Color.pink
   }
 
   void test_should_set_substring_color() {

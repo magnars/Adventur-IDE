@@ -7,5 +7,5 @@ class FormatChange {
   Color changeColor
   boolean revertColorChange = false
   def highlight
-  String prefix
+  Map prefix
 }

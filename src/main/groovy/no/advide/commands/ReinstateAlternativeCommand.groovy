@@ -6,14 +6,6 @@ import no.advide.RoomNumber
 class ReinstateAlternativeCommand extends Command {
 
   static def matches(DocumentFragment fragment) {
-    matchesOldForm(fragment) || matchesNewForm(fragment)
-  }
-
-  private static def matchesNewForm(DocumentFragment fragment) {
-    fragment.lines.first() =~ /^- #\d+$/
-  }
-
-  private static def matchesOldForm(DocumentFragment fragment) {
     fragment.lines.first() =~ /^\*\d+$/
   }
 
@@ -26,29 +18,15 @@ class ReinstateAlternativeCommand extends Command {
   }
 
   @Override
-  List<String> toNewStyle() {
-    return [ "- #${number}" ]
-  }
-
-  @Override
-  List<String> toOldStyle() {
-    return [ "*${number}" ]
-  }
-
-  @Override
   List<RoomNumber> getRoomNumbers() {
     return [ new RoomNumber(
         number: number,
-        position: fragment.translate([x:numberIndex, y:0])
+        position: fragment.translate([x:1, y:0])
     ) ]
   }
 
   private int getNumber() {
-    return fragment.lines.first().substring(numberIndex).toInteger()
-  }
-
-  private int getNumberIndex() {
-    return matchesOldForm(fragment) ? 1 : 3
+    return fragment.lines.first().substring(1).toInteger()
   }
 
 }

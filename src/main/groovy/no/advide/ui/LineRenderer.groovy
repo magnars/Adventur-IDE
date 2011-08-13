@@ -28,7 +28,7 @@ class LineRenderer {
   }
 
   int index
-  List<Color> colorStack = [ Color.gray ]
+  List<Color> colorStack = [ Theme.defaultFallbackColor ]
 
   void render() {
     index = 0
@@ -76,7 +76,7 @@ class LineRenderer {
   }
 
   void apply(FormatChange change) {
-    if (change.prefix)            { g.setColor(Color.gray); draw(change.prefix) }
+    if (change.prefix)            { g.setColor(change.prefix.color); draw(change.prefix.text) }
     if (change.revertColorChange) { colorStack.pop() }
     if (change.changeColor)       { colorStack.push(change.changeColor) }
     if (change.highlight)         { highlightNextChars(change.highlight.length, change.highlight.color) }

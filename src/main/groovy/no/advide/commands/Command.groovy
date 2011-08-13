@@ -5,6 +5,7 @@ import no.advide.DocumentFragment
 import no.advide.Fix
 import no.advide.FormattedLine
 import no.advide.RoomNumber
+import no.advide.ui.Theme
 
 abstract class Command {
 
@@ -15,7 +16,7 @@ abstract class Command {
   }
 
   Color getColor() {
-    new Color(60, 60, 200)
+    Theme.command
   }
 
   List<FormattedLine> getFormattedLines() {

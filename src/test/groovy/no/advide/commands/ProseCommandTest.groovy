@@ -1,8 +1,8 @@
 package no.advide.commands
 
-import java.awt.Color
 import no.advide.Document
 import no.advide.DocumentFragment
+import no.advide.ui.Theme
 
 class ProseCommandTest extends GroovyTestCase {
 
@@ -42,9 +42,9 @@ class ProseCommandTest extends GroovyTestCase {
     assert ProseCommand.numMatchingLines(fragment) == 2
   }
 
-  void test_should_color_lines_black() {
+  void test_should_color_lines() {
     setUpCommand(["Hei"])
-    assert command.formattedLines.first().color == Color.black
+    assert command.formattedLines.first().color == Theme.prose
   }
 
   void test_should_optimize_document() {

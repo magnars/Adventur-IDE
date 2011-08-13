@@ -1,10 +1,10 @@
 package no.advide.commands
 
-import java.awt.Color
 import no.advide.DocumentFragment
 import no.advide.Fix
 import no.advide.FormattedLine
 import no.advide.RoomNumber
+import no.advide.ui.Theme
 
 abstract class BlockCommand extends Command {
 
@@ -78,8 +78,8 @@ abstract class BlockCommand extends Command {
   }
 
   private def addBrackets(lines) {
-    lines.add(1, new FormattedLine(text: "{", color: Color.gray))
-    if (fragment.lines.last() == "}") lines << new FormattedLine(text: "}", color: Color.gray)
+    lines.add(1, new FormattedLine(text: "{", color: Theme.brackets))
+    if (fragment.lines.last() == "}") lines << new FormattedLine(text: "}", color: Theme.brackets)
   }
 
   private def addFormattedLinesForCommands(lines) {

@@ -1,6 +1,5 @@
 package no.advide.ui
 
-import java.awt.Color
 import java.awt.FontMetrics
 import java.awt.Graphics2D
 import no.advide.Cursor
@@ -9,11 +8,6 @@ import no.advide.FormattedLine
 class DocumentRenderer {
 
   private static final int LEFT_PADDING = 20
-  private static final Color CURSOR_HIGHLIGHT = new Color(0, 0, 0, 4)
-  private static final Color SEPARATOR_LINE_COLOR = new Color(60, 60, 200, 30)
-  private static final Color EMBOSSED_COLOR_TOP = new Color(0, 0, 0, 30)
-  private static final Color EMBOSSED_COLOR = new Color(0, 0, 0, 7)
-  private static final Color EMBOSSED_COLOR_BOTTOM = new Color(255, 255, 255, 150)
 
   def render() {
     int startIndex = cursor.calculateScrollTop(maxLines - 1)
@@ -40,29 +34,29 @@ class DocumentRenderer {
   }
 
   private def renderEmbossedTop() {
-    g.setColor(EMBOSSED_COLOR_TOP)
+    g.setColor(Theme.embossedTop)
     g.drawLine(0, y, componentWidth, y)
   }
 
   private def renderEmbossed() {
-    g.setColor(EMBOSSED_COLOR)
+    g.setColor(Theme.embossed)
     g.fillRect(0, y, componentWidth, fontHeight)
   }
 
   private def renderEmbossedBottom() {
-    g.setColor(EMBOSSED_COLOR_BOTTOM)
+    g.setColor(Theme.embossedBottom)
     g.drawLine(0, y + fontHeight, componentWidth, y + fontHeight)
   }
 
   private def renderSeparatorLine(line) {
     int centerY = 1 + y + fontHeight / 2
     int endOfText = LEFT_PADDING + fontMetrics.stringWidth(line.text) + prefixWidth(line)
-    g.setColor(SEPARATOR_LINE_COLOR)
+    g.setColor(Theme.separatorLine)
     g.drawRect(endOfText, centerY, componentWidth - endOfText, 1)
   }
 
   private def renderCursor(FormattedLine line) {
-    g.setColor(Color.black)
+    g.setColor(Theme.cursor)
     g.drawRect LEFT_PADDING + cursorX(line), y, 1, fontHeight - 1
   }
 
@@ -80,7 +74,7 @@ class DocumentRenderer {
   }
 
   private def renderCursorIndicatorBar() {
-    g.setColor(CURSOR_HIGHLIGHT)
+    g.setColor(Theme.cursorHighlight)
     g.fillRect 0, y, componentWidth, fontHeight - 1
   }
 

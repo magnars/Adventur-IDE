@@ -2,7 +2,6 @@ package no.advide.ui
 
 import groovy.swing.SwingBuilder
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Dimension
 import java.awt.GraphicsDevice
 import java.awt.GraphicsEnvironment
@@ -48,10 +47,10 @@ class AppFrame extends JFrame {
     new SwingBuilder().edt {
       frame(this, title: Application.NAME, size: frameSize(), location: [50, 30], show: false, defaultCloseOperation: WindowConstants.DISPOSE_ON_CLOSE) {
         borderLayout()
-        panel(new BackgroundPanel(), constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
+        panel(Theme.panel, constraints: BorderLayout.CENTER, border: BorderFactory.createEmptyBorder(5, 10, 5, 10)) {
           boxLayout(axis: BoxLayout.Y_AXIS)
           panel(maximumSize: [1000, 150], minimumSize: [0, 150], opaque: false) {
-            header = label(foreground: new Color(150, 150, 140))
+            header = label(foreground: Theme.headerText)
           }
           panel(editorPanel, maximumSize: [1000, 2000], focusable: true, opaque: false)
         }

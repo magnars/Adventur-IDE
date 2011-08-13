@@ -47,10 +47,6 @@ Muspeker:
 
 --------------------
 
-Burde samle alle fargene i en klasse, slik at jeg kan få meg en fin beksvart skjerm om jeg skulle ønske det.
-
---------------------
-
 Jeg har hatt litt problemer med å se prosessen. Slik er den:
 
 1. Det finnes et Room med tekstlinjer med en cursor. Dette er utgangspunktet og starten på flyten.

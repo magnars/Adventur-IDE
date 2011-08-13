@@ -1,7 +1,7 @@
 package no.advide
 
-import java.awt.Color
 import no.advide.commands.CommandList
+import no.advide.ui.Theme
 
 class PageFormatter {
 
@@ -36,13 +36,13 @@ class PageFormatter {
 
   void colorRoomNumbers(List<FormattedLine> lines) {
     commands.roomNumbers.each { RoomNumber r ->
-      lines[r.position.y].formatSubstring(r.position.x, r.length, r.exists() ? new Color(60, 60, 200) : Color.red)
+      lines[r.position.y].formatSubstring(r.position.x, r.length, r.exists() ? Theme.roomExists : Theme.roomDoesntExist)
     }
   }
 
   void highlightTargetRoomNumber(List<FormattedLine> lines) {
     def r = page.targetRoomNumber
-    if (r) lines[r.position.y].highlightSubstring(r.position.x, r.length, new Color(0, 0, 150, 20))
+    if (r) lines[r.position.y].highlightSubstring(r.position.x, r.length, Theme.roomHighlight)
   }
 
 }
