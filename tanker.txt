@@ -1,7 +1,6 @@
 
-Nå: Alternativer.
-  Uredigerbar tekst foran. Fikses med FormattedLine.prefix.
-  Fikser indentation ved at prefix får en x-posisjon i linja, så de som legger på "  " også øker prefix-posisjon
+Alternativene trenger refaktorering. De må antagelig bli mer selvstendige domeneobjekter. Eksempelvis trenger en Page å vite
+om det er alternativer på siden. 
 
 --------------------
 
