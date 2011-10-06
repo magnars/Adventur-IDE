@@ -7,11 +7,14 @@ class TextEditor extends EventEmitter {
     this.document = document
   }
 
-  def actions = [
+  def cursorMoves = [
       "right":     { document.cursor.right() },
       "left":      { document.cursor.left() },
       "up":        { document.cursor.up() },
-      "down":      { document.cursor.down() },
+      "down":      { document.cursor.down() }
+  ]
+
+  def actions = [
       "enter":     { enter() },
       "backspace": { backspace() }
   ]
@@ -43,10 +46,23 @@ class TextEditor extends EventEmitter {
   }
 
   def actionTyped(k) {
+    checkActions(k)
+    checkCursorMoves(k)
+  }
+
+  def checkActions(k) {
     def a = actions[k]
     if (a) {
       a.call()
       changed()
+    }
+  }
+  
+  def checkCursorMoves(k) {
+    def a = cursorMoves[k]
+    if (a) {
+      a.call()
+      cursorMoved()
     }
   }
 
@@ -56,6 +72,14 @@ class TextEditor extends EventEmitter {
 
   def changed() {
     emit('change', document)
+  }
+
+  def onCursorMove(callback) {
+    on('cursorMove', callback)
+  }
+
+  def cursorMoved() {
+    emit('cursorMove', document)
   }
 
 }

@@ -19,6 +19,7 @@ class RoomEditor extends EventEmitter {
     this.roomHistory = history
     pageEditor = new PageEditor(page)
     pageEditor.onChange { documentChanged() }
+    pageEditor.onCursorMove { cursorMoved() }
   }
 
   Room getRoom() {
@@ -61,6 +62,14 @@ class RoomEditor extends EventEmitter {
 
   def roomChanged() {
     emit('roomChange')
+  }
+
+  def onCursorMove(callback) {
+    on('cursorMove', callback)
+  }
+
+  def cursorMoved() {
+    emit('cursorMove')
   }
 
 }

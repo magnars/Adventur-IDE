@@ -55,6 +55,11 @@ class Application {
 
   private void waitForEvents(Page page) {
     def editor = new RoomEditor(page, roomHistory)
+    editor.onCursorMove {
+      renderPage(page)
+      updateAppFrame()
+      waitForEvents(page)
+    }
     editor.onDocumentChange {
       room.update(page.document)
       roomChanged()

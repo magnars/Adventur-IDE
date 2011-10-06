@@ -1,6 +1,19 @@
 
+
+Det virker som om parsingen er dyrere enn først tenkt.
+Prøv å droppe parsing av linjer som ikke er endret. Ref cursor, og flytting etc.
+Kanskje tre nivåer:
+ 1. ingen endringer (cursor flyttes)
+ 2. kun endret en linje -> current command
+ 3. hele dokumentet må reparses
+
+
+
 Alternativene trenger refaktorering. De må antagelig bli mer selvstendige domeneobjekter. Eksempelvis trenger en Page å vite
 om det er alternativer på siden. 
+
+ -> min tanke nå er å kaste alternativ-koden og starte på nytt. Gjøre AlternativeCommand mye
+    mindre, og at Alternative blir rike, og også får sine egne DocumentFragments.
 
 --------------------
 
@@ -43,6 +56,8 @@ Muspeker:
 * Prose takler for øyeblikket dårlig lange linjer fra gammel editor som inneholder ekstra spacing for å få 80-char linjer
 
 * Husk ´ og é i KeyInterpreter
+
+* Kjenn kobling mellom )(VINDSKROLL og ()BRUKT:VINDSKROLL
 
 --------------------
 
@@ -131,6 +146,9 @@ En paragraf representeres med ':'
 
 Vanlig skrivefeil for Grethe:   "Ingen tvil om det"; tenker du.   ; --> ,
 Vanlig skrivefeil: Alternativ som begynner eller slutter med " uten å ha noen flere
+
+Som gammel skrivefeilretter, så må den støtte stor og små bokstav, og erstatte riktig.
+Men hvis feil.lowercase == riktig.lowercase så er det tydeligvis casingen som var feil da.
 
 ---------------------
 
