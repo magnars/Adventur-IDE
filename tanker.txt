@@ -1,14 +1,4 @@
 
-
-Det virker som om parsingen er dyrere enn først tenkt.
-Prøv å droppe parsing av linjer som ikke er endret. Ref cursor, og flytting etc.
-Kanskje tre nivåer:
- 1. ingen endringer (cursor flyttes)
- 2. kun endret en linje -> current command
- 3. hele dokumentet må reparses
-
-
-
 Alternativene trenger refaktorering. De må antagelig bli mer selvstendige domeneobjekter. Eksempelvis trenger en Page å vite
 om det er alternativer på siden. 
 

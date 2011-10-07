@@ -29,6 +29,7 @@ class CommandParser {
     strings = document.lines
     commands = new CommandList()
     index = 0
+    if (fragmentTypeCache.size() > 100000) { fragmentTypeCache = [:] } // don't grow into the heavens
   }
 
   CommandList parse() {
@@ -38,11 +39,29 @@ class CommandParser {
     return commands
   }
 
+  def static fragmentTypeCache = [:]
+
   private Command findMatchingCommand() {
     def fragment = document.createFragment([x:0, y:index], strings.size() - index)
+    def type = findCommandType(fragment)
+    return createCommand(type, fragment)
+  }
+
+  private def findCommandType(DocumentFragment fragment) {
+    def lines = fragment.lines
+    def cacheHit = fragmentTypeCache[lines]
+    if (cacheHit) {
+      return cacheHit
+    }
+    def type = scanForType(fragment)
+    fragmentTypeCache[lines] = type
+    return type
+  }
+
+  private def scanForType(DocumentFragment fragment) {
     for (type in commandTypes) {
       if (type.matches(fragment)) {
-        return createCommand(type, fragment)
+        return type
       }
     }
     throw new IllegalStateException("no matching commands")
